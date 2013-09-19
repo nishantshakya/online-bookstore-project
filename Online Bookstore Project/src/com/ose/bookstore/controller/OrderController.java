@@ -36,11 +36,16 @@ public class OrderController implements Serializable {
 	 */
 	@EJB
 	OrderDao orderDao;
+	
 	@EJB
 	UserAccountDao userAccountDao;
+	
 	UserDetails currentUser;
+	
 	ShippingType currentShipping;
+	
 	Cart currentCart;
+	
 	@Inject
 	OrderDetail order;
 
@@ -70,6 +75,7 @@ public class OrderController implements Serializable {
 		return "creditCard";
 	}
 
+	//Getters and Setters
 	public UserDetails getCurrentUser() {
 		return currentUser;
 	}

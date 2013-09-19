@@ -12,11 +12,16 @@ public class BookInventory implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	//Fields
 	@Id
 	@GeneratedValue
 	private int inventoryId;
+	
 	private int bookId;
+	
 	private int booksInStock;
+	
+	//Getters and Setters
 	public int getInventoryId() {
 		return inventoryId;
 	}

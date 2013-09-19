@@ -1,28 +1,28 @@
 package com.ose.bookstore.model.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Entity implementation class for Entity: Books
  *
  */
 @Entity
-
 public class Books implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
 
-
-	
+	//Fields
 	@Id
 	@GeneratedValue
 	private int bookId;
@@ -31,22 +31,38 @@ public class Books implements Serializable {
 //	private Collection<ShoppingCart> shoppingcarts;
 	@Column(length = 75)
 	private String title;
+	
 	@Column(length = 100)
 	private String author;
+	
 	private Double price;
+	
 	@Column(length = 75)
 	private String isbn;
+	
 	@Column(length = 20)
 	private String edition;
+	
 //	@Temporal(TemporalType.DATE)
 	private String pubDate;
+	
 	@Column(length = 30)
 	private String publisher;
+	
 	@Column(length=2000)
 	private String description;
+	
 	private float discount;
+	
 	@Column(length = 75)
 	private String coverPage;
+	
+	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "Tag")
+	@Column(length = 15)
+	private List<String> tags = new ArrayList<String>();
+	
+	//Getters and Setters
 	public int getBookId() {
 		return bookId;
 	}
@@ -113,6 +129,12 @@ public class Books implements Serializable {
 	}
 	public void setPubDate(String pubDate) {
 		this.pubDate = pubDate;
+	}
+	public List<String> getTags() {
+		return tags;
+	}
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 
 

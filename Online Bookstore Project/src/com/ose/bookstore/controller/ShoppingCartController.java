@@ -44,22 +44,17 @@ public class ShoppingCartController implements Serializable {
 	@Inject
 	ShoppingCart shoppingCart;
 
-	/**
-	 * Selected shipping type(Standard or Express); atleast one must be selected
-	 */
 	@NotNull(message = "Select the shipping type")
-	int shippingType;
-	
-	/**
-	 * Optimised & joint fields required for displaying in the shopping cart page
-	 */
-	Cart scart;
-	/**
-	 * Total price of the cart without shipping costs and taxes
-	 */
-	double tp;
-	List<Cart> cartList;
+	int shippingType;//Selected shipping type(Standard or Express); atleast one must be selected
 
+	Cart scart;//Optimised & joint fields required for displaying in the shopping cart page
+	
+	double tp;//Total price of the cart without shipping costs and taxes
+	
+	List<Cart> cartList;
+	
+	private double totalIncTax;
+	
 	/**The list containing the cart fields
 	 * @return cartList The shopping cart list
 	 */
@@ -80,6 +75,18 @@ public class ShoppingCartController implements Serializable {
 		return cartList;
 	}
 
+	/**
+	 * Converts the price to currency Format
+	 * 
+	 * @param price in double format
+	 * @return currency in currency format
+	 */
+	public String convertToCurrency(double price) {
+		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+		System.out.println(currencyFormatter.format(price));
+		return currencyFormatter.format(price);
+	}
+	
 	public ShoppingCart getShoppingCart() {
 		return shoppingCart;
 	}
@@ -121,11 +128,6 @@ public class ShoppingCartController implements Serializable {
 		System.out.println(shippingType);
 	}
 
-	public String convertToCurrency(double price) {
-		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
-		System.out.println(currencyFormatter.format(price));
-		return currencyFormatter.format(price);
-	}
 
 	/**Add the shipping costs and Taxes
 	 * @return the total price costs in string format
@@ -146,5 +148,5 @@ public class ShoppingCartController implements Serializable {
 		System.out.println(totalIncTax);
 	}
 
-	private double totalIncTax;
+	
 }

@@ -34,17 +34,19 @@ public class BooksController implements Serializable {
 
 	@Inject
 	ShoppingCart shoppingCart;
+	
 	@Inject
 	Books currentBook;
 
 	private static final long serialVersionUID = 1L;
 
+	//Constructor
 	public BooksController() {
 	}
 
-	public void getId(Books books) {
-
-	}
+//	public void getId(Books books) {
+//
+//	}
 
 	/**
 	 * For dropdown menu in bookProfile page; gives the maximum number of books
@@ -86,6 +88,7 @@ public class BooksController implements Serializable {
 		return "bookProfile";
 	}
 
+	//Getters and Setters
 	public Books getCurrentBook() {
 		return currentBook;
 	}

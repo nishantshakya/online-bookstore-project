@@ -38,21 +38,18 @@ public class HomeController implements Serializable {
 	Books books;
 
 	private String searchString;
+	
 	private int id;
+	
+	@SuppressWarnings("unused")
 	private List<Books> bookList;
 
-	/**
-	 * Converts the price to currency Format
-	 * 
-	 * @param price
-	 *            in double format
-	 * @return currency in currency format
-	 */
-	public String convertToCurrency(double price) {
-		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
-		System.out.println(currencyFormatter.format(price));
-		return currencyFormatter.format(price);
-	}
+//
+//	public String convertToCurrency(double price) {
+//		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+//		System.out.println(currencyFormatter.format(price));
+//		return currencyFormatter.format(price);
+//	}
 
 	/**
 	 * Lists the books according to the searchString
@@ -66,7 +63,7 @@ public class HomeController implements Serializable {
 		return bookListDao.getBookList(); // all books
 	}
 
-	public void init() {
+/*	public void init() {
 		if (id == 0) {
 			String message = "Bad request. Please use a link from within the system.";
 			FacesContext.getCurrentInstance()
@@ -93,14 +90,16 @@ public class HomeController implements Serializable {
 		System.out.println("book iD: " + id);
 		this.books = bookListDao.getBook(id);
 		// return null;
-	}
-	public String showBookDetails(Books book) {
+	}*/
+/*	public String showBookDetails(Books book) {
 		this.books = book;
 		System.out.println(book.getAuthor());
 //		this.books = bookListDao.getBook(bid);
 //		System.out.println(books.getAuthor());
 		return "bookProfile";
-	}
+	}*/
+	
+	//Getters and Setters
 	public Books getBooks() {
 		return books;
 	}

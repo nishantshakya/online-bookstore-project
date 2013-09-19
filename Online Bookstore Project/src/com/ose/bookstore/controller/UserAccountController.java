@@ -28,6 +28,31 @@ public class UserAccountController {
 	@Inject
 	UserDetails userDetails;
 
+	/**The selected user's detail is edited
+	 * @return null returns to same page
+	 */
+	public String editDetails() {
+		userAccountDao.editUser(userDetails);
+		return "null";
+	}
+
+	/**The cart is loaded to the order table
+	 * @return forwards to orderBooks page
+	 */
+	public String toOrderPage() {
+		this.userDetails = userAccountDao.getUser(1);
+		return "orderBooks";
+	}
+
+	/**Retrieves the user's details from the database
+	 * @return forwards to editDetails page
+	 */
+	public String showDetails() {
+		this.userDetails = userAccountDao.getUser(1);
+		return "editDetails";
+	}
+	
+	//Getters and Setters
 	public UserDetails getUserDetails() {
 		return userDetails;
 	}
@@ -36,19 +61,5 @@ public class UserAccountController {
 		this.userDetails = userDetails;
 	}
 
-	public String editDetails() {
-		userAccountDao.editUser(userDetails);
-		return "null";
-	}
-
-	public String toOrderPage() {
-		this.userDetails = userAccountDao.getUser(1);
-		return "orderBooks";
-	}
-
-	public String showDetails() {
-		this.userDetails = userAccountDao.getUser(1);
-		return "editDetails";
-	}
 
 }

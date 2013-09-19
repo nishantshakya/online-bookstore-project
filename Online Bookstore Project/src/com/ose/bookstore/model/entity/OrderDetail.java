@@ -18,15 +18,23 @@ public class OrderDetail implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	//Fields
 	@Id
 	@GeneratedValue
 	private int orderId;
+	
 	private int shippingId;
+	
 	@Temporal(TemporalType.DATE)
 	private Date date;
+	
 	private int userId;
+	
 	private int bookId;
+	
 	private int status;
+	
+	//Getters and Setters
 	public int getOrderId() {
 		return orderId;
 	}

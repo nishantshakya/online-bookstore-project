@@ -1,7 +1,12 @@
 package com.ose.bookstore.model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Entity implementation class for Entity: ShippingType
@@ -19,8 +24,13 @@ public class ShippingType implements Serializable {
 	@Id
 	@GeneratedValue
 	private int shippingId;
+	
+	@Enumerated(EnumType.STRING)
 	private ShipingType type;
+	
 	private Double rate;
+	
+	//Getters and Setters
 	public int getShippingId() {
 		return shippingId;
 	}
