@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:outputStylesheet library="css" name="styleWelcome.css" />
+<div>
+	<h:head>
+		<header id="headerId">
+			<h1>
+				<h:outputLink value="home.xhtml" style="text-decoration: none;">Book Store</h:outputLink>
+			</h1>
+		</header>
+	</h:head>
+	<section>
+		<h:form styleClass="signInFormClass">
+			<h:panelGrid columns="5" style="border:none;">
+
+				<h:outputLabel value="User Name" />
+				<p:inputText value="#{headerController.username}" />
+
+				<h:outputLabel value="Password" />
+				<p:password value="#{headerController.passwordjava" />
+
+				<p:commandButton value="Sign In" action ="" style="width: 100%;" />
+
+			</h:panelGrid>
+		</h:form>
+
+	</section>
+	<h:head>
+
+	</h:head>
+
+</div>
+
+<h:body>
+	<section id="navigationSectionId">
+	<h:form>
+		<f:view locale="en">
+			<p:tabMenu styleClass="tabMenuClass">
+				<p:menuitem value="Home" url="home.xhtml"></p:menuitem>
+				<p:menuitem value="Books" url="#"></p:menuitem>
+				<p:menuitem value="Top Sellers" url="#"></p:menuitem>
+				<p:menuitem value="Shopping Cart" url= "shoppingCart.xhtml">
+				</p:menuitem>
+				<p:menuitem value="User Guide" url="#"></p:menuitem>
+				<p:menuitem value="About BookStore" url="#"></p:menuitem>
+			</p:tabMenu>
+		</f:view>
+		</h:form>
+	</section>
+</h:body>
+
+</html>

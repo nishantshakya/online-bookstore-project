@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<body>
+<section>
+		
+			<h:form styleClass="signInFormClass">
+				<h:panelGrid columns="5" style = "border:none;">
+				
+					<h:outputLabel value = "User Email" />
+						<p:inputText value = "#{loginAuthentication.login.userEmail}" />
+							
+					<h:outputLabel value = "Password" />
+						<p:password value = "#{loginAuthentication.login.password}" />
+							
+					<p:commandButton styleClass="button" value ="Sign in" action = "#{loginAuthentication.authenticateLogin}" style = "width: 100%;" >
+						
+					</p:commandButton>
+				
+				</h:panelGrid>
+			</h:form>
+		     <!-- <h:head>
+				<div style = "padding-left:80%; color: red;">
+						<b>Welcome: user</b> <h:outputLink value ="#" style = "text-decoration: none;">&#160;LogOut</h:outputLink>
+				</div>
+			</h:head>
+			 -->
+		</section>
+</body>
+</html>

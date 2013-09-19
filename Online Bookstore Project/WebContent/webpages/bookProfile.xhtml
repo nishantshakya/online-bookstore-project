@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:outputStylesheet library="css" name="common.css" />
+
+<ui:composition template="/WEB-INF/templates/headerFooterTemplate.xhtml">
+
+
+	<ui:define name="content">
+
+
+		<section>
+
+			<h:form styleClass="signInFormClass">
+				<h:panelGrid columns="5" style="border:none;">
+
+					<h:outputLabel value="User Email" />
+					<p:inputText id="emailId" required="true"
+						validatorMessage="Email name cannot be empty" disabled="true">
+						<p:watermark value="user@example.com" for="emailId"></p:watermark>
+					</p:inputText>
+
+					<h:outputLabel value="Password" />
+					<p:password id="passwordId" disabled="true" />
+
+					<p:commandButton styleClass="button" value="Sign In"
+						style="width: 100%;" disabled="true">
+
+					</p:commandButton>
+
+				</h:panelGrid>
+			</h:form>
+			<!-- <h:head>
+				<div style = "padding-left:80%; color: red;">
+						<b>Welcome: user</b> <h:outputLink value ="#" style = "text-decoration: none;">&#160;LogOut</h:outputLink>
+				</div>
+			</h:head>
+			 -->
+		</section>
+
+		<ui:include src="/WEB-INF/templates/navigation.xhtml"></ui:include>
+
+		<h:body>
+			<br />
+			<p:layout fullPage="false">
+
+
+				<p:layoutUnit position="west"
+					header="#{booksController.currentBook.title}" size="260"
+					style="border: none;">
+					<h:graphicImage library="images"
+						name="#{booksController.currentBook.coverPage}" width="220"
+						height="220"></h:graphicImage>
+				</p:layoutUnit>
+				<p:layoutUnit position="center" style="border: none;"
+					header="Book Information" size="20">
+
+					<h:panelGrid columns="2">
+
+						<h:outputLabel value="Book Name: " style="color: red;" />
+						<h:outputLabel value="#{booksController.currentBook.title}" />
+
+						<h:outputLabel value="Publisher: " style="color: red;" />
+						<h:outputLabel value="#{booksController.currentBook.publisher}" />
+
+						<h:outputLabel value="Author:" style="color: red;" />
+						<h:outputLabel value="#{booksController.currentBook.author}" />
+
+						<h:outputLabel value="ISBN:" style="color: red;" />
+						<h:outputLabel value="#{booksController.currentBook.isbn}" />
+
+						<h:outputLabel value="Edition:" style="color: red;" />
+						<h:outputLabel value="#{booksController.currentBook.edition}" />
+
+						<h:outputLabel value="Publication Date:" style="color: red;" />
+						<h:outputLabel value="#{booksController.currentBook.pubDate}" />
+
+						<h:outputLabel value="Description: " style="color: red;" />
+						<h:outputLabel value="#{booksController.currentBook.description}" />
+
+						<h:outputLabel value="Discount: " style="color: red;" />
+						<h:outputLabel value="#{booksController.currentBook.discount}" />
+
+						<h:outputLabel value="Price: " style="color: red;" />
+						<h:outputLabel
+							value="#{shoppingCartController.convertToCurrency(booksController.currentBook.price)}" />
+
+
+
+					</h:panelGrid>
+
+				</p:layoutUnit>
+
+				<p:layoutUnit position="east" size="250" style="border: none;">
+
+					<h:form>
+						<h:panelGrid columns="3">
+
+							<h:outputLabel value="Quantity" />
+
+							<p:selectOneMenu
+								value="#{booksController.shoppingCart.bookQuantity}">
+								<f:selectItems value="#{booksController.bookNo}"></f:selectItems>
+							</p:selectOneMenu>
+							<h:inputHidden value="#{booksController.currentBook.bookId}" />
+							<h:commandButton action="#{booksController.addToShoppingCart}"
+								value="Add to Cart" />
+
+						</h:panelGrid>
+					</h:form>
+
+				</p:layoutUnit>
+
+
+			</p:layout>
+
+		</h:body>
+
+	</ui:define>
+
+</ui:composition>
+</html>

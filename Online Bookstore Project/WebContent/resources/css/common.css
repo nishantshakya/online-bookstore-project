@@ -1,0 +1,56 @@
+@CHARSET "ISO-8859-1";
+
+
+#headerId {
+	text-align: center;
+	background: #ddcccc;
+	font-size: 200%
+}
+
+body {
+	background: #cceeee;
+}
+
+.tabMenuClass {
+	border:none;
+	background: blue;
+	color: red;
+
+}
+
+.ui-widget
+ {
+ 	font-size: 90%  !important
+ 	
+ }
+.ui-widget .ui-state-hover:hover{
+		
+		background: #aabbaa;
+		opacity: .8
+	}
+
+.signInFormClass {
+	padding-left: 53%;
+	font-size: 90%;
+}
+
+.button {
+	
+	color: red;
+	height: 25px;
+	width: 120px;
+	cursor: pointer;
+}
+
+.button:hover {
+	background: #cceeaa;
+}
+
+
+
+.searchForm {
+	width: 40%;
+    margin-right: 30%;
+    margin-left: 30%;
+}
+

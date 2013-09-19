@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/templates/template.xhtml">
+
+	<ui:define name="content">
+	    
+	    <f:view locale="en">
+	    	<br /><br />
+	    	<div style = "text-align: center; font-size: 120%;"><b>SHOPPING CART</b></div>
+	    	<p:dataTable style = "width:60%; padding-left: 20%;">
+	    	
+	    		<p:column headerText="S.No.">
+	    			<h:outputText value = "1" />
+	    		</p:column>
+				
+	    		<p:column headerText="BookName">
+	    			<h:outputText value = "Java For Professionals" />
+	    		</p:column>				
+	    		
+	    		<p:column headerText = "Author">
+	    			<h:outputText value = "Jhon W. Henry"/>
+	    		</p:column>
+	    	</p:dataTable>
+	    </f:view>
+	</ui:define>
+
+</ui:composition>
+</html>

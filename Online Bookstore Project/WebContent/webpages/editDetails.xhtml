@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/headerFooterTemplate.xhtml">
+
+	<ui:define name="title">My Account</ui:define>
+	<ui:define name="content">
+		<section>
+			<h:head>
+				<div style="padding-left: 80%; color: red;">
+					<h:form>
+						<b>Welcome:</b>
+						<h:commandLink action="#{userAccountController.showDetails}">user</h:commandLink>
+					</h:form>
+				</div>
+			</h:head>
+		</section>
+		<ui:include src="/WEB-INF/templates/navigation.xhtml"></ui:include>
+
+		<p:layout fullPage="false">
+			<p:layoutUnit position="center" header="Edit Details" rendered="true">
+
+				<h:form>
+					<h:panelGrid columns="4">
+						<h:panelGroup></h:panelGroup>
+						<p:outputLabel value="First Name*" />
+						<p:outputLabel value="Middle Name" />
+						<p:outputLabel value="Last Name*" />
+
+						<p:outputLabel value="Full Name*:" />
+						<p:inputText value="#{userAccountController.userDetails.firstName}"
+							required="true"
+							validatorMessage="Enter the Alphabets only in First Name">
+							<f:validateRegex pattern="[a-zA-Z]*" />
+							<f:validateLength minimum="2" maximum="30" />
+						</p:inputText>
+
+						<p:inputText value="#{userAccountController.userDetails.middleName}" />
+						<p:inputText value="#{userAccountController.userDetails.lastName}"
+							required="true">
+							<f:validateRegex pattern="[a-zA-Z]*" />
+							<f:validateLength minimum="2" maxium="30" />
+						</p:inputText>
+
+						<p:outputLabel value="Phone" />
+						<p:inputMask mask="9999-999-999"
+							value="#{userAccountController.userDetails.phone}"></p:inputMask>
+
+
+						<h:panelGroup></h:panelGroup>
+						<h:panelGroup></h:panelGroup>
+						<p:outputLabel value="Country*" required="true"
+							validatorMessage="Enter Country Name" />
+						<p:inputText value="Nepal" required="true"
+							validatorMessage="Enter Country Name" />
+
+						<h:panelGroup></h:panelGroup>
+						<h:panelGroup></h:panelGroup>
+						<p:outputLabel value="City*" />
+						<p:inputText value="#{userAccountController.userDetails.city}"
+							required="true" validatorMessage="Enter City" />
+
+						<h:panelGroup></h:panelGroup>
+						<h:panelGroup></h:panelGroup>
+						<p:outputLabel value="Zip Code*" />
+						<p:inputText value="#{userAccountController.userDetails.zip}"
+							required="true" validatorMessage="Enter Zip Code" />
+
+						<h:panelGroup></h:panelGroup>
+						<h:panelGroup></h:panelGroup>
+						<p:outputLabel value="Building Number" />
+						<p:inputText
+							value="#{userAccountController.userDetails.buildingNo}" />
+
+						<h:inputHidden id="id"
+							value="#{userAccountController.userDetails.userId}">
+						</h:inputHidden>
+
+					</h:panelGrid>
+					<p:commandButton value="Edit"
+						action="#{userAccountController.editDetails}" />
+				</h:form>
+
+			</p:layoutUnit>
+		</p:layout>
+
+	</ui:define>
+
+</ui:composition>
+</html>

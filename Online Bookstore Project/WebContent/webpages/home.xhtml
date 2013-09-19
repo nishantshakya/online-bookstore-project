@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:outputStylesheet library="css" name="common.css" />
+
+<!-- include header and footer through template -->
+
+<ui:composition template="/WEB-INF/templates/headerFooterTemplate.xhtml">
+
+	<ui:define name="content">
+
+
+
+		<!-- Division of section for userlogin and displaying the logged user -->
+
+		<section>
+
+			<h:form styleClass="signInFormClass" id="signInForm">
+
+				<!-- display the error message  -->
+				<h:message for="emailId" style="color: red;" />
+				<br />
+				<h:message for="passwordId" style="color: red;" />
+				<h:panelGrid columns="5" style="border:none;">
+
+					<h:outputLabel value="User Email" />
+
+					<p:inputText id="emailId" required="true"
+						validatorMessage="Email name cannot be empty" disabled="true">
+						<p:watermark value="user@example.com" for="emailId"></p:watermark>
+
+					</p:inputText>
+
+					<h:outputLabel value="Password" />
+					<p:password id="passwordId" required="true"
+						validatorMessage="Password cannot be empty" disabled="true" />
+
+					<h:commandButton styleClass="button" value="Sign In"
+						style="width: 100%;" disabled="true"  />
+
+				</h:panelGrid>
+
+			</h:form>
+
+			<!-- A section for showing the logged in user -->
+			<!-- <h:head>
+				<div style = "padding-left:80%; color: red;">
+						<b>Welcome: user</b> <h:outputLink value ="#" style = "text-decoration: none;">&#160;LogOut</h:outputLink>
+				</div>
+			</h:head>
+			 -->
+		</section>
+
+		<ui:include src="/WEB-INF/templates/navigation.xhtml"></ui:include>
+
+		<!-- beginning of the actual body part -->
+		<f:view locale="en">
+			<h:body>
+
+				<br />
+				<p:layout fullPage="false">
+
+					<!-- <p:layoutUnit position="east" size="300">
+					<h:outputText value="This is the ignored position" />
+				</p:layoutUnit>
+
+				<p:layoutUnit position="west">
+					<h:outputText value="This is the ignored position"></h:outputText>
+				</p:layoutUnit> -->
+
+					<p:layoutUnit position="center">
+						<h:form>
+							<h:panelGrid columns="5">
+								<h:outputLabel value="Search Category" />
+								<h:selectOneMenu disabled="true">
+									<f:selectItem itemLabel="All" itemValue="All" />
+									<f:selectItem itemLabel="Java" itemValue="Java" />
+									<f:selectItem itemLabel="HTML and CSS"
+										itemValue="C-Programming" />
+									<f:selectItem itemLabel="C Plus Plus" itemValue="C Plus Plus" />
+								</h:selectOneMenu>
+
+								<h:inputText id="search" styleClass="search"
+									value="#{homeController.searchString}" />
+								<p:watermark for="search"
+									value="Enter bookname to search"></p:watermark>
+								<f:ajax render="table" event="keyup"></f:ajax>
+							</h:panelGrid>
+
+							<h:dataTable id="table" value="#{homeController.bookList}"
+								var="books" rendered="true" rows="5">
+								<h:column>
+									<f:facet name="header">
+										Cover Page
+									</f:facet>
+							    <h:commandLink action="#{booksController.showBookDetails(books)}">
+									<h:graphicImage library="images" name="#{books.coverPage}"
+										width="120" height="120" />
+								</h:commandLink>
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										Title
+									</f:facet>
+									<h:commandLink
+										action="#{booksController.showBookDetails(books)}">
+											#{books.title}
+										</h:commandLink>
+
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										Author
+									</f:facet>
+									<h:outputText value="#{books.author}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										Price
+									</f:facet>
+									<h:outputText
+										value="#{homeController.convertToCurrency(books.price)}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										ISBN
+									</f:facet>
+									<h:outputText value="#{books.isbn}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										Edition
+									</f:facet>
+									<h:outputText value="#{books.edition}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										Publication Date
+									</f:facet>
+									<h:outputText value="#{books.pubDate}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										Publisher
+									</f:facet>
+									<h:outputText value="#{books.publisher}" />
+								</h:column>
+
+							</h:dataTable>
+						</h:form>
+					</p:layoutUnit>
+
+				</p:layout>
+
+			</h:body>
+		</f:view>
+	</ui:define>
+</ui:composition>
+
+
+
+</html>

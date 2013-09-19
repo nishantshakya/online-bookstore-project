@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/headerFooterTemplate.xhtml">
+
+	<ui:define name="title">Thank you</ui:define>	
+	<ui:define name="content">
+	   <f:view locale = "en">
+	   
+	   		<h:body>
+	   			<b>Thank You for visiting BookStore and ordering books</b>
+	   			<div>
+	   				<h:outputLink value="home.xhtml">Click here to return to home page.</h:outputLink>
+	   			</div>
+	   		
+	   		</h:body>
+	   
+	   </f:view>
+	</ui:define>
+
+</ui:composition>
+</html>

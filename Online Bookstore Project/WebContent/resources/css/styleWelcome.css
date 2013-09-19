@@ -1,0 +1,37 @@
+@CHARSET "ISO-8859-1";
+
+
+#headerId {
+	text-align: center;
+	background: #ddcccc;
+	font-size: 200%
+}
+
+body {
+	background: #cceeee;
+}
+
+.tabMenuClass {
+	border:none;
+	background: blue;
+	color: red;
+
+}
+
+.ui-widget
+ {
+ 	font-size: 90% !important
+ 	
+ }
+.ui-widget .ui-state-hover{
+		color: green !important;
+		background: green;
+		opacity: .8
+	}
+
+.signInFormClass {
+	padding-left: 53%;
+	font-size: 90%;
+}
+
+

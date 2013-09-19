@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:outputStylesheet library="css" name="common.css" />
+
+<ui:composition
+	template="/WEB-INF/templates/nonClickableHeaderFooterTemplate.xhtml">
+	<ui:define name="title">Order</ui:define>
+	<ui:define name="content">
+
+		<h:body>
+			<br />
+			<p:layout fullPage="false">
+
+
+				<p:layoutUnit position="center">
+
+					<h:dataTable value="#{shoppingCartController.cartList}" var="cart"
+						cellspacing="2" cellpadding="6">
+						<h:column>
+							<h:graphicImage library="images" name="#{cart.coverPage}"
+								width="50" height="50"></h:graphicImage>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Book Name</f:facet>
+
+							<h:outputText value="#{cart.title}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Author</f:facet>
+							<h:outputText value="#{cart.author}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">Edition</f:facet>
+							<h:outputText value="#{cart.edition}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">Quantity</f:facet>
+							<h:outputText value="#{cart.quantity}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">Price</f:facet>
+							<h:outputText
+								value="#{shoppingCartController.convertToCurrency(cart.price)}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">Discount</f:facet>
+							<h:outputText value="#{cart.discount}" />
+						</h:column>
+
+
+						<h:column>
+							<f:facet name="header">Total Price</f:facet>
+							<h:outputText
+								value="#{shoppingCartController.convertToCurrency(cart.totalPrice)}" />
+						</h:column>
+
+					</h:dataTable>
+					<h:panelGrid columns="3">
+						<div id="totalPriceId" style="color: #cc44cc; margin-left: 650px;">Total
+							Price:</div>
+						<h:outputText value="#{shoppingCartController.tp}" rendered="true" style="color: blue;" />
+					</h:panelGrid>
+
+					<h:form>
+						<h:message for="shippingType" style="color: red;"></h:message>
+						<h:panelGrid columns="2">
+
+							<h:outputLabel value="Shipping Type:" />
+
+							<p:selectOneRadio id="shippingType"
+								value="#{shoppingCartController.shippingType}">
+								<f:selectItem itemLabel="Standard ($20)" itemValue="20"></f:selectItem>
+								<br />
+								<f:selectItem itemLabel="Express ($30)" itemValue="30"></f:selectItem>
+								<p:ajax event="click" render="shippingCost" update="sum"></p:ajax>
+							</p:selectOneRadio>
+
+							<h:outputLabel value="Tax" style="color: green;" />
+							<h:outputLabel value="15%" style="color: black;" />
+
+							<h:outputLabel value="Total Price(including Shipping and taxes):" style="color: #cc44cc;"/>
+							<h:outputText id="sum"
+								value="#{shoppingCartController.totalIncTax}" rendered="true" style="color: blue;" />
+						</h:panelGrid>
+
+
+						<p:fieldset legend="Mailing Address">
+
+							<h:message for="firstName" style="color: red;"></h:message>
+							<h:message for="lastName" style="color: red;"></h:message>
+							<h:message for="phoneNumber" style="color: red;"></h:message>
+							<h:message for="country" style="color: red;"></h:message>
+							<h:message for="city" style="color: red"></h:message>
+							<h:message for="buildingNumber" style="color: red;"></h:message>
+
+							<h:panelGrid columns="4">
+								<h:panelGroup></h:panelGroup>
+								<p:outputLabel value="First Name*" />
+								<p:outputLabel value="Middle Name" />
+								<p:outputLabel value="Last Name*" />
+
+								<p:outputLabel value="Full Name*:" />
+								<p:inputText
+									value="#{userAccountController.userDetails.firstName}"
+									required="true"
+									validatorMessage="Enter the Alphabets only in First Name">
+									<f:validateRegex pattern="[a-zA-Z]*" />
+									<f:validateLength minimum="2" maximum="30" />
+								</p:inputText>
+
+								<p:inputText
+									value="#{userAccountController.userDetails.middleName}" />
+								<p:inputText
+									value="#{userAccountController.userDetails.lastName}"
+									required="true">
+									<f:validateRegex pattern="[a-zA-Z]*" />
+									<f:validateLength minimum="2" maxium="30" />
+								</p:inputText>
+
+								<p:outputLabel value="Phone" />
+								<p:inputMask mask="9999-999-999"
+									value="#{userAccountController.userDetails.phone}"></p:inputMask>
+
+
+								<h:panelGroup></h:panelGroup>
+								<h:panelGroup></h:panelGroup>
+								<p:outputLabel value="Country*" required="true"
+									validatorMessage="Enter Country Name" />
+								<p:inputText value="Nepal" required="true"
+									validatorMessage="Enter Country Name" />
+
+								<h:panelGroup></h:panelGroup>
+								<h:panelGroup></h:panelGroup>
+								<p:outputLabel value="City*" />
+								<p:inputText value="#{userAccountController.userDetails.city}"
+									required="true" validatorMessage="Enter City" />
+
+								<h:panelGroup></h:panelGroup>
+								<h:panelGroup></h:panelGroup>
+								<p:outputLabel value="Zip Code*" />
+								<p:inputText value="#{userAccountController.userDetails.zip}"
+									required="true" validatorMessage="Enter Zip Code" />
+
+								<h:panelGroup></h:panelGroup>
+								<h:panelGroup></h:panelGroup>
+								<p:outputLabel value="Building Number" />
+								<p:inputText
+									value="#{userAccountController.userDetails.buildingNo}" />
+
+								<h:inputHidden id="id"
+									value="#{userAccountController.userDetails.userId}">
+								</h:inputHidden>
+
+							</h:panelGrid>
+							<h:commandButton value="Confirm"
+								action="#{orderController.action(userAccountController.userDetails,shoppingCartController.shippingType,shoppingCartController.cartList)}" />
+
+
+						</p:fieldset>
+
+
+
+					</h:form>
+				</p:layoutUnit>
+
+			</p:layout>
+
+
+
+		</h:body>
+
+	</ui:define>
+
+</ui:composition>
+</html>
