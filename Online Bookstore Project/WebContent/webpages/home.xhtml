@@ -41,7 +41,7 @@
 						validatorMessage="Password cannot be empty" disabled="true" />
 
 					<h:commandButton styleClass="button" value="Sign In"
-						style="width: 100%;" disabled="true"  />
+						style="width: 100%;" disabled="true" />
 
 				</h:panelGrid>
 
@@ -87,8 +87,7 @@
 
 								<h:inputText id="search" styleClass="search"
 									value="#{homeController.searchString}" />
-								<p:watermark for="search"
-									value="Enter bookname to search"></p:watermark>
+								<p:watermark for="search" value="Enter bookname to search"></p:watermark>
 								<f:ajax render="table" event="keyup"></f:ajax>
 							</h:panelGrid>
 
@@ -98,19 +97,21 @@
 									<f:facet name="header">
 										Cover Page
 									</f:facet>
-							    <h:commandLink action="#{booksController.showBookDetails(books)}">
-									<h:graphicImage library="images" name="#{books.coverPage}"
-										width="120" height="120" />
-								</h:commandLink>
+								<h:link		outcome="bookProfile">
+										<f:param name="id" value="#{books.bookId}" />
+									
+										<h:graphicImage library="images" name="#{books.coverPage}"
+											width="120" height="120" />
+									</h:link>
 								</h:column>
 								<h:column>
 									<f:facet name="header">
 										Title
 									</f:facet>
-									<h:commandLink
-										action="#{booksController.showBookDetails(books)}">
-											#{books.title}
-										</h:commandLink>
+									<h:link value="View details of #{books.title}"
+										outcome="bookProfile">
+										<f:param name="id" value="#{books.bookId}" />
+									</h:link>
 
 								</h:column>
 								<h:column>
@@ -123,8 +124,10 @@
 									<f:facet name="header">
 										Price
 									</f:facet>
-									<h:outputText
-										value="#{shoppingCartController.convertToCurrency(books.price)}" />
+									<h:outputText value="#{books.price}">
+										<f:convertNumber currencySymbol="$" type="currency" />
+
+									</h:outputText>
 								</h:column>
 								<h:column>
 									<f:facet name="header">

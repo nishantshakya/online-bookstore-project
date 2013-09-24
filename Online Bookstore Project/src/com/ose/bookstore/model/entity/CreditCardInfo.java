@@ -34,10 +34,87 @@ public class CreditCardInfo implements Serializable {
 	@Column(length = 12)
 	private String expirationDate;
 
-	@Embedded
-	private Address address;
+//	@Embedded
+//	private Address address;
+	@Column(length = 10)
+	private String buildingNo;
+
+	@Column(length = 10)
+	private String streetNo;
+
+	@Column(length = 50)
+	private String streetName;
+
+	@Column(length = 50)
+	private String city;
+
+	@Column(length = 10)
+	private String zip;
+
+	@Column(length = 30)
+	private String state;
+
+	@Column(length = 40)
+	private String country;
 
 	// Setters and Getters
+
+	public String getBuildingNo() {
+		return buildingNo;
+	}
+
+	public void setBuildingNo(String buildingNo) {
+		this.buildingNo = buildingNo;
+	}
+
+	public String getStreetNo() {
+		return streetNo;
+	}
+
+	public void setStreetNo(String streetNo) {
+		this.streetNo = streetNo;
+	}
+
+	public String getStreetName() {
+		return streetName;
+	}
+
+	public void setStreetName(String streetName) {
+		this.streetName = streetName;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
 	public int getCardId() {
 		return cardId;
 	}
@@ -62,12 +139,12 @@ public class CreditCardInfo implements Serializable {
 		this.expirationDate = expirationDate;
 	}
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+//	public Address getAddress() {
+//		return address;
+//	}
+//
+//	public void setAddress(Address address) {
+//		this.address = address;
+//	}
 
 }

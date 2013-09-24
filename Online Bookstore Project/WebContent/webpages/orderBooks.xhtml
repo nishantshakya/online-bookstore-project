@@ -48,8 +48,9 @@
 
 						<h:column>
 							<f:facet name="header">Price</f:facet>
-							<h:outputText
-								value="#{shoppingCartController.convertToCurrency(cart.price)}" />
+							<h:outputText value="#{cart.price}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
 						</h:column>
 
 						<h:column>
@@ -60,15 +61,18 @@
 
 						<h:column>
 							<f:facet name="header">Total Price</f:facet>
-							<h:outputText
-								value="#{shoppingCartController.convertToCurrency(cart.totalPrice)}" />
+							<h:outputText value="#{cart.totalPrice}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
 						</h:column>
 
 					</h:dataTable>
 					<h:panelGrid columns="3">
 						<div id="totalPriceId" style="color: #cc44cc; margin-left: 650px;">Total
 							Price:</div>
-						<h:outputText value="#{shoppingCartController.tp}" rendered="true" style="color: blue;" />
+						<h:outputText value="#{shoppingCartController.tp}" rendered="true"
+							style="color: blue;" ><f:convertNumber currencySymbol="$" type="currency"/>
+							</h:outputText>
 					</h:panelGrid>
 
 					<h:form>
@@ -79,18 +83,24 @@
 
 							<p:selectOneRadio id="shippingType"
 								value="#{shoppingCartController.shippingType}">
-								<f:selectItem itemLabel="Standard ($20)" itemValue="20"></f:selectItem>
+								<f:selectItem itemLabel="Standard (5 days delivery)"
+									itemValue="Standard"></f:selectItem>
 								<br />
-								<f:selectItem itemLabel="Express ($30)" itemValue="30"></f:selectItem>
+								<f:selectItem
+									itemLabel="Express (2 days delivery, 30 % higher than Standard)"
+									itemValue="Express"></f:selectItem>
 								<p:ajax event="click" render="shippingCost" update="sum"></p:ajax>
 							</p:selectOneRadio>
 
 							<h:outputLabel value="Tax" style="color: green;" />
-							<h:outputLabel value="15%" style="color: black;" />
+							<h:outputLabel value="3.5%" style="color: black;" />
 
-							<h:outputLabel value="Total Price(including Shipping and taxes):" style="color: #cc44cc;"/>
+							<h:outputLabel value="Total Price(including Shipping and taxes):"
+								style="color: #cc44cc;" />
 							<h:outputText id="sum"
-								value="#{shoppingCartController.totalIncTax}" rendered="true" style="color: blue;" />
+								value="#{shoppingCartController.totalWithShipping}"
+								rendered="true" style="color: blue;"><f:convertNumber currencySymbol="$" type="currency"/>
+								</h:outputText>
 						</h:panelGrid>
 
 

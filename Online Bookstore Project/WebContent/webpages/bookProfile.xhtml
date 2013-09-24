@@ -55,9 +55,16 @@
 					<h:graphicImage library="images"
 						name="#{booksController.currentBook.coverPage}" width="220"
 						height="220"></h:graphicImage>
+						<h:panelGroup></h:panelGroup>
+						<p:rating value="#{booksController.rating}" readonly="true">
+						</p:rating>
 				</p:layoutUnit>
 				<p:layoutUnit position="center" style="border: none;"
 					header="Book Information" size="20">
+					<f:metadata>
+						<f:viewParam name="id" value="#{booksController.currentId}" />
+						<f:event type="preRenderView" listener="#{booksController.init}" />
+					</f:metadata>
 
 					<h:panelGrid columns="2">
 
@@ -86,18 +93,28 @@
 						<h:outputLabel value="#{booksController.currentBook.discount}" />
 
 						<h:outputLabel value="Price: " style="color: red;" />
-						<h:outputLabel
-							value="#{shoppingCartController.convertToCurrency(booksController.currentBook.price)}" />
+						<h:outputLabel value="#{booksController.currentBook.price}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputLabel>
 
-
+						<h:outputLabel value="Rating:" />
+						<h:form>
+							<p:growl id="message" globalOnly="true" life="2000"></p:growl>
+							<h:panelGroup></h:panelGroup>
+							<p:rating value="#{booksController.newRating}">
+								<p:ajax event="rate" listener="#{booksController.onrate}" update="message"></p:ajax>
+							</p:rating>
+						</h:form>
 
 					</h:panelGrid>
 
 				</p:layoutUnit>
+				<h:form>
+					<h:messages globalOnly="true"></h:messages>
 
-				<p:layoutUnit position="east" size="250" style="border: none;">
+					<p:growl id="addedItems" showDetail="true"></p:growl>
+					<p:layoutUnit position="east" size="250" style="border: none;">
 
-					<h:form>
 						<h:panelGrid columns="3">
 
 							<h:outputLabel value="Quantity" />
@@ -111,10 +128,10 @@
 								value="Add to Cart" />
 
 						</h:panelGrid>
-					</h:form>
 
-				</p:layoutUnit>
 
+					</p:layoutUnit>
+				</h:form>
 
 			</p:layout>
 

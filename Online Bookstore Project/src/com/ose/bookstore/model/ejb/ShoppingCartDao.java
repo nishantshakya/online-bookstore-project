@@ -59,4 +59,22 @@ public class ShoppingCartDao {
 		return entityManager.createQuery(query).getResultList();
 	}
 	
+	public void deleteEntry(ShoppingCart sc){
+//		userId = 0;
+//		List<ShoppingCart> sCart = getCart(userId);
+//		for (int i = 0; i < sCart.size(); i++) {
+//			if (sCart.get(i).getBookId() == bookId && sCart.get(i).getUserId() == userId){
+//				shoppingCart.setBookQuantity(shoppingCart.getBookQuantity()+ sCart.get(i).getBookQuantity());
+//				shoppingCart.setScId(sCart.get(i).getScId());
+//			}
+//		}
+		entityManager.remove(entityManager.merge(sc));
+	}
+//	public void getBookQuantity(int userId){
+//		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+//		CriteriaQuery<ShoppingCart> query = cb.createQuery(ShoppingCart.class);
+//		Root<ShoppingCart> c = query.from(ShoppingCart.class);
+//		query.select(c);
+//		
+//	}
 }

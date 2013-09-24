@@ -28,15 +28,15 @@ public class HeaderController implements Serializable {
 
 	public String generateCart() {
 
-		return "shoppingCart";
+		return "shoppingCart?faces-redirect=false";
 	}
 
 	public String goToHome() {
-		return "home";
+		return "home?faces-redirect=false";
 	}
 
 	public String goToBooks() {
-		return "browsebooks";
+		return "browsebooks?faces-redirect=false";
 	}
 
 }

@@ -37,8 +37,9 @@ public class UserAccountDao {
 	/**Updates the userDetails table
 	 * @param ud the userDetails to be edited
 	 */
-	public void editUser(UserDetails ud){
-		entityManager.merge(ud);
+	public void editUser(UserDetails user){
+//		UserDetails user = getUser(id);
+		entityManager.merge(user);
 		
 	}
 }

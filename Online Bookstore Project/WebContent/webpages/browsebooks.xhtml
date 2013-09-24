@@ -96,26 +96,17 @@
 						<p:panel>
 
 							<p:panelGrid columns="1">
-								<!-- 	<h:form>
-									<h:link outcome="bookProfile" value="#{books.title}">
-										<f:param name="id" value="#{books.bookId}"></f:param>
-									</h:link>
-								</h:form> -->
-								<!-- 	<h:outputLink value="#{homeController.showBookDetails(books)}">
-									<h:graphicImage library="images" name="#{books.coverPage}"
-										width="200" height="200" />
+								<h:link outcome="bookProfile">
 									<f:param name="id" value="#{books.bookId}" />
-								</h:outputLink> -->
-								<h:commandLink
-									action="#{booksController.showBookDetails(books)}">
+
 									<h:graphicImage library="images" name="#{books.coverPage}"
 										width="200" height="200" />
-								</h:commandLink>
+								</h:link>
 
-								<h:commandLink
-									action="#{booksController.showBookDetails(books)}">
-									<h:outputText value="#{books.title}"></h:outputText>
-								</h:commandLink>
+								<h:link value="View details of #{books.title}"
+									outcome="bookProfile">
+									<f:param name="id" value="#{books.bookId}" />
+								</h:link>
 
 
 

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.ose.bookstore.model.ejb.UserAccountDao;
+import com.ose.bookstore.model.entity.Address;
 import com.ose.bookstore.model.entity.UserDetails;
 
 /**
@@ -27,6 +28,9 @@ public class UserAccountController {
 
 	@Inject
 	UserDetails userDetails;
+	
+	@Inject
+	Address address;
 
 	/**The selected user's detail is edited
 	 * @return null returns to same page
@@ -48,7 +52,9 @@ public class UserAccountController {
 	 * @return forwards to editDetails page
 	 */
 	public String showDetails() {
+//		System.out.println("ok");
 		this.userDetails = userAccountDao.getUser(1);
+//		System.out.println("error");
 		return "editDetails";
 	}
 	
@@ -59,6 +65,14 @@ public class UserAccountController {
 
 	public void setUserDetails(UserDetails userDetails) {
 		this.userDetails = userDetails;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 

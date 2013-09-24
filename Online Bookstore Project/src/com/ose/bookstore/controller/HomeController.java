@@ -4,17 +4,15 @@
 package com.ose.bookstore.controller;
 
 import java.io.Serializable;
-import java.text.NumberFormat;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.ose.bookstore.model.ejb.BookListDao;
+import com.ose.bookstore.model.ejb.RatingsDao;
 import com.ose.bookstore.model.entity.Books;
 
 /**
@@ -34,6 +32,9 @@ public class HomeController implements Serializable {
 	@EJB
 	BookListDao bookListDao;
 
+	@EJB
+	RatingsDao ratingsDao;
+	
 	@Inject
 	Books books;
 
@@ -60,6 +61,8 @@ public class HomeController implements Serializable {
 		if (searchString != null) {
 			return bookListDao.search(searchString); // result of search
 		}
+
+//		System.out.println(ratingsDao.getRating(1).get(0).getUserRating5());
 		return bookListDao.getBookList(); // all books
 	}
 

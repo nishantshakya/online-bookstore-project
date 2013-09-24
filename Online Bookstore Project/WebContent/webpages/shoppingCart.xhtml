@@ -37,60 +37,77 @@
 		<br />
 
 		<h:body>
-					<p:fieldset legend="SHOPPING CART">
+			<p:fieldset legend="SHOPPING CART">
 
-						<h:dataTable value="#{shoppingCartController.cartList}" var="cart"
-							cellpadding="2" cellspacing="2" bgcolor="#eeaaaa" width="1024"
-							style="margin-left: 10%;">
-							<h:column>
-								<f:facet name="header">Book Name</f:facet>
+				<h:dataTable value="#{shoppingCartController.cartList}" var="cart"
+					cellpadding="2" cellspacing="2" bgcolor="#eeaaaa" width="1024"
+					style="margin-left: 10%;">
 
-								<h:outputText value="#{cart.title}" />
-							</h:column>
-							<h:column>
-								<f:facet name="header">Author</f:facet>
-								<h:outputText value="#{cart.author}" />
-							</h:column>
+					<h:column>
+						<f:facet name="header">Book Name</f:facet>
 
-							<h:column>
-								<f:facet name="header">Edition</f:facet>
-								<h:outputText value="#{cart.edition}" />
-							</h:column>
+						<h:outputText value="#{cart.title}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Author</f:facet>
+						<h:outputText value="#{cart.author}" />
+					</h:column>
 
-							<h:column>
-								<f:facet name="header">Quantity</f:facet>
-								<h:outputText value="#{cart.quantity}" />
-							</h:column>
+					<h:column>
+						<f:facet name="header">Edition</f:facet>
+						<h:outputText value="#{cart.edition}" />
+					</h:column>
 
-							<h:column>
-								<f:facet name="header">Price</f:facet>
-								<h:outputText value="#{shoppingCartController.convertToCurrency(cart.price)}" />
-							</h:column>
+					<h:column>
+						<f:facet name="header">Quantity</f:facet>
+						<h:outputText value="#{cart.quantity}" />
+					</h:column>
 
-							<h:column>
-								<f:facet name="header">Discount</f:facet>
-								<h:outputText value="#{cart.discount}" />
-							</h:column>
+					<h:column>
+						<f:facet name="header">Price</f:facet>
+						<h:outputText value="#{cart.price}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Discount</f:facet>
+						<h:outputText value="#{cart.discount}" />
+					</h:column>
 
 
-							<h:column>
-								<f:facet name="header">Total Price</f:facet>
-								<h:outputText value="#{shoppingCartController.convertToCurrency(cart.totalPrice)}" />
-							</h:column>
+					<h:column>
+						<f:facet name="header">Total Price</f:facet>
+						<h:outputText value="#{cart.totalPrice}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+					</h:column>
 
-						</h:dataTable>
 
+					<h:column>
+						<f:facet name="header">Action</f:facet>
 						<h:form>
-							<h:panelGrid columns="3">
-								<div id="totalPriceId" style="color: red; margin-left: 650px;">Total
-									Price:</div>
-								<h:outputText value="#{shoppingCartController.tp}"
-									rendered="true" />
-								<p:commandButton id="checkOutId" value="Check Out" action="#{userAccountController.toOrderPage}"></p:commandButton>
-							</h:panelGrid>
+							<h:commandLink action="#{shoppingCartController.delete(cart)}"
+								value="delete"></h:commandLink>
 						</h:form>
 
-					</p:fieldset>
+					</h:column>
+
+				</h:dataTable>
+
+				<h:form>
+					<h:panelGrid columns="3">
+						<div id="totalPriceId" style="color: red; margin-left: 650px;">Total
+							Price:</div>
+						<h:outputText value="#{shoppingCartController.tp}" rendered="true">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+						<p:commandButton id="checkOutId" value="Check Out"
+							action="#{userAccountController.toOrderPage}"></p:commandButton>
+					</h:panelGrid>
+				</h:form>
+
+			</p:fieldset>
 
 
 

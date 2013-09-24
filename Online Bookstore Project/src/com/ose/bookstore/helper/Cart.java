@@ -22,6 +22,8 @@ public class Cart implements Serializable {
 	// properties
 	private int bookId;
 
+	private int cartId;
+	
 	private String coverPage;
 
 	private String author;
@@ -41,7 +43,7 @@ public class Cart implements Serializable {
 	// Constructor
 	public Cart(int bookId, String author, String title, String edition,
 			double price, float discount, int quantity, double totalPrice,
-			String coverPage) {
+			String coverPage, int cartId) {
 		super();
 		this.bookId = bookId;
 		this.author = author;
@@ -52,6 +54,7 @@ public class Cart implements Serializable {
 		this.quantity = quantity;
 		this.totalPrice = totalPrice;
 		this.coverPage = coverPage;
+		this.cartId = cartId;
 	}
 
 	// Getters and Setters
@@ -125,6 +128,14 @@ public class Cart implements Serializable {
 
 	public void setBookId(int bookId) {
 		this.bookId = bookId;
+	}
+
+	public int getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(int cartId) {
+		this.cartId = cartId;
 	}
 
 }
