@@ -60,8 +60,10 @@ public class BooksController implements Serializable {
 	private Integer rating;// Average User rating of a book
 
 	private int newRating;
-	
+
 	private int currentId;
+
+	private int ratingsCount;
 
 	// Constructor
 	public BooksController() {
@@ -127,30 +129,37 @@ public class BooksController implements Serializable {
 		// sysout
 	}
 
-	 public void onrate(RateEvent rateEvent) {
-	 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-	 "Thank you for your review:", "");
-	
-	 FacesContext.getCurrentInstance().addMessage(null, message);
-	 
-	 System.out.println("You've rated: " + newRating);
-	 ratings = ratingsDao.getUserRating(currentId, 1).get(0);
-	 ratings.setUserRating5(newRating);
-//	 System.out.println(ratings.getBookId());
-	 ratingsDao.setUserRating(ratings);
-	 }
+	public void onrate(RateEvent rateEvent) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Thank you for your review:", "");
+
+		FacesContext.getCurrentInstance().addMessage(null, message);
+
+		System.out.println("You've rated: " + newRating);
+		if (!ratingsDao.getUserRating(currentId, 1).isEmpty()) {
+			ratings = ratingsDao.getUserRating(currentId, 1).get(0);
+		}
+		ratings.setUserRating5(newRating);
+		// System.out.println(ratings.getBookId());
+		ratings.setBookId(currentId);
+		ratings.setUserId(1);
+		ratingsDao.setUserRating(ratings);
+	}
 
 	public void init() {
 		currentBook = bookListDao.getBook(currentId);
 		rating = ratingsDao.bookRating(currentId);
-		 ratings = ratingsDao.getUserRating(currentId, 1).get(0);
-		newRating = ratings.getUserRating5();
+		ratingsCount = ratingsDao.getBookRating(currentId).size();
+		// ratings = ratingsDao.getUserRating(currentId, 1).get(0);
+		// newRating = ratings.getUserRating5();
 		if (!ratingsDao.getUserRating(currentId, 1).isEmpty()) {
-			ratings.setUserRating5(ratingsDao.getUserRating(currentId, 1)
-					.get(0).getUserRating5());
+			ratings = ratingsDao.getUserRating(currentId, 1).get(0);
+			newRating = ratings.getUserRating5();
+			// ratings.setUserRating5(ratingsDao.getUserRating(currentId, 1)
+			// .get(0).getUserRating5());
 		}
-		System.out.println(ratingsDao.getUserRating(currentId, 1)
-					.get(0).getUserRating5());
+//		System.out.println(ratingsDao.getUserRating(currentId, 1).get(0)
+//				.getUserRating5());
 		System.out.println(ratings.getUserRating5());
 		// sysout
 		System.out.println("HAHAHA: " + currentBook.getBookId());
@@ -206,6 +215,14 @@ public class BooksController implements Serializable {
 
 	public void setNewRating(int newRating) {
 		this.newRating = newRating;
+	}
+
+	public int getRatingsCount() {
+		return ratingsCount;
+	}
+
+	public void setRatingsCount(int ratingsCount) {
+		this.ratingsCount = ratingsCount;
 	}
 
 }

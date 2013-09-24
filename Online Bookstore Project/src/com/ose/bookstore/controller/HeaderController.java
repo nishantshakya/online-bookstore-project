@@ -23,20 +23,30 @@ public class HeaderController implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private String hom1;
+	
 	public HeaderController() {
 	}
 
 	public String generateCart() {
 
-		return "shoppingCart?faces-redirect=false";
+		return "shoppingCart?faces-redirect=true";
 	}
 
 	public String goToHome() {
-		return "home?faces-redirect=false";
+		return "home?faces-redirect=true";
 	}
 
 	public String goToBooks() {
-		return "browsebooks?faces-redirect=false";
+		return "browsebooks?faces-redirect=true";
+	}
+
+	public String getHom1() {
+		return "faces/webpages/home.xhtml";
+	}
+
+	public void setHom1(String hom1) {
+		this.hom1 = hom1;
 	}
 
 }

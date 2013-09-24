@@ -29,7 +29,6 @@
 				<h:panelGrid columns="5" style="border:none;">
 
 					<h:outputLabel value="User Email" />
-
 					<p:inputText id="emailId" required="true"
 						validatorMessage="Email name cannot be empty" disabled="true">
 						<p:watermark value="user@example.com" for="emailId"></p:watermark>
@@ -97,9 +96,9 @@
 									<f:facet name="header">
 										Cover Page
 									</f:facet>
-								<h:link		outcome="bookProfile">
+									<h:link outcome="bookProfile">
 										<f:param name="id" value="#{books.bookId}" />
-									
+
 										<h:graphicImage library="images" name="#{books.coverPage}"
 											width="120" height="120" />
 									</h:link>

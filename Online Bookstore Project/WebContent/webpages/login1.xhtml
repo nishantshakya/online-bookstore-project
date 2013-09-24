@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<form id="loginForm" method="POST" action="/r/submitLogin">
+	<div class="formRow">
+		<span class="formLabel">Email</span> <input type="text"
+			class="textInput" name="email" />
+	</div>
+	<div class="formRow">
+		<span class="formLabel">Password</span> <input type="password"
+			class="textInput" name="pass" />
+	</div>
+	<div class="formRow">
+		<input type="submit" class="submitButton" value="Log In" />
+	</div>
+</form>
+</html>
