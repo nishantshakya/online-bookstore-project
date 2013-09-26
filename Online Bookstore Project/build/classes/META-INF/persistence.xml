@@ -9,6 +9,9 @@
 		<class>com.ose.bookstore.model.entity.BookInventory</class>
 		<class>com.ose.bookstore.model.entity.ShippingType</class>
 		<class>com.ose.bookstore.model.entity.OrderDetail</class>
+		<class>com.ose.bookstore.model.entity.Ratings</class>
+		<class>com.ose.bookstore.model.entity.Login</class>
+		<class>com.ose.bookstore.model.entity.CountryList</class>
 		<properties>
 			<property name="eclipselink.ddl-generation" value="create-tables"/>
 		</properties>

@@ -78,17 +78,12 @@ public class BooksController implements Serializable {
 	 * that can be added to the cart at a time
 	 * 
 	 */
-	private static Map<Integer, Object> bookNumber;
+	private Map<Integer, Integer> bookNumber;
 
-	static {
-		bookNumber = new LinkedHashMap<Integer, Object>();
-		// bookNo.put(1,1);
+	public Map<Integer, Integer> getBookNo() {
+		bookNumber = new LinkedHashMap<Integer, Integer>();
 		for (int i = 1; i <= 10; i++)
-			bookNumber.put(i, i);
-
-	}
-
-	public Map<Integer, Object> getBookNo() {
+			bookNumber.put(i, i); //label, value
 		return bookNumber;
 	}
 
@@ -117,17 +112,7 @@ public class BooksController implements Serializable {
 	}
 
 	//
-	public Integer getRating() {
-		// System.out.println("You Rated: " + rating);
-		return rating;
 
-	}
-
-	public void setRating(Integer rating) {
-		this.rating = rating;
-		// System.out.println("You Rated re:" + rating);
-		// sysout
-	}
 
 	public void onrate(RateEvent rateEvent) {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -201,6 +186,17 @@ public class BooksController implements Serializable {
 	}
 
 	//
+	public Integer getRating() {
+		// System.out.println("You Rated: " + rating);
+		return rating;
+
+	}
+
+	public void setRating(Integer rating) {
+		this.rating = rating;
+		// System.out.println("You Rated re:" + rating);
+		// sysout
+	}
 	public Ratings getRatings() {
 		return ratings;
 	}

@@ -18,17 +18,7 @@
 	<ui:define name="content">
 
 
-		<section>
-			<h:head>
-				<div style="padding-left: 80%; color: red;">
-					<h:form>
-						<b>Welcome:</b>
-						<h:commandLink action="#{userAccountController.showDetails}">user</h:commandLink>
-					</h:form>
-					<!-- 	<h:outputLink value ="#" style = "text-decoration: none;">&#160;LogOut</h:outputLink> -->
-				</div>
-			</h:head>
-		</section>
+	<ui:include src="/WEB-INF/templates/logintemplate.xhtml"></ui:include>
 
 		<!-- include navigation template -->
 

@@ -40,5 +40,4 @@ public class BookInventory implements Serializable {
 	public void setBooksInStock(int booksInStock) {
 		this.booksInStock = booksInStock;
 	}
-
 }

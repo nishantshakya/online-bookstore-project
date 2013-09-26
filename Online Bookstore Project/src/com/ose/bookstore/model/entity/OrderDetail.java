@@ -71,5 +71,4 @@ public class OrderDetail implements Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-
 }

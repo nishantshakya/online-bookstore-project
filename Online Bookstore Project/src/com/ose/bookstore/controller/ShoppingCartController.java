@@ -4,7 +4,7 @@
 package com.ose.bookstore.controller;
 
 import java.io.Serializable;
-import java.text.NumberFormat;
+//import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -165,11 +165,11 @@ public class ShoppingCartController implements Serializable {
 	 */
 	public double getTotalIncTax() {
 
-		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+//		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
 		// double totalExTax = tp;
 		// System.out.println(totalExTax);
 		totalIncTax = tp + tp * .035;
-		System.out.println(currencyFormatter.format(totalIncTax));
+//		System.out.println(currencyFormatter.format(totalIncTax));
 		return totalIncTax;
 
 	}
@@ -181,7 +181,7 @@ public class ShoppingCartController implements Serializable {
 	}
 
 	public double getTotalWithShipping() {
-		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+//		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
 //		double totalExTax = tp;
 //		System.out.println(totalExTax);
 		totalWithShipping = tp + tp * .035;
@@ -224,7 +224,7 @@ public class ShoppingCartController implements Serializable {
 		System.out.println(totalWithShipping);
 //		totalIncTax = totalExTax + totalExTax * .035;
 		System.out.println(shippingType);
-		System.out.println(currencyFormatter.format(totalWithShipping));
+//		System.out.println(currencyFormatter.format(totalWithShipping));
 		return totalWithShipping;
 ////		return totalWithShipping;
 		

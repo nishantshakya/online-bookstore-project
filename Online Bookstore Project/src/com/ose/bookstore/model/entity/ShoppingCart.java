@@ -60,7 +60,6 @@ public class ShoppingCart implements Serializable {
 	public void setBookQuantity(int bookQuantity) {
 		this.bookQuantity = bookQuantity;
 	}
-
 	// public ShoppingCart(int userId, int bookId){
 	//
 	// }

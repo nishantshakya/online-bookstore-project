@@ -5,26 +5,54 @@ package com.ose.bookstore.controller;
 
 import java.io.Serializable;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+
+import com.ose.bookstore.model.entity.Login;
 
 /**
  * @author nishant
  * 
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class LoginController implements Serializable {
 
 	/**
 	 * 
 	 */
+	@Inject
+	Login login;
+	
 	private static final long serialVersionUID = 1L;
-	private String username;
+	
+	private boolean flag = true;
+	
+//	public String checkLogin(){
+//		System.out.println("sfdsaD");
+//		flag = false;
+//		return "home";
+////		System.out.println(flag);
+////		return flag;
+//	}
+	
+	public boolean isFlag() {
+		return flag;
+	}
+	public void setFlag(boolean flag) {
+		this.flag = true;
+	}
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+	
+/*	private String username;
 	private String password;
 
 	public String getUsername() {
@@ -69,7 +97,7 @@ public class LoginController implements Serializable {
 		} catch (ServletException e) {
 			context.addMessage(null, new FacesMessage("Logout failed."));
 		}
-	}
+	}*/
 	/**
 	 * Logs the current user out by invalidating the session.
 	 * 
@@ -83,4 +111,5 @@ public class LoginController implements Serializable {
 	// externalContext.invalidateSession();
 	// return "logout";
 	// }
+	
 }

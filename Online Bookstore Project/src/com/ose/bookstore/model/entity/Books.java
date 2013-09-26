@@ -62,8 +62,6 @@ public class Books implements Serializable {
 	@Column(length = 15)
 	private List<String> tags = new ArrayList<String>();
 	
-	
-	
 	//Getters and Setters
 	public int getBookId() {
 		return bookId;

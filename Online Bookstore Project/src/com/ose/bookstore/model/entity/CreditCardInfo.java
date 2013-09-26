@@ -3,7 +3,7 @@ package com.ose.bookstore.model.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
+//import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -34,6 +34,18 @@ public class CreditCardInfo implements Serializable {
 	@Column(length = 12)
 	private String expirationDate;
 
+	@Column(length = 30)
+	private String firstName;
+	
+	@Column(length = 30)
+	private String middleName;
+	
+	@Column(length = 30)
+	private String lastName;
+	
+	@Column(length = 20)
+	private String phone;
+	
 //	@Embedded
 //	private Address address;
 	@Column(length = 10)
@@ -58,7 +70,6 @@ public class CreditCardInfo implements Serializable {
 	private String country;
 
 	// Setters and Getters
-
 	public String getBuildingNo() {
 		return buildingNo;
 	}
@@ -137,6 +148,38 @@ public class CreditCardInfo implements Serializable {
 
 	public void setExpirationDate(String expirationDate) {
 		this.expirationDate = expirationDate;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 //	public Address getAddress() {

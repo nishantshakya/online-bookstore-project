@@ -70,6 +70,4 @@ public class Ratings implements Serializable {
 		this.ratingsId = ratingsId;
 	}
 	
-	
-   
 }

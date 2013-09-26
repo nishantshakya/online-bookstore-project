@@ -50,6 +50,4 @@ public class ShippingType implements Serializable {
 		this.rate = rate;
 	}
 
-	
-
 }

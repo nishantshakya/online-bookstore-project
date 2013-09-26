@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.ose.bookstore.model.ejb.BookListDao;
-import com.ose.bookstore.model.ejb.RatingsDao;
+//import com.ose.bookstore.model.ejb.RatingsDao;
 import com.ose.bookstore.model.entity.Books;
 
 /**
@@ -31,16 +31,16 @@ public class HomeController implements Serializable {
 
 	@EJB
 	BookListDao bookListDao;
-
-	@EJB
-	RatingsDao ratingsDao;
+//
+//	@EJB
+//	RatingsDao ratingsDao;
 	
 	@Inject
 	Books books;
 
 	private String searchString;
 	
-	private int id;
+//	private int id;
 	
 	@SuppressWarnings("unused")
 	private List<Books> bookList;
@@ -127,12 +127,12 @@ public class HomeController implements Serializable {
 		this.bookList = bookList();
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+//	public int getId() {
+//		return id;
+//	}
+//
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 
 }

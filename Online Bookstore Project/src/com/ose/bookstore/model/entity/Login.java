@@ -57,6 +57,4 @@ public class Login implements Serializable {
 	public void setSecPassword(String secPassword) {
 		this.secPassword = secPassword;
 	}
-	
-	
 }

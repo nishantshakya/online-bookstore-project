@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-
+<h:head></h:head>
 <h:outputStylesheet library="css" name="common.css" />
 
 <!-- include header and footer through template -->
@@ -17,43 +17,7 @@
 
 
 		<!-- Division of section for userlogin and displaying the logged user -->
-
-		<section>
-
-			<h:form styleClass="signInFormClass" id="signInForm">
-
-				<!-- display the error message  -->
-				<h:message for="emailId" style="color: red;" />
-				<br />
-				<h:message for="passwordId" style="color: red;" />
-				<h:panelGrid columns="5" style="border:none;">
-
-					<h:outputLabel value="User Email" />
-					<p:inputText id="emailId" required="true"
-						validatorMessage="Email name cannot be empty" disabled="true">
-						<p:watermark value="user@example.com" for="emailId"></p:watermark>
-
-					</p:inputText>
-
-					<h:outputLabel value="Password" />
-					<p:password id="passwordId" required="true"
-						validatorMessage="Password cannot be empty" disabled="true" />
-
-					<h:commandButton styleClass="button" value="Sign In"
-						style="width: 100%;" disabled="true" />
-
-				</h:panelGrid>
-
-			</h:form>
-
-			<!-- A section for showing the logged in user -->
-			<!-- <h:head>
-				<div style = "padding-left:80%; color: red;">
-						<b>Welcome: user</b> <h:outputLink value ="#" style = "text-decoration: none;">&#160;LogOut</h:outputLink>
-				</div>
-			</h:head>
-			 -->
-		</section>
+		<ui:include src="/WEB-INF/templates/logintemplate.xhtml"></ui:include>
 
 		<ui:include src="/WEB-INF/templates/navigation.xhtml"></ui:include>
 

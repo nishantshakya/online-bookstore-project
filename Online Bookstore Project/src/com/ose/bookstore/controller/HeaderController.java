@@ -23,7 +23,7 @@ public class HeaderController implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String hom1;
+//	private String hom1;
 	
 	public HeaderController() {
 	}
@@ -41,12 +41,12 @@ public class HeaderController implements Serializable {
 		return "browsebooks?faces-redirect=true";
 	}
 
-	public String getHom1() {
-		return "faces/webpages/home.xhtml";
-	}
-
-	public void setHom1(String hom1) {
-		this.hom1 = hom1;
-	}
+//	public String getHom1() {
+//		return "faces/webpages/home.xhtml";
+//	}
+//
+//	public void setHom1(String hom1) {
+//		this.hom1 = hom1;
+//	}
 
 }

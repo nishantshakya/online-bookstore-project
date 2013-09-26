@@ -4,8 +4,8 @@
 package com.ose.bookstore.controller;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+//import java.text.DateFormat;
+//import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -57,7 +57,7 @@ public class OrderController implements Serializable {
 	 * @param cartList current cart list of the user from the orderbooks page
 	 * @return
 	 */
-	public String action(UserDetails userDetails, int shippingType,	List<Cart> cartList) {
+	public String action(UserDetails userDetails, String shippingType,	List<Cart> cartList) {
 		this.currentUser = userDetails;
 		userAccountDao.editUser(userDetails);
 		for (int i = 0; i < cartList.size(); i++) {

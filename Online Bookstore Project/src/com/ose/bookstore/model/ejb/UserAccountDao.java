@@ -29,6 +29,11 @@ public class UserAccountDao {
 	 * @param userId unique Id of the user
 	 * @return ud the selected user's details
 	 */
+	
+	public void create(UserDetails userDetails){
+		entityManager.persist(userDetails);
+	}
+	
 	public UserDetails getUser(int userId){
 		UserDetails ud = entityManager.find(UserDetails.class, userId);
 		return ud;
