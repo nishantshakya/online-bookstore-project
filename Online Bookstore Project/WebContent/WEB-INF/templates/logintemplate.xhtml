@@ -5,30 +5,22 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:head></h:head>
-<h:body>
 
+<h:head>
+	<h:form id="form1" rendered="#{loginController.flag}">
+		<h:inputText value="#{loginController.userDetails.userEmail}"></h:inputText>
+		<h:inputText value="#{loginController.userDetails.password}"></h:inputText>
+		<h:commandButton value="submit" action="#{loginController.checkLogin}">
+			<f:ajax execute="form1" onevent="form2"></f:ajax>
+		</h:commandButton>
+	</h:form>
 
-
-
-	<section>
-		<h:head>
-			<div style="padding-left: 80%; color: red;">
-		<!-- 		<h:form rendered="#{!loginController.flag}" id = "user"> -->
-				<h:form id = "user">
-					<b>Welcome:</b>
-					<h:commandLink action="#{userAccountController.showDetails}">user</h:commandLink>
-				</h:form>
-				<!-- 	<h:outputLink value ="#" style = "text-decoration: none;">&#160;LogOut</h:outputLink> -->
-			</div>
-		</h:head>
-	</section>
-	<!-- <h:head>
-				<div style = "padding-left:80%; color: red;">
-						<b>Welcome: user</b> <h:outputLink value ="#" style = "text-decoration: none;">&#160;LogOut</h:outputLink>
-				</div>
-			</h:head>
-			 -->
-
-</h:body>
+	<h:form id="form2" rendered="#{!loginController.flag}"
+		styleClass="form2">
+		<h:commandLink
+			value="Welcome #{loginController.userDetails.userEmail}"
+			action="#{userAccountController.editDetails(userDetails)}"></h:commandLink>
+		<h:commandLink action="#{loginController.logout}" value="Logout"></h:commandLink>
+	</h:form>
+</h:head>
 </html>

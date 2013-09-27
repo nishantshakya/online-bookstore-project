@@ -6,18 +6,19 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head></h:head>
-<h:outputStylesheet library="css" name="common.css" />
 
 <!-- include header and footer through template -->
 
 <ui:composition template="/WEB-INF/templates/headerFooterTemplate.xhtml">
 
 	<ui:define name="content">
+	<ui:define name="title">HOME</ui:define>
 
 
 
 		<!-- Division of section for userlogin and displaying the logged user -->
-		<ui:include src="/WEB-INF/templates/logintemplate.xhtml"></ui:include>
+			<ui:include src="/WEB-INF/templates/logintemplate.xhtml"></ui:include>
+
 
 		<ui:include src="/WEB-INF/templates/navigation.xhtml"></ui:include>
 

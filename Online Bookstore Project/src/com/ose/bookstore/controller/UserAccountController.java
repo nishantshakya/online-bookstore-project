@@ -3,19 +3,20 @@
  */
 package com.ose.bookstore.controller;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.ose.bookstore.model.ejb.CountryListDao;
-import com.ose.bookstore.model.ejb.LoginDao;
 import com.ose.bookstore.model.ejb.UserAccountDao;
-import com.ose.bookstore.model.entity.Login;
 import com.ose.bookstore.model.entity.UserDetails;
+//import org.eclipse.persistence.sessions.Login;
 
 /**
  * Deals with all the page links dispatches present in editDetails page and the
@@ -25,14 +26,19 @@ import com.ose.bookstore.model.entity.UserDetails;
  * @version 1.0 18 Sept 2013
  */
 @Named
-@RequestScoped
-public class UserAccountController {
+@SessionScoped
+public class UserAccountController implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@EJB
 	UserAccountDao userAccountDao;
 	
-	@EJB
-	LoginDao loginDao;
+//	@EJB
+//	LoginDao loginDao;
 
 	@EJB
 	CountryListDao countryListDao;
@@ -40,9 +46,9 @@ public class UserAccountController {
 	@Inject
 	UserDetails userDetails;
 	
-	@Inject
-	Login login;
-	
+//	@Inject
+//	Login login;
+//	
 	private String country;
 	
 	private Map<String,String> countryValue;
@@ -63,7 +69,7 @@ public class UserAccountController {
 	 */
 	public String toOrderPage() {
 		System.out.println("Here");
-		this.userDetails = userAccountDao.getUser(2);
+//		this.userDetails = userAccountDao.getUser(2);
 		System.out.println("user id : " + userDetails.getUserId());
 		return "orderBooks";
 	}
@@ -73,8 +79,9 @@ public class UserAccountController {
 	 */
 	public String showDetails() {
 //		System.out.println("ok");
-		this.userDetails = userAccountDao.getUser(2);
+//		this.userDetails = userAccountDao.getUser(1);
 //		System.out.println("error");
+//		System.out.println("user id : "  + userDetails.getUserId());
 		return "editDetails";
 	}
 	
@@ -90,10 +97,14 @@ public class UserAccountController {
 	}
 	
 	public String registerUser(){
-		loginDao.createAccount(login);
-		System.out.println(login.getUserEmail());
-		System.out.println(login.getPassword());
+	
+//		System.out.println(login.getUserEmail());
+//		System.out.println(login.getPassword());
+		Date currentDate = new Date();
+		userDetails.setDate(currentDate);
 		userAccountDao.create(userDetails);
+		
+//		loginDao.createAccount(login);
 		return "home";
 	}
 	//Getters and Setters
@@ -122,14 +133,14 @@ public class UserAccountController {
 //	public void setAddress(Address address) {
 //		this.address = address;
 //	}
-
-	public Login getLogin() {
-		return login;
-	}
-
-	public void setLogin(Login login) {
-		this.login = login;
-	}
+//
+//	public Login getLogin() {
+//		return login;
+//	}
+//
+//	public void setLogin(Login login) {
+//		this.login = login;
+//	}
 
 
 }

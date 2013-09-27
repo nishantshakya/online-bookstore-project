@@ -41,6 +41,9 @@ public class HeaderController implements Serializable {
 		return "browsebooks?faces-redirect=true";
 	}
 
+	public String goToRegistration(){
+		return "userRegistration?faces-redirect=true";
+	}
 //	public String getHom1() {
 //		return "faces/webpages/home.xhtml";
 //	}

@@ -1,13 +1,16 @@
 package com.ose.bookstore.model.entity;
 
 import java.io.Serializable;
-//import java.util.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
-//import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+//import java.util.Date;
+//import javax.persistence.Embedded;
 //import javax.persistence.Temporal;
 //import javax.persistence.TemporalType;
 
@@ -27,8 +30,15 @@ public class UserDetails implements Serializable {
 	@Id
 	@GeneratedValue
 	private int userId;
+//	
+	@Column(unique = true)
+	private String userEmail;
 	
-	private int loginId;
+//	@Column
+	private String password;
+	
+	private String secPassword;
+//	private int loginId;
 	
 	@Column(length = 30)
 	private String firstName;
@@ -42,8 +52,8 @@ public class UserDetails implements Serializable {
 	@Column(length = 20)
 	private String phone;
 	
-//	@Temporal(TemporalType.DATE)
-	private String date;
+	@Temporal(TemporalType.DATE)
+	private Date date;
 	
 //	@Embedded
 //	private Address address;
@@ -76,16 +86,41 @@ public class UserDetails implements Serializable {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public int getLoginId() {
-		return loginId;
+	
+	public String getUserEmail() {
+		return userEmail;
 	}
-	public void setLoginId(int loginId) {
-		this.loginId = loginId;
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
-	public String getDate() {
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getSecPassword() {
+		return secPassword;
+	}
+
+	public void setSecPassword(String secPassword) {
+		this.secPassword = secPassword;
+	}
+
+//	public int getLoginId() {
+//		return loginId;
+//	}
+//	public void setLoginId(int loginId) {
+//		this.loginId = loginId;
+//	}
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 //	public Address getAddress() {

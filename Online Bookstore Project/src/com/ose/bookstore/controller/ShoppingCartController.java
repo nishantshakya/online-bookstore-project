@@ -4,12 +4,11 @@
 package com.ose.bookstore.controller;
 
 import java.io.Serializable;
-//import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
@@ -19,6 +18,8 @@ import com.ose.bookstore.model.ejb.BookListDao;
 import com.ose.bookstore.model.ejb.ShoppingCartDao;
 import com.ose.bookstore.model.entity.Books;
 import com.ose.bookstore.model.entity.ShoppingCart;
+import com.ose.bookstore.model.entity.UserDetails;
+//import java.text.NumberFormat;
 
 /**
  * Deals with all the page links dispatches present in orderBooks page
@@ -27,7 +28,7 @@ import com.ose.bookstore.model.entity.ShoppingCart;
  * @version 1.0 18 Sept 2013
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class ShoppingCartController implements Serializable {
 
 	/**
@@ -43,6 +44,9 @@ public class ShoppingCartController implements Serializable {
 
 	@Inject
 	ShoppingCart shoppingCart;
+	
+	@Inject 
+	UserDetails currentUser;
 
 	@NotNull(message = "Select the shipping type")
 	String shippingType;// Selected shipping type(Standard or Express); atleast
@@ -67,6 +71,7 @@ public class ShoppingCartController implements Serializable {
 	 * @return cartList The shopping cart list
 	 */
 	public List<Cart> cartList() {
+		System.out.println(currentUser.getFirstName());
 		List<ShoppingCart> cart = shoppingCartDao.getCart(0);
 		Books book = new Books();
 		List<Cart> cartList = new ArrayList<Cart>();
@@ -89,23 +94,10 @@ public class ShoppingCartController implements Serializable {
 			cartList.add(cart1);
 			bookQuantity += cart.get(i).getBookQuantity();
 		}
-		System.out.println(bookQuantity);
-		System.out.println("Cart List: " + cartList);
+//		System.out.println(bookQuantity);
+//		System.out.println("Cart List: " + cartList);
 		return cartList;
 	}
-
-//	/**
-//	 * Converts the price to currency Format
-//	 * 
-//	 * @param price
-//	 *            in double format
-//	 * @return currency in currency format
-//	 */
-//	public String convertToCurrency(double price) {
-//		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
-//		System.out.println(currencyFormatter.format(price));
-//		return currencyFormatter.format(price);
-//	}
 
 	public void delete(Cart cart) {
 		ShoppingCart sc = new ShoppingCart();
@@ -165,11 +157,7 @@ public class ShoppingCartController implements Serializable {
 	 */
 	public double getTotalIncTax() {
 
-//		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
-		// double totalExTax = tp;
-		// System.out.println(totalExTax);
 		totalIncTax = tp + tp * .035;
-//		System.out.println(currencyFormatter.format(totalIncTax));
 		return totalIncTax;
 
 	}
@@ -181,30 +169,16 @@ public class ShoppingCartController implements Serializable {
 	}
 
 	public double getTotalWithShipping() {
-//		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
-//		double totalExTax = tp;
-//		System.out.println(totalExTax);
 		totalWithShipping = tp + tp * .035;
 		if (shippingType == null){
 			shippingType = "Standard";
 		}
 		System.out.println("Excluding shipping: " + totalWithShipping);
-//		System.out.println(currencyFormatter.format(totalWithShipping));
-//		return convertToCurrency(totalWithShipping);
-//		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
-//		System.out.println(tp);
-//		totalWithShipping = tp;
-////		sysout
-//////	    tp = tp + tp * .035;
-//////		totalIncTax = tp + tp * .035;
-//		System.out.println("Total Books: " + bookQuantity);
 		if (bookQuantity <= 3) {
 			totalWithShipping = totalWithShipping + 7.5; //If less than 3 books, standard shipping
 			System.out.println("Including Shipping: " + totalWithShipping);
 			System.out.println(shippingType);
 			
-//			System.out.println(shippingType.length());
-//			if (shippingType.length() > 0) {
 			if (shippingType.equals("Express")) {
 				totalWithShipping = totalWithShipping + totalWithShipping * 0.3;//Express shipping, costs 30% more than standard shipping
 			}
@@ -217,22 +191,24 @@ public class ShoppingCartController implements Serializable {
 				System.out.println("Excluding Tax: + shipping cost "
 						+ totalWithShipping);
 			}
-			// totalIncTax = totalExTax + totalExTax * .15;
 		}
-//		totalIncTax = tp;
-		// double totalExTax = tp + shippingType;
 		System.out.println(totalWithShipping);
-//		totalIncTax = totalExTax + totalExTax * .035;
 		System.out.println(shippingType);
-//		System.out.println(currencyFormatter.format(totalWithShipping));
 		return totalWithShipping;
-////		return totalWithShipping;
 		
 	}
 
 	public void setTotalWithShipping(double totalWithShipping) {
 		this.totalWithShipping = totalWithShipping;
 		System.out.println(totalWithShipping);
+	}
+
+	public UserDetails getCurrentUser() {
+		return currentUser;
+	}
+
+	public void setCurrentUser(UserDetails currentUser) {
+		this.currentUser = currentUser;
 	}
 
 }

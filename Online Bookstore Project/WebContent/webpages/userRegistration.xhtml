@@ -50,14 +50,14 @@
 						</p:inputText>
 
 						<h:outputLabel for="email1" value="Enter Email*" />
-						<p:inputText id="email1" value="#{userAccountController.login.userEmail}" />
+						<p:inputText id="email1" value="#{userAccountController.userDetails.userEmail}" />
 						<p:watermark value="user@example.com" for="email1" />
 						<h:panelGroup></h:panelGroup>
 
 
 						<h:outputLabel value="Enter Password*" for="password1" />
 						<p:password id="password1" match="password2" label="Password"
-							required="true" value = "#{userAccountController.login.password}" />
+							required="true" value = "#{userAccountController.userDetails.password}" />
 						<h:panelGroup></h:panelGroup>
 						<h:panelGroup></h:panelGroup>
 
@@ -68,7 +68,7 @@
 						<h:panelGroup></h:panelGroup>
 
 						<h:outputLabel value="Select Country*" />
-						<p:selectOneMenu value="#{userAccountController.country}">
+						<p:selectOneMenu value="#{userAccountController.userDetails.country}">
 							<f:selectItems
 								value="#{userAccountController.selectCountryValue}"></f:selectItems>
 						</p:selectOneMenu>

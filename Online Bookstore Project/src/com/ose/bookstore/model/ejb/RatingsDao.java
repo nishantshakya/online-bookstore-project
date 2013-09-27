@@ -44,16 +44,10 @@ public class RatingsDao {
 		return sumRating / ratings.size();
 	}
 
-	// public int userRating(int bookId, int userId){
-	// List<Ratings> ratings = getUserRating(bookId, userId);
-	//
-	// }
-	//
 	public List<Ratings> getBookRating(int bookId) {
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Ratings> query = builder.createQuery(Ratings.class);
 		Root<Ratings> c = query.from(Ratings.class);
-		// String a = "bookId";
 		query.select(c).where(builder.equal(c.get("bookId"), bookId));
 		return entityManager.createQuery(query).getResultList();
 
@@ -61,7 +55,6 @@ public class RatingsDao {
 
 	public void setUserRating(Ratings ratings) {
 
-		// System.out.println("Vaqlue : " + check);
 		if (ratings.getBookId() != 0) {
 
 			if (ratings.getRatingsId() > 0) {
@@ -76,11 +69,6 @@ public class RatingsDao {
 				entityManager.persist(ratings);
 			}
 		}
-		// if (check == 0) {
-		// entityManager.persist(ratings);
-		// } else {
-		// entityManager.merge(ratings);
-		// }
 
 	}
 

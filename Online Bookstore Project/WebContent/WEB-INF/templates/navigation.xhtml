@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+	
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
+	
 	xmlns:p="http://primefaces.org/ui">
-<h:body>
+	
+<h:outputStylesheet name="common.css" library="css"></h:outputStylesheet>
 	<section id="navigationSectionId">
-		<f:view locale="en">
 			<h:form>
 				<p:tabMenu styleClass="tabMenuClass">
 					<p:menuitem value="Home" action="#{headerController.goToHome}"  style="color: red;"></p:menuitem>
@@ -20,8 +20,6 @@
 					<p:menuitem value="About BookStore" url="#" style="color: red;" disabled="true"></p:menuitem>
 				</p:tabMenu>
 			</h:form>
-		</f:view>
 	</section>
-</h:body>
 </html>
 

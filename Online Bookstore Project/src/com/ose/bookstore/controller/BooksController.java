@@ -69,10 +69,6 @@ public class BooksController implements Serializable {
 	public BooksController() {
 	}
 
-	// public void getId(Books books) {
-	//
-	// }
-
 	/**
 	 * For dropdown menu in bookProfile page; gives the maximum number of books
 	 * that can be added to the cart at a time
@@ -111,9 +107,6 @@ public class BooksController implements Serializable {
 		return "bookProfile";
 	}
 
-	//
-
-
 	public void onrate(RateEvent rateEvent) {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"Thank you for your review:", "");
@@ -125,7 +118,6 @@ public class BooksController implements Serializable {
 			ratings = ratingsDao.getUserRating(currentId, 1).get(0);
 		}
 		ratings.setUserRating5(newRating);
-		// System.out.println(ratings.getBookId());
 		ratings.setBookId(currentId);
 		ratings.setUserId(1);
 		ratingsDao.setUserRating(ratings);
@@ -135,30 +127,15 @@ public class BooksController implements Serializable {
 		currentBook = bookListDao.getBook(currentId);
 		rating = ratingsDao.bookRating(currentId);
 		ratingsCount = ratingsDao.getBookRating(currentId).size();
-		// ratings = ratingsDao.getUserRating(currentId, 1).get(0);
-		// newRating = ratings.getUserRating5();
 		if (!ratingsDao.getUserRating(currentId, 1).isEmpty()) {
 			ratings = ratingsDao.getUserRating(currentId, 1).get(0);
 			newRating = ratings.getUserRating5();
-			// ratings.setUserRating5(ratingsDao.getUserRating(currentId, 1)
-			// .get(0).getUserRating5());
 		}
-//		System.out.println(ratingsDao.getUserRating(currentId, 1).get(0)
-//				.getUserRating5());
 		System.out.println(ratings.getUserRating5());
-		// sysout
 		System.out.println("HAHAHA: " + currentBook.getBookId());
 		System.out.println(rating);
 	}
 
-	// public void selectListener(ActionEvent event)
-	// throws AbortProcessingException {
-	// System.out.println("Hello there!!");
-	// UICommand link = (UICommand) event.getComponent();
-	// UIParameter param = (UIParameter) link.getChildren();
-	// currentId = (int) param.getValue();
-	// // System.out.println("The ID try" + currentID);
-	// }
 
 	// Getters and Setters
 	public Books getCurrentBook() {
@@ -185,17 +162,13 @@ public class BooksController implements Serializable {
 		this.currentId = currentId;
 	}
 
-	//
 	public Integer getRating() {
-		// System.out.println("You Rated: " + rating);
 		return rating;
 
 	}
 
 	public void setRating(Integer rating) {
 		this.rating = rating;
-		// System.out.println("You Rated re:" + rating);
-		// sysout
 	}
 	public Ratings getRatings() {
 		return ratings;
