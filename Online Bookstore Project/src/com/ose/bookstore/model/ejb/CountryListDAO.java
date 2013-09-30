@@ -12,9 +12,15 @@ import javax.persistence.criteria.Root;
 
 import com.ose.bookstore.model.entity.CountryList;
 
+/**
+ * Generates country list to be displayed in country drop down menu
+ * 
+ * @author OSE Nepal
+ * @version 1.0 18 Sept 2013
+ */
 @Stateless
 @LocalBean
-public class CountryListDao {
+public class CountryListDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;

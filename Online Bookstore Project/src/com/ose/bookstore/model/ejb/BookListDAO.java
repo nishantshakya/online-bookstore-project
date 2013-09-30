@@ -26,12 +26,12 @@ import com.ose.bookstore.model.entity.Books;
 //No-interface view, Stateless Bean
 @Stateless
 @LocalBean
-public class BookListDao {
+public class BookListDAO {
 	
 	@PersistenceContext//Makes the session bean thread-safe, no need of using transaction handling
 	private EntityManager entityManager; //EntityManager is used to persist entities to a DB
 	
-	public BookListDao(){
+	public BookListDAO(){
 		
 	}
 	
@@ -44,10 +44,10 @@ public class BookListDao {
 		CriteriaQuery<Books> query = cb.createQuery(Books.class);
 		Root<Books> c = query.from(Books.class);
 		
-		List<Predicate> plist = new ArrayList<Predicate>(); 
-		plist.add(cb.like(c.<String> get("title"), "%" + searchString + "%"));
+//		List<Predicate> plist = new ArrayList<Predicate>(); 
+//		plist.add(cb.like(c.<String> get("title"), "%" + searchString + "%"));
 		query.select(c);
-		query.where(cb.or(plist.toArray(new Predicate[plist.size()])));//The predicates are conjuncted using or
+		query.where(cb.like(c.<String> get("title"), "%" + searchString + "%"));//The predicates are conjuncted using or
 			
 		return entityManager.createQuery(query).getResultList();	
 	}

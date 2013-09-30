@@ -5,21 +5,22 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:head>
-	<h:form id="form1" rendered="#{loginController.flag}">
-		<h:inputText value="#{loginController.userDetails.userEmail}"></h:inputText>
-		<h:inputText value="#{loginController.userDetails.password}"></h:inputText>
+
+	<h:form id="form1" rendered="#{!loginController.flag}">
+		<h:inputText value="#{loginController.userDetails.userEmail}" id = "email"></h:inputText>
+		<h:inputSecret value="#{loginController.userDetails.password}" id = "password"></h:inputSecret>
 		<h:commandButton value="submit" action="#{loginController.checkLogin}">
 			<f:ajax execute="form1" onevent="form2"></f:ajax>
 		</h:commandButton>
+		<h:commandLink action="#{loginController.signUp}" value="Sign Up"></h:commandLink>
 	</h:form>
 
-	<h:form id="form2" rendered="#{!loginController.flag}"
+	<h:form id="form2" rendered="#{loginController.flag}"
 		styleClass="form2">
 		<h:commandLink
-			value="Welcome #{loginController.userDetails.userEmail}"
-			action="#{userAccountController.editDetails(userDetails)}"></h:commandLink>
+			value="Welcome #{loginController.userDetails.firstName}"
+			action="#{userAccountController.showDetails}"></h:commandLink>
 		<h:commandLink action="#{loginController.logout}" value="Logout"></h:commandLink>
 	</h:form>
 </h:head>

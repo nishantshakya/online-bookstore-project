@@ -18,7 +18,7 @@ import com.ose.bookstore.model.entity.Ratings;
  */
 @Stateful
 @LocalBean
-public class RatingsDao {
+public class RatingsDAO {
 
 	/**
 	 * Default constructor.
@@ -27,7 +27,7 @@ public class RatingsDao {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public RatingsDao() {
+	public RatingsDAO() {
 		// TODO Auto-generated constructor stub
 	}
 

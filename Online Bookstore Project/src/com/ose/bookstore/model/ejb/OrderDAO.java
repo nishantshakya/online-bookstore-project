@@ -19,7 +19,7 @@ import com.ose.bookstore.model.entity.OrderDetail;
 //No-interface view, Stateless Bean
 @Stateless
 @LocalBean
-public class OrderDao {
+public class OrderDAO {
 	
 	@PersistenceContext
 	private EntityManager entityManager;

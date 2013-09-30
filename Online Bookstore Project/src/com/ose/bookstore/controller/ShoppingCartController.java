@@ -13,9 +13,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 
-import com.ose.bookstore.helper.Cart;
-import com.ose.bookstore.model.ejb.BookListDao;
-import com.ose.bookstore.model.ejb.ShoppingCartDao;
+import com.ose.bookstore.dto.Cart;
+import com.ose.bookstore.model.ejb.BookListDAO;
+import com.ose.bookstore.model.ejb.ShoppingCartDAO;
 import com.ose.bookstore.model.entity.Books;
 import com.ose.bookstore.model.entity.ShoppingCart;
 import com.ose.bookstore.model.entity.UserDetails;
@@ -37,10 +37,10 @@ public class ShoppingCartController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	ShoppingCartDao shoppingCartDao;
+	ShoppingCartDAO shoppingCartDao;
 
 	@EJB
-	BookListDao bookListDao;
+	BookListDAO bookListDao;
 
 	@Inject
 	ShoppingCart shoppingCart;
@@ -94,8 +94,6 @@ public class ShoppingCartController implements Serializable {
 			cartList.add(cart1);
 			bookQuantity += cart.get(i).getBookQuantity();
 		}
-//		System.out.println(bookQuantity);
-//		System.out.println("Cart List: " + cartList);
 		return cartList;
 	}
 
@@ -108,7 +106,6 @@ public class ShoppingCartController implements Serializable {
 		shoppingCartDao.deleteEntry(sc);
 	}
 
-//	Login l;
 	public ShoppingCart getShoppingCart() {
 		return shoppingCart;
 	}

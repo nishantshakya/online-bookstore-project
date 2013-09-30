@@ -7,9 +7,10 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class BookProfileTest {
+public class HomePageTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -18,22 +19,34 @@ public class BookProfileTest {
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "http://localhost:9090/Online_BookStore_Project/faces/webpages/browseBooks.xhtml";
+	  //driver = new HtmlUnitDriver();    
+    baseUrl = "http://localhost:9090/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  public void testBookProfile() throws Exception {
-    driver.get(baseUrl);
-    driver.findElement(By.xpath("//table[@id='j_idt46:grid:1:j_idt58']/tbody/tr/td/a/img")).click();
-    driver.findElement(By.cssSelector("span.ui-icon.ui-icon-triangle-1-s")).click();
-    driver.findElement(By.xpath("//div[@id='dropDownForm:quantityValue_panel']/div/ul/li[2]")).click();
-    driver.findElement(By.id("dropDownForm:addToCartButton")).click();
+  public void testHomePage() throws Exception {
+    driver.get(baseUrl + "/Online_BookStore_Project/faces/webpages/home.xhtml");
     try {
-      assertEquals("Shopping Cart", driver.getTitle());
+      assertTrue(isElementPresent(By.id("j_idt49:j_idt50")));
     } catch (Error e) {
       verificationErrors.append(e.toString());
     }
+    // ERROR: Caught exception [Error: locator strategy either id or name must be specified explicitly.]
+    // ERROR: Caught exception [Error: locator strategy either id or name must be specified explicitly.]
+    try {
+      assertTrue(isElementPresent(By.id("j_idt49:table")));
+    } catch (Error e) {
+      verificationErrors.append(e.toString());
+    }
+    String searchStr = "java";
+    driver.findElement(By.id("j_idt49:search")).sendKeys(searchStr);
+    driver.findElement(By.cssSelector("span.ui-menuitem-text")).click();
+    driver.findElement(By.cssSelector("#j_idt36 > span.ui-menuitem-text")).click();
+    driver.findElement(By.cssSelector("#j_idt36 > span.ui-menuitem-text")).click();
+    driver.findElement(By.id("j_idt35")).click();
+    driver.findElement(By.cssSelector("#j_idt38 > span.ui-menuitem-text")).click();
+    driver.findElement(By.cssSelector("span.ui-menuitem-text")).click();
   }
 
   @After

@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class BookProfileTest {
+public class BrowseBooks {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,14 +23,23 @@ public class BookProfileTest {
   }
 
   @Test
-  public void testBookProfile() throws Exception {
-    driver.get(baseUrl);
-    driver.findElement(By.xpath("//table[@id='j_idt46:grid:1:j_idt58']/tbody/tr/td/a/img")).click();
-    driver.findElement(By.cssSelector("span.ui-icon.ui-icon-triangle-1-s")).click();
-    driver.findElement(By.xpath("//div[@id='dropDownForm:quantityValue_panel']/div/ul/li[2]")).click();
-    driver.findElement(By.id("dropDownForm:addToCartButton")).click();
+  public void testBrowseBooks() throws Exception {
+    //driver.get(baseUrl + "/Online_BookStore_Project/faces/webpages/browseBooks.xhtml");
+	  driver.get(baseUrl);
+	 // Warning: verifyTextPresent may require manual changes
     try {
-      assertEquals("Shopping Cart", driver.getTitle());
+      assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Browse Books[\\s\\S]*$"));
+    } catch (Error e) {
+      verificationErrors.append(e.toString());
+    }
+    driver.findElement(By.xpath("//table[@id='j_idt46:grid:1:j_idt58']/tbody/tr/td/a/img")).click();
+    driver.findElement(By.cssSelector("#j_idt33 > span.ui-menuitem-text")).click();
+    driver.findElement(By.xpath("//table[@id='j_idt46:grid:2:j_idt58']/tbody/tr/td/a/img")).click();
+    driver.findElement(By.cssSelector("#j_idt33 > span.ui-menuitem-text")).click();
+    driver.findElement(By.cssSelector("#j_idt38 > span.ui-menuitem-text")).click();
+    // Warning: verifyTextPresent may require manual changes
+    try {
+      assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*SHOPPING CART[\\s\\S]*$"));
     } catch (Error e) {
       verificationErrors.append(e.toString());
     }

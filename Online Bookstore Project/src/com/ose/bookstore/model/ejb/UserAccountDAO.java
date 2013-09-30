@@ -25,7 +25,7 @@ import com.ose.bookstore.model.entity.UserDetails;
 // No-interface view, Stateless Bean
 @Stateless
 @LocalBean
-public class UserAccountDao {
+public class UserAccountDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -42,13 +42,13 @@ public class UserAccountDao {
 		entityManager.persist(userDetails);
 	}
 
-	// public int getUserId()
 	public UserDetails getUser(int userId) {
 		UserDetails ud = entityManager.find(UserDetails.class, userId);
 		return ud;
 	}
 
-	public UserDetails getCurrentUser(UserDetails user) {
+	public List<UserDetails> getCurrentUser(UserDetails user) {
+		
 		String userEmail = user.getUserEmail();
 		String password = user.getPassword();
 
@@ -57,20 +57,10 @@ public class UserAccountDao {
 		Root<UserDetails> c = query.from(UserDetails.class);
 		query.select(c).where(cb.and(cb.equal(c.get("userEmail"),userEmail),cb.equal(
 				c.get("password"),password)));
-		
-//		UserDetails currentUser = entityManager.find(UserDetails.class, user.getUserId());
-//		if(currentUser.getUserEmail().equalsIgnoreCase(userEmail) && currentUser.getPassword().equals(password)){
-//			return currentUser;
-//		}
-//		return null;
-		if (entityManager.createQuery(query).getResultList().isEmpty()){
-			return null;
-		}
-		return entityManager.createQuery(query).getResultList().get(0);
+		return entityManager.createQuery(query).getResultList();
 		
 	}
 
-	// public
 	/**
 	 * Updates the userDetails table
 	 * 
@@ -78,9 +68,7 @@ public class UserAccountDao {
 	 *            the userDetails to be edited
 	 */
 	public void editUser(UserDetails user) {
-		// UserDetails user = getUser(id);
 		entityManager.merge(user);
-
 	}
 
 }

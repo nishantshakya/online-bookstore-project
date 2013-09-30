@@ -13,8 +13,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.ose.bookstore.model.ejb.CountryListDao;
-import com.ose.bookstore.model.ejb.UserAccountDao;
+import com.ose.bookstore.model.ejb.CountryListDAO;
+import com.ose.bookstore.model.ejb.UserAccountDAO;
 import com.ose.bookstore.model.entity.UserDetails;
 //import org.eclipse.persistence.sessions.Login;
 
@@ -35,30 +35,22 @@ public class UserAccountController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	UserAccountDao userAccountDao;
-	
-//	@EJB
-//	LoginDao loginDao;
+	UserAccountDAO userAccountDao;
 
 	@EJB
-	CountryListDao countryListDao;
+	CountryListDAO countryListDao;
 	
 	@Inject
 	UserDetails userDetails;
-	
-//	@Inject
-//	Login login;
-//	
+
 	private String country;
 	
 	private Map<String,String> countryValue;
-//	@Inject
-//	Address address;
 
 	/**The selected user's detail is edited
 	 * @return null returns to same page
 	 */
-	public String editDetails() {
+	public String editDetails(UserDetails userDetails) {
 		System.out.println("Current user: " + userDetails.getFirstName());
 		userAccountDao.editUser(userDetails);
 		return "null";
@@ -68,10 +60,10 @@ public class UserAccountController implements Serializable {
 	 * @return forwards to orderBooks page
 	 */
 	public String toOrderPage() {
-		System.out.println("Here");
+//		System.out.println("Here");
 //		this.userDetails = userAccountDao.getUser(2);
-		System.out.println("user id : " + userDetails.getUserId());
-		return "orderBooks";
+//		System.out.println("user id : " + userDetails.getUserId());
+		return "orderBooks?faces-redirect=true";
 	}
 
 	/**Retrieves the user's details from the database
@@ -98,15 +90,12 @@ public class UserAccountController implements Serializable {
 	
 	public String registerUser(){
 	
-//		System.out.println(login.getUserEmail());
-//		System.out.println(login.getPassword());
 		Date currentDate = new Date();
 		userDetails.setDate(currentDate);
 		userAccountDao.create(userDetails);
-		
-//		loginDao.createAccount(login);
 		return "home";
 	}
+	
 	//Getters and Setters
 
 	public String getCountry() {
@@ -125,22 +114,5 @@ public class UserAccountController implements Serializable {
 	public void setUserDetails(UserDetails userDetails) {
 		this.userDetails = userDetails;
 	}
-//
-//	public Address getAddress() {
-//		return address;
-//	}
-//
-//	public void setAddress(Address address) {
-//		this.address = address;
-//	}
-//
-//	public Login getLogin() {
-//		return login;
-//	}
-//
-//	public void setLogin(Login login) {
-//		this.login = login;
-//	}
-
 
 }

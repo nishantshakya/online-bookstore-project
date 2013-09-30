@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -16,9 +16,9 @@ import javax.inject.Named;
 
 import org.primefaces.event.RateEvent;
 
-import com.ose.bookstore.model.ejb.BookListDao;
-import com.ose.bookstore.model.ejb.RatingsDao;
-import com.ose.bookstore.model.ejb.ShoppingCartDao;
+import com.ose.bookstore.model.ejb.BookListDAO;
+import com.ose.bookstore.model.ejb.RatingsDAO;
+import com.ose.bookstore.model.ejb.ShoppingCartDAO;
 import com.ose.bookstore.model.entity.Books;
 import com.ose.bookstore.model.entity.Ratings;
 import com.ose.bookstore.model.entity.ShoppingCart;
@@ -31,20 +31,20 @@ import com.ose.bookstore.model.entity.ShoppingCart;
  * @version 1.0 18 Sept 2013
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class BooksController implements Serializable {
 
 	/**
 	 * 
 	 */
 	@EJB
-	ShoppingCartDao shoppingCartDao;
+	ShoppingCartDAO shoppingCartDao;
 
 	@EJB
-	BookListDao bookListDao;
+	BookListDAO bookListDao;
 
 	@EJB
-	RatingsDao ratingsDao;
+	RatingsDAO ratingsDao;
 
 	@Inject
 	ShoppingCart shoppingCart;
@@ -131,9 +131,9 @@ public class BooksController implements Serializable {
 			ratings = ratingsDao.getUserRating(currentId, 1).get(0);
 			newRating = ratings.getUserRating5();
 		}
-		System.out.println(ratings.getUserRating5());
-		System.out.println("HAHAHA: " + currentBook.getBookId());
-		System.out.println(rating);
+//		System.out.println(ratings.getUserRating5());
+//		System.out.println("HAHAHA: " + currentBook.getBookId());
+//		System.out.println(rating);
 	}
 
 

@@ -4,22 +4,22 @@
 package com.ose.bookstore.controller;
 
 import java.io.Serializable;
-//import java.text.DateFormat;
-//import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.ose.bookstore.helper.Cart;
-import com.ose.bookstore.model.ejb.OrderDao;
-import com.ose.bookstore.model.ejb.UserAccountDao;
+import com.ose.bookstore.dto.Cart;
+import com.ose.bookstore.model.ejb.OrderDAO;
+import com.ose.bookstore.model.ejb.UserAccountDAO;
 import com.ose.bookstore.model.entity.OrderDetail;
 import com.ose.bookstore.model.entity.ShippingType;
 import com.ose.bookstore.model.entity.UserDetails;
+//import java.text.DateFormat;
+//import java.text.SimpleDateFormat;
 
 /**
  * Deals with all the page links dispatches present in orderBooks page
@@ -28,17 +28,17 @@ import com.ose.bookstore.model.entity.UserDetails;
  * @version 1.0 18 Sept 2013
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class OrderController implements Serializable {
 
 	/**
 	 * 
 	 */
 	@EJB
-	OrderDao orderDao;
+	OrderDAO orderDao;
 	
 	@EJB
-	UserAccountDao userAccountDao;
+	UserAccountDAO userAccountDao;
 	
 	UserDetails currentUser;
 	

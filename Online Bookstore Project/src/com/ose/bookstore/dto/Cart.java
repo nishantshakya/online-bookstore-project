@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ose.bookstore.helper;
+package com.ose.bookstore.dto;
 
 import java.io.Serializable;
 

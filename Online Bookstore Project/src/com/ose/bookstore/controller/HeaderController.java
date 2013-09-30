@@ -5,7 +5,7 @@ package com.ose.bookstore.controller;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
@@ -15,7 +15,7 @@ import javax.inject.Named;
  * @version 1.0 18 Sept 2013
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class HeaderController implements Serializable {
 
 	/**
@@ -23,8 +23,6 @@ public class HeaderController implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-//	private String hom1;
-	
 	public HeaderController() {
 	}
 
@@ -44,12 +42,5 @@ public class HeaderController implements Serializable {
 	public String goToRegistration(){
 		return "userRegistration?faces-redirect=true";
 	}
-//	public String getHom1() {
-//		return "faces/webpages/home.xhtml";
-//	}
-//
-//	public void setHom1(String hom1) {
-//		this.hom1 = hom1;
-//	}
 
 }

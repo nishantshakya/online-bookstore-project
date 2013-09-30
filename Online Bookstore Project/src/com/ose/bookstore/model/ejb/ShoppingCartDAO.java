@@ -24,7 +24,7 @@ import com.ose.bookstore.model.entity.ShoppingCart;
 //No-interface view, Stateless Bean
 @Stateless
 @LocalBean
-public class ShoppingCartDao {
+public class ShoppingCartDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
