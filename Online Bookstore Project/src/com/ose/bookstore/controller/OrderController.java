@@ -72,7 +72,7 @@ public class OrderController implements Serializable {
 			orderDao.create(order);
 
 		}
-		return "creditCard";
+		return "creditCard?faces-redirect=true";
 	}
 
 	//Getters and Setters

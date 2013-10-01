@@ -10,12 +10,15 @@ import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.ose.bookstore.model.ejb.CountryListDAO;
 import com.ose.bookstore.model.ejb.UserAccountDAO;
 import com.ose.bookstore.model.entity.UserDetails;
+
 //import org.eclipse.persistence.sessions.Login;
 
 /**
@@ -39,80 +42,134 @@ public class UserAccountController implements Serializable {
 
 	@EJB
 	CountryListDAO countryListDao;
-	
+
 	@Inject
 	UserDetails userDetails;
 
-	private String country;
+//	Integer currentId;
 	
-	private Map<String,String> countryValue;
+	private boolean flag = false;
 
-	/**The selected user's detail is edited
+	private Map<String, String> countryValue;
+
+	private Long memberAge;
+
+	/**
+	 * The selected user's detail is edited
+	 * 
 	 * @return null returns to same page
 	 */
-	public String editDetails(UserDetails userDetails) {
+	public String editDetails() {
 		System.out.println("Current user: " + userDetails.getFirstName());
 		userAccountDao.editUser(userDetails);
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage("Edited Successfully"));
 		return "null";
 	}
 
-	/**The cart is loaded to the order table
+	/**
+	 * The cart is loaded to the order table
+	 * 
 	 * @return forwards to orderBooks page
 	 */
 	public String toOrderPage() {
-//		System.out.println("Here");
-//		this.userDetails = userAccountDao.getUser(2);
-//		System.out.println("user id : " + userDetails.getUserId());
-		return "orderBooks?faces-redirect=true";
+		return "registered/orderBooks?faces-redirect=true";
 	}
 
-	/**Retrieves the user's details from the database
+	/**
+	 * Retrieves the user's details from the database
+	 * 
 	 * @return forwards to editDetails page
 	 */
 	public String showDetails() {
-//		System.out.println("ok");
-//		this.userDetails = userAccountDao.getUser(1);
-//		System.out.println("error");
-//		System.out.println("user id : "  + userDetails.getUserId());
-		return "editDetails";
+		return "registered/editDetails?faces-redirect=true";
 	}
-	
-	
-	
-	public Map<String,String> getSelectCountryValue()
-	{
-		countryValue = new LinkedHashMap<String, String>();
-		for (int i = 0; i < countryListDao.getCountry().size(); i++) {
-			countryValue.put(countryListDao.getCountry().get(i).getName(),countryListDao.getCountry().get(i).getName());
-		}	
-		return countryValue;
-	}
-	
-	public String registerUser(){
-	
+
+	public String registerUser() {
 		Date currentDate = new Date();
 		userDetails.setDate(currentDate);
 		userAccountDao.create(userDetails);
-		return "home";
-	}
-	
-	//Getters and Setters
-
-	public String getCountry() {
-		return country;
+		return "/webpages/home?faces-redirect=true";
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
-		System.out.println(country);
+	public String checkLogin() {
+		System.out.println("asdfsad");
+		FacesContext context = FacesContext.getCurrentInstance();
+		if (userAccountDao.getCurrentUser(userDetails).isEmpty()) {
+			context.addMessage(null, new FacesMessage("Login failed."));
+			flag = false;
+			System.out.println("not");
+		} else {
+			userDetails = userAccountDao.getCurrentUser(userDetails).get(0);
+			// userSession.setUser(userDetails);
+			// Cookie loginCookie = new Cookie("user",
+			// userDetails.getFirstName());
+			// loginCookie.setMaxAge(30*60);
+			flag = true;
+			System.out.println("yes");
+			
+		}
+		return null;
 	}
-	
+
+	/**
+	 * Logs the current user out by invalidating the session.
+	 * 
+	 * @return &quot;logout&quot; which is used by the
+	 *         {@literal faces-config.xml} to redirect back to the
+	 *         {@literal home.xhtml} page.
+	 */
+	public String logout() {
+		FacesContext.getCurrentInstance().getExternalContext()
+				.invalidateSession();
+		// Cookie loginCookie = null;
+		// loginCookie.setMaxAge(0);
+		flag = false;
+		return "/webpages/home?faces-redirect=true";
+	}
+
+	public String signUp() {
+		return "/webpages/userRegistration";
+	}
+
+	// Getters and Setters
+
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+
 	public UserDetails getUserDetails() {
 		return userDetails;
 	}
 
 	public void setUserDetails(UserDetails userDetails) {
 		this.userDetails = userDetails;
+	}
+
+	public Map<String, String> getSelectCountryValue() {
+		countryValue = new LinkedHashMap<String, String>();
+		for (int i = 0; i < countryListDao.getCountry().size(); i++) {
+			countryValue.put(countryListDao.getCountry().get(i).getName(),
+					countryListDao.getCountry().get(i).getName());
+		}
+		return countryValue;
+	}
+
+	public Long getMemberAge() {
+		Date currentDate = new Date();
+		long diff = currentDate.getTime() - userDetails.getDate().getTime();
+
+		System.out.println("Hours difference: " + (diff / (1000 * 60 * 60))
+				+ " hours");
+		return (diff / (1000 * 60 * 60 * 24));
+	}
+
+	public void setMemberAge(Long memberAge) {
+		this.memberAge = memberAge;
 	}
 
 }

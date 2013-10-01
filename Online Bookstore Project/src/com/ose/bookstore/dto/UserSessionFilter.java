@@ -13,16 +13,16 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ose.bookstore.controller.LoginController;
+import com.ose.bookstore.controller.UserAccountController;
 
 /**
  * Servlet Filter implementation class UserSessionFilter
  */
-@WebFilter("/faces/webpages/orderBooks.xhtml")
+@WebFilter("/faces/webpages/registered/*")
 public class UserSessionFilter implements Filter {
 
 	@Inject
-	LoginController loginController;
+	UserAccountController userAccountController;
 	/**
 	 * Default constructor.
 	 */
@@ -37,13 +37,13 @@ public class UserSessionFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		if (loginController.isFlag()) {
-//			System.out.println("logged in");
+		if (userAccountController.isFlag()) {
+			System.out.println("logged in");
 			chain.doFilter(request, response);
 		} else {
-//			System.out.println("not logged in");
+			System.out.println("not logged in");
 			httpResponse.sendRedirect(httpRequest.getContextPath()
-					+ "/faces/webpages/home.xhtml");
+					+ "/faces/webpages/userRegistration.xhtml");
 		}
 
 	}

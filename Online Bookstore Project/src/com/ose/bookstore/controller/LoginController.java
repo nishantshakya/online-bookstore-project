@@ -27,8 +27,6 @@ public class LoginController implements Serializable {
 	/**
 	 * 
 	 */
-	// @Inject
-	// Login login;
 
 	@EJB
 	UserAccountDAO userAccountDao;
@@ -83,7 +81,7 @@ public class LoginController implements Serializable {
 	}
 
 	public String signUp() {
-		return "userRegistration";
+		return "userRegistration?faces-redirect=true";
 	}
 
 	public UserDetails getUserDetails() {

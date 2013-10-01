@@ -50,7 +50,7 @@
 
 						<h:outputLabel value="Country" />
 
-						<p:selectOneMenu value="#{userAccountController.country}">
+						<p:selectOneMenu value="#{userAccountController.userDetails.country}">
 							<f:selectItem
 								itemLabel="#{userAccountController.userDetails.country}" />
 							<f:selectItems
@@ -121,7 +121,9 @@
 						<h:panelGroup></h:panelGroup>
 						<h:panelGroup></h:panelGroup>
 
-
+						<p:outputLabel value="Joined:" />
+					<b>#{userAccountController.memberAge} days ago</b>
+						
 						<h:inputHidden id="id"
 							value="#{userAccountController.userDetails.userId}">
 						</h:inputHidden>

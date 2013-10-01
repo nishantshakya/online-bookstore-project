@@ -28,19 +28,19 @@ public class HeaderController implements Serializable {
 
 	public String generateCart() {
 
-		return "shoppingCart?faces-redirect=true";
+		return "/webpages/shoppingCart?faces-redirect=true";
 	}
 
 	public String goToHome() {
-		return "home?faces-redirect=true";
+		return "/webpages/home?faces-redirect=true";
 	}
 
 	public String goToBooks() {
-		return "browsebooks?faces-redirect=true";
+		return "/webpages/browsebooks?faces-redirect=true";
 	}
 
 	public String goToRegistration(){
-		return "userRegistration?faces-redirect=true";
+		return "/webpages/userRegistration?faces-redirect=true";
 	}
 
 }

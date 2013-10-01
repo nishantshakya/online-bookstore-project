@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -31,7 +31,7 @@ import com.ose.bookstore.model.entity.ShoppingCart;
  * @version 1.0 18 Sept 2013
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class BooksController implements Serializable {
 
 	/**
@@ -48,6 +48,9 @@ public class BooksController implements Serializable {
 
 	@Inject
 	ShoppingCart shoppingCart;
+
+	@Inject
+	UserAccountController userAccountController;
 
 	@Inject
 	Books currentBook;
@@ -79,7 +82,7 @@ public class BooksController implements Serializable {
 	public Map<Integer, Integer> getBookNo() {
 		bookNumber = new LinkedHashMap<Integer, Integer>();
 		for (int i = 1; i <= 10; i++)
-			bookNumber.put(i, i); //label, value
+			bookNumber.put(i, i); // label, value
 		return bookNumber;
 	}
 
@@ -91,8 +94,11 @@ public class BooksController implements Serializable {
 	 */
 	public String addToShoppingCart() {
 		shoppingCart.setBookId(currentBook.getBookId());
+		shoppingCart.setUserId(userAccountController.getUserDetails()
+				.getUserId());
 		shoppingCartDao.add(shoppingCart);
-		return "shoppingCart";
+		
+		return "shoppingCart?faces-redirect=true";
 	}
 
 	/**
@@ -104,38 +110,50 @@ public class BooksController implements Serializable {
 	 */
 	public String showBookDetails(Books books) {
 		this.currentBook = books;
-		return "bookProfile";
+		return "bookProfile?faces-redirect=true";
 	}
 
 	public void onrate(RateEvent rateEvent) {
+		
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"Thank you for your review:", "");
 
 		FacesContext.getCurrentInstance().addMessage(null, message);
 
 		System.out.println("You've rated: " + newRating);
-		if (!ratingsDao.getUserRating(currentId, 1).isEmpty()) {
-			ratings = ratingsDao.getUserRating(currentId, 1).get(0);
+
+		if (!ratingsDao.getUserRating(currentId,
+				userAccountController.getUserDetails().getUserId()).isEmpty()) {
+			ratings = ratingsDao.getUserRating(currentId,
+					userAccountController.getUserDetails().getUserId()).get(0);
+			ratings.setBookId(currentId);
+			ratings.setUserRating5(newRating);
+
+			System.out.println("Previous Ratings");
+			ratingsDao.setUserRating(ratings);
+		} else {
+			System.out.println("New Ratings");
+			System.out.println(ratings.getRatingsId());
+			ratings.setRatingsId(0);
+			ratings.setBookId(currentId);
+			ratings.setUserRating5(newRating);
+			ratings.setUserId(userAccountController.getUserDetails()
+					.getUserId());
+			ratingsDao.setUserRating(ratings);
 		}
-		ratings.setUserRating5(newRating);
-		ratings.setBookId(currentId);
-		ratings.setUserId(1);
-		ratingsDao.setUserRating(ratings);
 	}
 
 	public void init() {
 		currentBook = bookListDao.getBook(currentId);
 		rating = ratingsDao.bookRating(currentId);
 		ratingsCount = ratingsDao.getBookRating(currentId).size();
-		if (!ratingsDao.getUserRating(currentId, 1).isEmpty()) {
-			ratings = ratingsDao.getUserRating(currentId, 1).get(0);
+		if (!ratingsDao.getUserRating(currentId,
+				userAccountController.getUserDetails().getUserId()).isEmpty()) {
+			ratings = ratingsDao.getUserRating(currentId,
+					userAccountController.getUserDetails().getUserId()).get(0);
 			newRating = ratings.getUserRating5();
 		}
-//		System.out.println(ratings.getUserRating5());
-//		System.out.println("HAHAHA: " + currentBook.getBookId());
-//		System.out.println(rating);
 	}
-
 
 	// Getters and Setters
 	public Books getCurrentBook() {
@@ -170,6 +188,7 @@ public class BooksController implements Serializable {
 	public void setRating(Integer rating) {
 		this.rating = rating;
 	}
+
 	public Ratings getRatings() {
 		return ratings;
 	}

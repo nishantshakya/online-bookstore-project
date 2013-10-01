@@ -7,21 +7,21 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 
-	<h:form id="form1" rendered="#{!loginController.flag}">
-		<h:inputText value="#{loginController.userDetails.userEmail}" id = "email"></h:inputText>
-		<h:inputSecret value="#{loginController.userDetails.password}" id = "password"></h:inputSecret>
-		<h:commandButton value="submit" action="#{loginController.checkLogin}">
+	<h:form id="form1" rendered="#{!userAccountController.flag}">
+		<h:inputText value="#{userAccountController.userDetails.userEmail}" id = "email"></h:inputText>
+		<h:inputSecret value="#{userAccountController.userDetails.password}" id = "password"></h:inputSecret>
+		<h:commandButton value="submit" action="#{userAccountController.checkLogin}">
 			<f:ajax execute="form1" onevent="form2"></f:ajax>
 		</h:commandButton>
-		<h:commandLink action="#{loginController.signUp}" value="Sign Up"></h:commandLink>
+		<h:commandLink action="#{userAccountController.signUp}" value="Sign Up"></h:commandLink>
 	</h:form>
 
-	<h:form id="form2" rendered="#{loginController.flag}"
+	<h:form id="form2" rendered="#{userAccountController.flag}"
 		styleClass="form2">
 		<h:commandLink
-			value="Welcome #{loginController.userDetails.firstName}"
+			value="Welcome #{userAccountController.userDetails.firstName}"
 			action="#{userAccountController.showDetails}"></h:commandLink>
-		<h:commandLink action="#{loginController.logout}" value="Logout"></h:commandLink>
+		<h:commandLink action="#{userAccountController.logout}" value="Logout"></h:commandLink>
 	</h:form>
 </h:head>
 </html>

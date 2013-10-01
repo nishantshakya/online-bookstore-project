@@ -76,7 +76,7 @@
 						<h:form>
 							<p:growl id="message" globalOnly="true" life="2000"></p:growl>
 							<h:panelGroup></h:panelGroup>
-							<p:rating cancel="false" value="#{booksController.newRating}">
+							<p:rating cancel="false" value="#{booksController.newRating}" readonly="#{!userAccountController.flag}">
 								<p:ajax event="rate" listener="#{booksController.onrate}"
 									update="message"></p:ajax>
 							</p:rating>

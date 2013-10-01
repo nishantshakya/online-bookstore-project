@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
@@ -28,7 +28,7 @@ import com.ose.bookstore.model.entity.UserDetails;
  * @version 1.0 18 Sept 2013
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class ShoppingCartController implements Serializable {
 
 	/**
@@ -42,6 +42,8 @@ public class ShoppingCartController implements Serializable {
 	@EJB
 	BookListDAO bookListDao;
 
+	@Inject UserAccountController userAccountController;
+	
 	@Inject
 	ShoppingCart shoppingCart;
 	
@@ -71,16 +73,14 @@ public class ShoppingCartController implements Serializable {
 	 * @return cartList The shopping cart list
 	 */
 	public List<Cart> cartList() {
-		System.out.println(currentUser.getFirstName());
-		List<ShoppingCart> cart = shoppingCartDao.getCart(0);
+		List<ShoppingCart> cart = shoppingCartDao.getCart(userAccountController.getUserDetails().getUserId());
 		Books book = new Books();
 		List<Cart> cartList = new ArrayList<Cart>();
 		tp = 0.0;
 		bookQuantity = 0;
 		for (int i = 0; i < cart.size(); i++) {
 			book = bookListDao.getBook(cart.get(i).getBookId());
-			tp += ((book.getPrice() - (book.getPrice() * book.getDiscount())) * cart
-					.get(i).getBookQuantity());
+			tp += ((book.getPrice() - (book.getPrice() * book.getDiscount())) * cart.get(i).getBookQuantity());
 			Cart cart1 = new Cart(
 					book.getBookId(),
 					book.getAuthor(),
@@ -101,7 +101,7 @@ public class ShoppingCartController implements Serializable {
 		ShoppingCart sc = new ShoppingCart();
 		sc.setBookId(cart.getBookId());
 		sc.setBookQuantity(cart.getQuantity());
-		sc.setUserId(0);
+		sc.setUserId(userAccountController.getUserDetails().getUserId());
 		sc.setScId(cart.getCartId());
 		shoppingCartDao.deleteEntry(sc);
 	}
@@ -123,7 +123,7 @@ public class ShoppingCartController implements Serializable {
 	}
 
 	public double getTp() {
-		List<ShoppingCart> cart = shoppingCartDao.getCart(0);
+		List<ShoppingCart> cart = shoppingCartDao.getCart(userAccountController.getUserDetails().getUserId());
 		Books book = new Books();
 		tp = 0.0;
 		for (int i = 0; i < cart.size(); i++) {

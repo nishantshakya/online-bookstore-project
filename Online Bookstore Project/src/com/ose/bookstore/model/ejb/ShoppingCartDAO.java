@@ -33,7 +33,7 @@ public class ShoppingCartDAO {
 	 * @param shoppingCart the entry to be added/updated
 	 */
 	public void add(ShoppingCart shoppingCart) {
-		List<ShoppingCart> sCart = getCart(0);//sCart contains the List of all the entries in the shoppingCart table
+		List<ShoppingCart> sCart = getCart(shoppingCart.getUserId());//sCart contains the List of all the entries in the shoppingCart table
 	
 		//Checks the table for existing books in the table; bookQuantity to be updated accordingly
 		for (int i = 0; i < sCart.size(); i++) {
@@ -55,26 +55,11 @@ public class ShoppingCartDAO {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder(); //invokes the getCriteriaBuilder() method on the entity manager
 		CriteriaQuery<ShoppingCart> query = cb.createQuery(ShoppingCart.class); //obtains the instance of Contacts class implementing CriteriaQuery interface
 		Root<ShoppingCart> c = query.from(ShoppingCart.class);//Jpa entity to be querying from (equivalent to 'from' in SQL)
-		query.select(c);
+		query.select(c).where(cb.equal(c.get("userId"),userID));
 		return entityManager.createQuery(query).getResultList();
 	}
 	
 	public void deleteEntry(ShoppingCart sc){
-//		userId = 0;
-//		List<ShoppingCart> sCart = getCart(userId);
-//		for (int i = 0; i < sCart.size(); i++) {
-//			if (sCart.get(i).getBookId() == bookId && sCart.get(i).getUserId() == userId){
-//				shoppingCart.setBookQuantity(shoppingCart.getBookQuantity()+ sCart.get(i).getBookQuantity());
-//				shoppingCart.setScId(sCart.get(i).getScId());
-//			}
-//		}
 		entityManager.remove(entityManager.merge(sc));
 	}
-//	public void getBookQuantity(int userId){
-//		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-//		CriteriaQuery<ShoppingCart> query = cb.createQuery(ShoppingCart.class);
-//		Root<ShoppingCart> c = query.from(ShoppingCart.class);
-//		query.select(c);
-//		
-//	}
 }
