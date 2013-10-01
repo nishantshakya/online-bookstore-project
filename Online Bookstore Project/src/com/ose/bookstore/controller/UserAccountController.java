@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -46,13 +48,21 @@ public class UserAccountController implements Serializable {
 	@Inject
 	UserDetails userDetails;
 
-//	Integer currentId;
-	
+	// Integer currentId;
+
 	private boolean flag = false;
 
 	private Map<String, String> countryValue;
 
 	private Long memberAge;
+
+//	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\."
+//			+ "[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*"
+//			+ "(\\.[A-Za-z]{2,})$";
+//
+//	private Pattern pattern;
+//
+//	private Matcher matcher;
 
 	/**
 	 * The selected user's detail is edited
@@ -95,19 +105,36 @@ public class UserAccountController implements Serializable {
 	public String checkLogin() {
 		System.out.println("asdfsad");
 		FacesContext context = FacesContext.getCurrentInstance();
-		if (userAccountDao.getCurrentUser(userDetails).isEmpty()) {
-			context.addMessage(null, new FacesMessage("Login failed."));
+		// if (userDetails.getPassword() == null){
+	
+		// if(userDetails)
+//
+//		 pattern = Pattern.compile(EMAIL_PATTERN);
+//		matcher = pattern.matcher(userDetails.getUserEmail().toString());
+//		if(!matcher.matches()){
+//			context.addMessage(null, new FacesMessage(""));
+////			throw new ValidatorException(msg);
+// 
+//		}
+		if (userDetails.getPassword().isEmpty()
+				|| userDetails.getUserEmail().isEmpty()) {
+			context.addMessage(null, new FacesMessage(
+					"UserEmail/Password is empty"));
 			flag = false;
-			System.out.println("not");
+//			System.out.println("not");
+		}else if (userAccountDao.getCurrentUser(userDetails).isEmpty()) {
+			context.addMessage(null, new FacesMessage("Login failed: Email address or Password is incorrect"));
+			flag = false;
+			// System.out.println("not");
 		} else {
 			userDetails = userAccountDao.getCurrentUser(userDetails).get(0);
-			// userSession.setUser(userDetails);
+			// userSession.setUser(userDetails);S
 			// Cookie loginCookie = new Cookie("user",
 			// userDetails.getFirstName());
 			// loginCookie.setMaxAge(30*60);
 			flag = true;
 			System.out.println("yes");
-			
+
 		}
 		return null;
 	}
@@ -129,7 +156,7 @@ public class UserAccountController implements Serializable {
 	}
 
 	public String signUp() {
-		return "/webpages/userRegistration";
+		return "/webpages/userRegistration?faces-redirect=true";
 	}
 
 	// Getters and Setters

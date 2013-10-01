@@ -98,7 +98,12 @@ public class BooksController implements Serializable {
 				.getUserId());
 		shoppingCartDao.add(shoppingCart);
 		
-		return "shoppingCart?faces-redirect=true";
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Item(s) added to Cart:", "");
+
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		
+		return "";
 	}
 
 	/**

@@ -1,27 +1,75 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html>
+<!-- A template containing the option for user to sign in or signup -->
+
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
 
-	<h:form id="form1" rendered="#{!userAccountController.flag}">
-		<h:inputText value="#{userAccountController.userDetails.userEmail}" id = "email"></h:inputText>
-		<h:inputSecret value="#{userAccountController.userDetails.password}" id = "password"></h:inputSecret>
-		<h:commandButton value="submit" action="#{userAccountController.checkLogin}">
-			<f:ajax execute="form1" onevent="form2"></f:ajax>
-		</h:commandButton>
-		<h:commandLink action="#{userAccountController.signUp}" value="Sign Up"></h:commandLink>
+<h:head>
+	<!-- Include the css file -->
+	
+	<h:outputStylesheet name="common.css" library="css"></h:outputStylesheet>
+	
+	<!-- Display the sign in form if the user is not logged on else display the logged on user name if logged on -->
+	
+	<h:form id="signInForm" rendered="#{!userAccountController.flag}">
+
+		<!-- Display the error messages if empty/wrong userEmail and password are entered  -->
+	
+		<p:message for = "userEmail" showDetail = "true"></p:message>
+		<p:message for = "password" showDetail = "true"></p:message>
+	
+	   <!-- Take the inputs for logging in the user -->
+	   
+	   <h:panelGrid id = "signInPanel" columns="3" >
+	   
+	   		<h:outputLabel label = "email" value = "User Email" />
+	   		<h:outputLabel label = "password" value = "Password" />
+	   		<h:commandLink value = "Forgot your Password?"></h:commandLink>
+	   		
+	   		
+			<p:inputText id = "userEmail" value="#{userAccountController.userDetails.userEmail}"
+				>
+					<p:watermark value = "user@example.com" for = "userEmail"></p:watermark>
+					<!-- check whether the enterd email is in the correct format or not -->
+					
+			</p:inputText>
+			
+			
+			<p:password id = "password" value="#{userAccountController.userDetails.password}" 
+				 ></p:password>
+				
+				
+			<h:commandButton id = "signInButton" value="Sign In" action="#{userAccountController.checkLogin}">
+				<f:ajax execute="signInForm" onevent="signOutForm"></f:ajax>
+			</h:commandButton>
+			</h:panelGrid>
+			
+			
+			<!-- A link showing user to signup -->
+			<h:commandLink action="#{userAccountController.signUp}" value="New User?Click here to Sign Up" style = "text-decoration: none; color: red; margin-left: 60%;" ></h:commandLink>
+			
 	</h:form>
 
-	<h:form id="form2" rendered="#{userAccountController.flag}"
+
+	<!-- Display the name for the logged on user along with logout option -->
+	
+	<h:form id="signOutForm" rendered="#{userAccountController.flag}"
 		styleClass="form2">
-		<h:commandLink
-			value="Welcome #{userAccountController.userDetails.firstName}"
-			action="#{userAccountController.showDetails}"></h:commandLink>
-		<h:commandLink action="#{userAccountController.logout}" value="Logout"></h:commandLink>
+		
+		<!-- Link showing the name of the user -->
+		
+		<h:commandLink value="Welcome #{userAccountController.userDetails.firstName}" action="#{userAccountController.showDetails}" />
+		<!-- Link to signout from the applications -->
+		
+		<h:commandLink action="#{userAccountController.logout}" value="Logout" style="color: red;" />
+		
+		
 	</h:form>
 </h:head>
+
 </html>

@@ -4,8 +4,9 @@
 #headerId {
 	text-align: center;
 	background: #ddcccc;
-	font-size: 200%
+	font-size: 200%;
 }
+
 
 body {
 	background: #cceeee;
@@ -16,6 +17,11 @@ body {
 	background: blue;
 	color: red;
 
+}
+
+.layoutHomeCenter {
+	width: 100%;
+	height: 620px;
 }
 
 .ui-widget
@@ -29,10 +35,6 @@ body {
 		opacity: .8
 	}
 
-.signInFormClass {
-	padding-left: 53%;
-	font-size: 90%;
-}
 
 .button {
 	
@@ -42,6 +44,12 @@ body {
 	cursor: pointer;
 }
 
+#signInForm {
+	margin-left: 60%;
+}
+#signOutForm {
+	margin-left: 88%
+} 
 .button:hover {
 	background: #cceeaa;
 }
@@ -52,5 +60,11 @@ body {
 	width: 40%;
     margin-right: 30%;
     margin-left: 30%;
+}
+
+#footerId {
+	margin-top: 700px;
+	text-align: center;
+	background: #aaccaa;
 }
 

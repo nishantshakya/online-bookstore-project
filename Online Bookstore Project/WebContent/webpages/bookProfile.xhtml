@@ -74,11 +74,11 @@
 
 						<h:outputLabel value="Rating:" />
 						<h:form>
-							<p:growl id="message" globalOnly="true" life="2000"></p:growl>
+							<p:growl id="rating" severity="info" life="2000"></p:growl>
 							<h:panelGroup></h:panelGroup>
 							<p:rating cancel="false" value="#{booksController.newRating}" readonly="#{!userAccountController.flag}">
 								<p:ajax event="rate" listener="#{booksController.onrate}"
-									update="message"></p:ajax>
+									update="rating"></p:ajax>
 							</p:rating>
 						</h:form>
 
@@ -86,11 +86,9 @@
 
 				</p:layoutUnit>
 				<h:form>
-					<h:messages globalOnly="true"></h:messages>
-
-					<p:growl id="addedItems" showDetail="true"></p:growl>
+					
 					<p:layoutUnit position="east" size="250" style="border: none;">
-
+						
 						<h:panelGrid columns="3">
 
 							<h:outputLabel value="Quantity" />
@@ -100,8 +98,10 @@
 								<f:selectItems value="#{booksController.bookNo}"></f:selectItems>
 							</p:selectOneMenu>
 							<h:inputHidden value="#{booksController.currentBook.bookId}" />
-							<h:commandButton action="#{booksController.addToShoppingCart}"
-								value="Add to Cart" />
+							<h:commandButton action="#{booksController.addToShoppingCart}" id = "add"
+								value="Add to Cart" >
+	
+							</h:commandButton>
 
 						</h:panelGrid>
 
