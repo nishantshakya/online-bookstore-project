@@ -23,7 +23,7 @@ public class HeaderController implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int activeIndex; /*navigation bar index*/
+	private int activeIndex = 0; /*navigation bar index*/
 	
 	public HeaderController() {
 	}
