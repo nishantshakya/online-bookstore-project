@@ -10,8 +10,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Entity implementation class for Entity: OrderDetail
- * 
+ * Entity implementation class for Entity: OrderDetail 
+ * @author OSE Nepal
+ * @version 1.3.0 Oct 4, 2013
  */
 @Entity
 public class OrderDetail implements Serializable {

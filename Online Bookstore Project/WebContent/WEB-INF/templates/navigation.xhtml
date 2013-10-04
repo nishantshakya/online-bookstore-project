@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html>
+<!-- A general template for showing the navigation tab -->
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	
 	xmlns:h="http://java.sun.com/jsf/html"
 	
 	xmlns:p="http://primefaces.org/ui">
-	
+<!-- Include the css file-->	
 <h:outputStylesheet name="common.css" library="css"></h:outputStylesheet>
+
 	<section id="navigationSectionId">
 			<h:form>
-				<p:tabMenu styleClass="tabMenuClass">
-					<p:menuitem value="Home" action="#{headerController.goToHome}"  style="color: red;"></p:menuitem>
-					<p:menuitem value="Books" action="#{headerController.goToBooks}" 
-						style="color: red"></p:menuitem>
-					<p:menuitem value="Top Sellers" url="#" style="color: red;" disabled="true"></p:menuitem>
-					<p:menuitem value="Shopping Cart"
-						action="#{headerController.generateCart}" style="color: red;"></p:menuitem>
-					<p:menuitem value="User Guide" url="#" style="color: red;" disabled="true"></p:menuitem>
-					<p:menuitem value="About BookStore" url="#" style="color: red;" disabled="true"></p:menuitem>
+					<!--Navigation Tab -->
+					<p:tabMenu styleClass="tabMenuClass" activeIndex = "#{headerController.activeIndex}" rendered="true"  >
+					
+						<p:menuitem id = "home" value="Home" action="#{headerController.navigatePage(0)}"  style="color: red;" icon = "ui-icon-home" styleClass="home-class"></p:menuitem>
+						<p:menuitem id = "browseBooks" value="Books" action="#{headerController.navigatePage(1)}" style="color: red" icon = "books-icon" styleClass="book-class"></p:menuitem>
+						<p:menuitem id = "shoppingCart" value="Shopping Cart" action="#{headerController.navigatePage(2)}" style="color: red;"></p:menuitem>
 				</p:tabMenu>
 			</h:form>
 	</section>

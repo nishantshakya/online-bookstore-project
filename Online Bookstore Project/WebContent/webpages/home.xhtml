@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 
+<!-- Home Page for all users-->
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -12,113 +14,103 @@
 <ui:composition template="/WEB-INF/templates/headerFooterTemplate.xhtml">
 
 	<ui:define name="content">
-	<ui:define name="title">HOME</ui:define>
-
-
 
 		<!-- Division of section for userlogin and displaying the logged user -->
+		<!-- Include the login template-->
 			<ui:include src="/WEB-INF/templates/logintemplate.xhtml"></ui:include>
 
-
+		<!-- Include the navigation template-->
 		<ui:include src="/WEB-INF/templates/navigation.xhtml"></ui:include>
 
 		<!-- beginning of the actual body part -->
 		<f:view locale="en">
 		
 			<h:body>
-
+				
+				<p:growl severity="info"></p:growl>
+				
 				<br />
 				<p:layout fullPage="false">
 
-					<!-- <p:layoutUnit position="east" size="300">
-					<h:outputText value="This is the ignored position" />
-				</p:layoutUnit>
-
-				<p:layoutUnit position="west">
-					<h:outputText value="This is the ignored position"></h:outputText>
-				</p:layoutUnit> -->
-
-					<p:layoutUnit position="center">
+					<p:layoutUnit position="center" style="height: 550px;">
+						<!-- Division for  search options-->
 						<h:form>
 							<h:panelGrid columns="5">
 								<h:outputLabel value="Search Category" />
-								<h:selectOneMenu disabled="true">
-									<f:selectItem itemLabel="All" itemValue="All" />
-									<f:selectItem itemLabel="Java" itemValue="Java" />
-									<f:selectItem itemLabel="HTML and CSS"
-										itemValue="C-Programming" />
-									<f:selectItem itemLabel="C Plus Plus" itemValue="C Plus Plus" />
-								</h:selectOneMenu>
+								<p:selectOneMenu value="#{homeController.searchCategory}">
+									<f:selectItem itemLabel="All" itemValue = "All" />
+									<f:selectItem itemLabel="Author" itemValue="Author" />
+									<f:selectItem itemLabel="Title" itemValue="Title" />
+								</p:selectOneMenu>
 
 								<h:inputText id="search" styleClass="search"
 									value="#{homeController.searchString}" />
-								<p:watermark for="search" value="Enter bookname to search"></p:watermark>
-								<f:ajax render="table" event="keyup"></f:ajax>
+								<p:watermark for="search" value="Enter book title or author "></p:watermark>
+								<h:commandButton value = "search" action = "#{homeController.goToSearch}"></h:commandButton>
+								
 							</h:panelGrid>
 
-							<h:dataTable id="table" value="#{homeController.bookList}"
-								var="books" rendered="true" rows="5">
-								<h:column>
-									<f:facet name="header">
-										Cover Page
-									</f:facet>
+							<!-- Displays the some of lists of books available along with infomation -->
+
+							<h:dataTable id="table" value="#{homeController.bookList}" style="margin-left: 30px;"
+								var="books" rendered="true" rows="5"  width="90%"   columnClasses="c1,c2,c3">
+								<h:column headerClass="c1">
+									
 									<h:link outcome="bookProfile">
 										<f:param name="id" value="#{books.bookId}" />
 
-										<h:graphicImage library="images" name="#{books.coverPage}"
-											width="120" height="120" />
+										<h:graphicImage id = "bookCover" library="images" name="#{books.coverPage}"
+											width="100" height="100" />
 									</h:link>
+									
 								</h:column>
-								<h:column>
-									<f:facet name="header">
-										Title
-									</f:facet>
-									<h:link value="#{books.title}"
-										outcome="bookProfile">
+								
+								<h:column headerClass="c2" >
+								
+									<h:link id="bookTitle" 
+										outcome="bookProfile" style="text-decoration: none; color: #ff8888;">	&#160; #{books.title}
 										<f:param name="id" value="#{books.bookId}" />
 									</h:link>
-
+									
+									&#160;
+									<h:outputText value = "by "></h:outputText>
+								
+									<h:outputText id = "bookAuthor" value="#{books.author}"  style="font-style: italic;"/>
 								</h:column>
-								<h:column>
-									<f:facet name="header">
-										Author
-									</f:facet>
-									<h:outputText value="#{books.author}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										Price
-									</f:facet>
-									<h:outputText value="#{books.price}">
+								
+								<h:column headerClass="c3">
+								
+									<h:outputText value = "Edition:" style="font-style: italic; font-weight: bold;. font-family:Times New Roman, Times, san-serif;"></h:outputText>&#160;
+									<h:outputText id = "bookEdition" value="#{books.edition}" /> 
+									
+									&#160;
+									
+									<h:outputText value="ISBN Number: "  style="font-style: italic; font-weight: bold;. font-family:Times New Roman, Times, san-serif;"></h:outputText>
+									<h:outputText id = "bookIsbn" value="#{books.isbn}" />
+									
+									&#160;
+									
+									<h:outputText value = "Published on: " style="font-style: italic; font-weight: bold;. font-family:Times New Roman, Times, san-serif;"></h:outputText>
+									<h:outputText id = "bookPubDate" value="#{books.pubDate}" />
+									
+									&#160;
+									
+									<h:outputText value = "Published By: " style="font-style: italic; font-weight: bold;. font-family:Times New Roman, Times, san-serif;"></h:outputText>
+									<h:outputText id = "bookPublisher" value="#{books.publisher}" />
+									
+									&#160;&#160;
+									
+									<h:outputText value="Price: " style="font-style: italic; font-weight: bold;. font-family:Times New Roman, Times, san-serif;"></h:outputText>
+									
+									&#160;
+									
+									<h:outputText id = "bookPrice" value="#{books.price}">
 										<f:convertNumber currencySymbol="$" type="currency" />
-
 									</h:outputText>
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										ISBN
-									</f:facet>
-									<h:outputText value="#{books.isbn}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										Edition
-									</f:facet>
-									<h:outputText value="#{books.edition}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										Publication Date
-									</f:facet>
-									<h:outputText value="#{books.pubDate}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										Publisher
-									</f:facet>
-									<h:outputText value="#{books.publisher}" />
+									
 								</h:column>
 
+								
 							</h:dataTable>
 						</h:form>
 					</p:layoutUnit>

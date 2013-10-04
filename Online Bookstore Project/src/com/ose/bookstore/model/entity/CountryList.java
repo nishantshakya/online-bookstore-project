@@ -9,6 +9,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**Entity implementation class for Entity: CoutryList
+ * Available Countries for shipping
+ * @author OSE Nepal
+ * @version 1.3.0 Oct 4, 2013
+ */
 @Entity
 
 public class CountryList implements Serializable {
@@ -42,8 +47,4 @@ public class CountryList implements Serializable {
 		this.name = name;
 	}
 	
-	
-	
-	
-
 }

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 
+<!-- Page showing details of selected books-->
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -8,110 +10,123 @@
 <h:head></h:head>
 <h:outputStylesheet library="css" name="common.css" />
 
+<!-- Include template containing header and footer -->
+
 <ui:composition template="/WEB-INF/templates/headerFooterTemplate.xhtml">
 
 
 	<ui:define name="content">
 
-
+		<!-- Include login template-->
+		
 		<ui:include src="/WEB-INF/templates/logintemplate.xhtml"></ui:include>
-
+		
+		<!--Include navigation template -->
+		
 		<ui:include src="/WEB-INF/templates/navigation.xhtml"></ui:include>
 
-		<h:body>
-			<br />
-			<p:layout fullPage="false">
+		<f:view loacle="en">
+			<h:body>
+				<br />
+				
+				<!--Required inforamation of books -->
+				
+				<p:layout fullPage="false">
 
-
-				<p:layoutUnit position="west"
-					header="#{booksController.currentBook.title}" size="260"
-					style="border: none;">
-					<h:graphicImage library="images"
-						name="#{booksController.currentBook.coverPage}" width="220"
-						height="220"></h:graphicImage>
-					<h:panelGroup></h:panelGroup>
-					<p:rating value="#{booksController.rating}" readonly="true">
-					</p:rating>
-						(#{booksController.ratingsCount})
-				</p:layoutUnit>
-				<p:layoutUnit position="center" style="border: none;"
-					header="Book Information" size="20">
-					<f:metadata>
-						<f:viewParam name="id" value="#{booksController.currentId}" />
-						<f:event type="preRenderView" listener="#{booksController.init}" />
-					</f:metadata>
-
-					<h:panelGrid columns="2">
-
-						<h:outputLabel value="Book Name: " style="color: red;" />
-						<h:outputLabel value="#{booksController.currentBook.title}" />
-
-						<h:outputLabel value="Publisher: " style="color: red;" />
-						<h:outputLabel value="#{booksController.currentBook.publisher}" />
-
-						<h:outputLabel value="Author:" style="color: red;" />
-						<h:outputLabel value="#{booksController.currentBook.author}" />
-
-						<h:outputLabel value="ISBN:" style="color: red;" />
-						<h:outputLabel value="#{booksController.currentBook.isbn}" />
-
-						<h:outputLabel value="Edition:" style="color: red;" />
-						<h:outputLabel value="#{booksController.currentBook.edition}" />
-
-						<h:outputLabel value="Publication Date:" style="color: red;" />
-						<h:outputLabel value="#{booksController.currentBook.pubDate}" />
-
-						<h:outputLabel value="Description: " style="color: red;" />
-						<h:outputLabel value="#{booksController.currentBook.description}" />
-
-						<h:outputLabel value="Discount: " style="color: red;" />
-						<h:outputLabel value="#{booksController.currentBook.discount}" />
-
-						<h:outputLabel value="Price: " style="color: red;" />
-						<h:outputLabel value="#{booksController.currentBook.price}">
-							<f:convertNumber currencySymbol="$" type="currency" />
-						</h:outputLabel>
-
-						<h:outputLabel value="Rating:" />
-						<h:form>
-							<p:growl id="rating" severity="info" life="2000"></p:growl>
-							<h:panelGroup></h:panelGroup>
-							<p:rating cancel="false" value="#{booksController.newRating}" readonly="#{!userAccountController.flag}">
-								<p:ajax event="rate" listener="#{booksController.onrate}"
-									update="rating"></p:ajax>
-							</p:rating>
-						</h:form>
-
-					</h:panelGrid>
-
-				</p:layoutUnit>
-				<h:form>
+					<p:layoutUnit position="west"
+						header="#{booksController.currentBook.title}" size="260"
+						style="border: none;">
+						<h:graphicImage library="images"
+							name="#{booksController.currentBook.coverPage}" width="220"
+							height="220"></h:graphicImage>
+						<h:panelGroup></h:panelGroup>
+						<p:rating value="#{booksController.rating}" readonly="true">
+						</p:rating>
+							(#{booksController.ratingsCount} users)
+					</p:layoutUnit>
 					
-					<p:layoutUnit position="east" size="250" style="border: none;">
+					<p:layoutUnit position="center" style="border: none; height: 200px;"
+						header="Book Information" size="20" >
 						
-						<h:panelGrid columns="3">
+						<f:metadata>
+							<f:viewParam name="id" value="#{booksController.currentId}" />
+							<f:event type="preRenderView" listener="#{booksController.init}" />
+						</f:metadata>
 
-							<h:outputLabel value="Quantity" />
+						<h:panelGrid columns="2">
 
-							<p:selectOneMenu
-								value="#{booksController.shoppingCart.bookQuantity}">
-								<f:selectItems value="#{booksController.bookNo}"></f:selectItems>
-							</p:selectOneMenu>
-							<h:inputHidden value="#{booksController.currentBook.bookId}" />
-							<h:commandButton action="#{booksController.addToShoppingCart}" id = "add"
-								value="Add to Cart" >
-	
-							</h:commandButton>
+							<h:outputLabel value="Book Name: " style="color: red;" />
+							<h:outputLabel value="#{booksController.currentBook.title}" />
+
+							<h:outputLabel value="Publisher: " style="color: red;" />
+							<h:outputLabel value="#{booksController.currentBook.publisher}" />
+
+							<h:outputLabel value="Author:" style="color: red;" />
+							<h:outputLabel value="#{booksController.currentBook.author}" />
+
+							<h:outputLabel value="ISBN:" style="color: red;" />
+							<h:outputLabel value="#{booksController.currentBook.isbn}" />
+
+							<h:outputLabel value="Edition:" style="color: red;" />
+							<h:outputLabel value="#{booksController.currentBook.edition}" />
+
+							<h:outputLabel value="Publication Date:" style="color: red;" />
+							<h:outputLabel value="#{booksController.currentBook.pubDate}" />
+
+							<h:outputLabel value="Description: " style="color: red;" />
+							<h:outputLabel value="#{booksController.currentBook.description}" />
+
+							<h:outputLabel value="Discount: " style="color: red;" />
+							<h:outputLabel value="#{booksController.currentBook.discount}" />
+
+							<h:outputLabel value="Price: " style="color: red;" />
+							<h:outputLabel value="#{booksController.currentBook.price}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputLabel>
+
+							<h:outputLabel value="Rating:" />
+							<h:form>
+								<p:growl id="rating" severity="info" life="2000"></p:growl>
+								<h:panelGroup></h:panelGroup>
+								<p:rating cancel="false" value="#{booksController.newRating}" readonly="#{!userAccountController.flag}">
+									<p:ajax event="rate" listener="#{booksController.onrate}"
+										update="rating"></p:ajax>
+								</p:rating>
+							</h:form>
 
 						</h:panelGrid>
 
-
 					</p:layoutUnit>
-				</h:form>
+					<h:form>
+						
+						<p:layoutUnit position="east" size="250" style="border: none;">
+							
+							<h:panelGrid columns="3">
 
-			</p:layout>
+								<h:outputLabel value="Quantity" />
 
-		</h:body>
+								<p:selectOneMenu
+									value="#{booksController.shoppingCart.bookQuantity}">
+									<f:selectItems value="#{booksController.bookNo}"></f:selectItems>
+								</p:selectOneMenu>
+								
+								<h:inputHidden value="#{booksController.currentBook.bookId}" />
+								
+								<h:commandButton action="#{booksController.addToShoppingCart}" id = "add"
+									value="Add to Cart" >
+		
+								</h:commandButton>
+
+							</h:panelGrid>
+
+
+						</p:layoutUnit>
+					</h:form>
+
+				</p:layout>
+
+			</h:body>
+		</f:view>
 
 	</ui:define>
 

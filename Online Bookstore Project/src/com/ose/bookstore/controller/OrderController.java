@@ -16,24 +16,17 @@ import com.ose.bookstore.dto.Cart;
 import com.ose.bookstore.model.ejb.OrderDAO;
 import com.ose.bookstore.model.ejb.UserAccountDAO;
 import com.ose.bookstore.model.entity.OrderDetail;
-import com.ose.bookstore.model.entity.ShippingType;
 import com.ose.bookstore.model.entity.UserDetails;
-//import java.text.DateFormat;
-//import java.text.SimpleDateFormat;
 
 /**
  * Deals with all the page links dispatches present in orderBooks page
- * 
  * @author OSE Nepal
- * @version 1.0 18 Sept 2013
+ * @version 1.3.0 Oct 4, 2013
  */
 @Named
 @SessionScoped
 public class OrderController implements Serializable {
 
-	/**
-	 * 
-	 */
 	@EJB
 	OrderDAO orderDao;
 	
@@ -41,8 +34,6 @@ public class OrderController implements Serializable {
 	UserAccountDAO userAccountDao;
 	
 	UserDetails currentUser;
-	
-	ShippingType currentShipping;
 	
 	Cart currentCart;
 	
@@ -52,9 +43,9 @@ public class OrderController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**Sets the order object to store in the database later
-	 * @param userDetails current user details from the orderbooks page
-	 * @param shippingType current shipping type from the orderbooks page
-	 * @param cartList current cart list of the user from the orderbooks page
+	 * @param userDetails current user details from the <b><u>orderbooks</u></b> page
+	 * @param shippingType current shipping type from the <b><u>orderbooks</u></b> page
+	 * @param cartList current cart list of the user from the <b><u>orderbooks</u></b> page
 	 * @return
 	 */
 	public String action(UserDetails userDetails, String shippingType,	List<Cart> cartList) {
@@ -62,15 +53,12 @@ public class OrderController implements Serializable {
 		userAccountDao.editUser(userDetails);
 		for (int i = 0; i < cartList.size(); i++) {
 			order.setShippingId(i);
-//			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date d1 = new Date();
-//			String formattedDate = dateFormat.format(d1);
 			order.setDate(d1);
 			order.setBookId(cartList.get(i).getBookId());
 			order.setUserId(userDetails.getUserId());
 			order.setStatus(i);
 			orderDao.create(order);
-
 		}
 		return "creditCard?faces-redirect=true";
 	}
@@ -84,13 +72,6 @@ public class OrderController implements Serializable {
 		this.currentUser = currentUser;
 	}
 
-	public ShippingType getCurrentShipping() {
-		return currentShipping;
-	}
-
-	public void setCurrentShipping(ShippingType currentShipping) {
-		this.currentShipping = currentShipping;
-	}
 
 	public Cart getCurrentCart() {
 		return currentCart;

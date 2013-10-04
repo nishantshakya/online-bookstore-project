@@ -4,10 +4,7 @@
 		<jta-data-source>jdbc/myDatasource</jta-data-source>
 		<class>com.ose.bookstore.model.entity.UserDetails</class>
 		<class>com.ose.bookstore.model.entity.Books</class>
-		<class>com.ose.bookstore.model.entity.CreditCardInfo</class>
 		<class>com.ose.bookstore.model.entity.ShoppingCart</class>
-		<class>com.ose.bookstore.model.entity.BookInventory</class>
-		<class>com.ose.bookstore.model.entity.ShippingType</class>
 		<class>com.ose.bookstore.model.entity.OrderDetail</class>
 		<class>com.ose.bookstore.model.entity.Ratings</class>
 		<class>com.ose.bookstore.model.entity.CountryList</class>

@@ -1,4 +1,4 @@
-package com.ose.bookstore.tests.ejb;
+package com.ose.bookstore.tests.model.ejb;
 
 import static org.junit.Assert.*;
 
@@ -15,14 +15,14 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.ose.bookstore.model.ejb.BookListDao;
+import com.ose.bookstore.model.ejb.BookListDAO;
 import com.ose.bookstore.model.entity.Books;
 
 @RunWith(Arquillian.class)
 public class BookListDaoTest {
 	
 	@Inject
-	BookListDao bookListDao;
+	BookListDAO bookListDao;
 	
 	@Inject
 	Books book;
@@ -31,7 +31,7 @@ public class BookListDaoTest {
 	public static JavaArchive createArchiveAndDeploy()
 	{
 		return ShrinkWrap.create(JavaArchive.class)
-				.addClasses(BookListDao.class,Books.class)
+				.addClasses(BookListDAO.class,Books.class)
 				.addAsResource("META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE,"beans.xml");
 	}

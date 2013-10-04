@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html>
+
+<!-- A header for the page -->
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:outputStylesheet library="css" name="common.css" />
+	<-- Include the css file -->
+	<h:head>
+		<h:outputStylesheet library="css" name="common.css" />
+	</h:head>
 
-<h:head></h:head>
 	<header id="headerId">
 		<h:form>
 			<h1>
-				<h:commandLink action="#{headerController.goToHome}"
+				<h:commandLink action="#{headerController.navigatePage(0)}"
 					style="text-decoration: none;">Book Store</h:commandLink>
 			</h1>
 		</h:form>

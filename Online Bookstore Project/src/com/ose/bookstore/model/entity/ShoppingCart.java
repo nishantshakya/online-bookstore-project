@@ -8,7 +8,8 @@ import javax.persistence.Id;
 
 /**
  * Entity implementation class for Entity: ShoppingCart
- * 
+ * @author OSE Nepal
+ * @version 1.3.0 Oct 4, 2013
  */
 @Entity
 public class ShoppingCart implements Serializable {
@@ -60,8 +61,4 @@ public class ShoppingCart implements Serializable {
 	public void setBookQuantity(int bookQuantity) {
 		this.bookQuantity = bookQuantity;
 	}
-	// public ShoppingCart(int userId, int bookId){
-	//
-	// }
-	//
 }

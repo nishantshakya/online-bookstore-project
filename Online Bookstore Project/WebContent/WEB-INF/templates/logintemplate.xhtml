@@ -29,19 +29,17 @@
 	   
 	   		<h:outputLabel label = "email" value = "User Email" />
 	   		<h:outputLabel label = "password" value = "Password" />
-	   		<h:commandLink value = "Forgot your Password?"></h:commandLink>
-	   		
+			<h:panelGrid></h:panelGrid>	   		
 	   		
 			<p:inputText id = "userEmail" value="#{userAccountController.userDetails.userEmail}"
 				>
 					<p:watermark value = "user@example.com" for = "userEmail"></p:watermark>
-					<!-- check whether the enterd email is in the correct format or not -->
+					<!-- check whether the entered email is in the correct format or not -->
 					
 			</p:inputText>
 			
 			
-			<p:password id = "password" value="#{userAccountController.userDetails.password}" 
-				 ></p:password>
+			<p:password id = "password" value="#{userAccountController.userDetails.password}"></p:password>
 				
 				
 			<h:commandButton id = "signInButton" value="Sign In" action="#{userAccountController.checkLogin}">
@@ -51,7 +49,7 @@
 			
 			
 			<!-- A link showing user to signup -->
-			<h:commandLink action="#{userAccountController.signUp}" value="New User?Click here to Sign Up" style = "text-decoration: none; color: red; margin-left: 60%;" ></h:commandLink>
+			<h:commandLink action="#{userAccountController.signUp}" value="Sign Up" style = "color: red; margin-left: 75%;" ></h:commandLink>
 			
 	</h:form>
 

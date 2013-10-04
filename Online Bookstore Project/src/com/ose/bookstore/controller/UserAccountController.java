@@ -7,8 +7,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -21,22 +19,17 @@ import com.ose.bookstore.model.ejb.CountryListDAO;
 import com.ose.bookstore.model.ejb.UserAccountDAO;
 import com.ose.bookstore.model.entity.UserDetails;
 
-//import org.eclipse.persistence.sessions.Login;
 
 /**
- * Deals with all the page links dispatches present in editDetails page and the
- * pages involving with userDetails data
- * 
+ * Deals with all the page links dispatches present in <b><u>editDetails</u></b> page and the
+ * pages involving with <b><u>editDetails</u></b> data
  * @author OSE Nepal
- * @version 1.0 18 Sept 2013
+ * @version 1.3.0 Oct 4, 2013
  */
 @Named
 @SessionScoped
 public class UserAccountController implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@EJB
@@ -48,21 +41,12 @@ public class UserAccountController implements Serializable {
 	@Inject
 	UserDetails userDetails;
 
-	// Integer currentId;
+	private boolean flag = false; /*Login status flag; true if logged in*/
 
-	private boolean flag = false;
+	private Map<String, String> countryValue;/*for dropdown menu*/
 
-	private Map<String, String> countryValue;
-
+	@SuppressWarnings("unused")
 	private Long memberAge;
-
-//	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\."
-//			+ "[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*"
-//			+ "(\\.[A-Za-z]{2,})$";
-//
-//	private Pattern pattern;
-//
-//	private Matcher matcher;
 
 	/**
 	 * The selected user's detail is edited
@@ -72,83 +56,74 @@ public class UserAccountController implements Serializable {
 	public String editDetails() {
 		System.out.println("Current user: " + userDetails.getFirstName());
 		userAccountDao.editUser(userDetails);
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage("Edited Successfully"));
-		return "null";
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Edited Successfully"));
+		return "";
 	}
 
 	/**
-	 * The cart is loaded to the order table
-	 * 
-	 * @return forwards to orderBooks page
+	 * @return forwards to <b><u>orderBooks</u></b> page
 	 */
 	public String toOrderPage() {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Register/Login Account to buy books", "");
+		FacesContext.getCurrentInstance().addMessage(null, message);
 		return "registered/orderBooks?faces-redirect=true";
 	}
 
 	/**
-	 * Retrieves the user's details from the database
-	 * 
 	 * @return forwards to editDetails page
 	 */
 	public String showDetails() {
 		return "registered/editDetails?faces-redirect=true";
 	}
 
+	/**Registers User by persisting in database
+	 * @return
+	 */
 	public String registerUser() {
 		Date currentDate = new Date();
 		userDetails.setDate(currentDate);
-		userAccountDao.create(userDetails);
-		return "/webpages/home?faces-redirect=true";
+		if(userAccountDao.create(userDetails)){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Your account has been created"));
+			return "/webpages/home?faces-redirect=true";
+		}
+		else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Existing UserEmail"));
+			return null;
+		}
 	}
 
+	/**Sets flag true if correct login info
+	 * @return
+	 */
 	public String checkLogin() {
-		System.out.println("asdfsad");
 		FacesContext context = FacesContext.getCurrentInstance();
-		// if (userDetails.getPassword() == null){
-	
-		// if(userDetails)
-//
-//		 pattern = Pattern.compile(EMAIL_PATTERN);
-//		matcher = pattern.matcher(userDetails.getUserEmail().toString());
-//		if(!matcher.matches()){
-//			context.addMessage(null, new FacesMessage(""));
-////			throw new ValidatorException(msg);
-// 
-//		}
-		if (userDetails.getPassword().isEmpty()
-				|| userDetails.getUserEmail().isEmpty()) {
-			context.addMessage(null, new FacesMessage(
-					"UserEmail/Password is empty"));
+		
+		if (userDetails.getPassword().isEmpty()	|| userDetails.getUserEmail().isEmpty()) {
+			context.addMessage(null, new FacesMessage("UserEmail/Password is empty"));
 			flag = false;
-//			System.out.println("not");
 		}else if (userAccountDao.getCurrentUser(userDetails).isEmpty()) {
 			context.addMessage(null, new FacesMessage("Login failed: Email address or Password is incorrect"));
 			flag = false;
-			// System.out.println("not");
 		} else {
 			userDetails = userAccountDao.getCurrentUser(userDetails).get(0);
-			// userSession.setUser(userDetails);S
+			// userSession.setUser(userDetails);
 			// Cookie loginCookie = new Cookie("user",
 			// userDetails.getFirstName());
 			// loginCookie.setMaxAge(30*60);
 			flag = true;
-			System.out.println("yes");
-
 		}
+		
 		return null;
 	}
 
 	/**
 	 * Logs the current user out by invalidating the session.
 	 * 
-	 * @return &quot;logout&quot; which is used by the
-	 *         {@literal faces-config.xml} to redirect back to the
+	 * @return page {@literal faces-config.xml} to redirect back to the
 	 *         {@literal home.xhtml} page.
 	 */
 	public String logout() {
-		FacesContext.getCurrentInstance().getExternalContext()
-				.invalidateSession();
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		// Cookie loginCookie = null;
 		// loginCookie.setMaxAge(0);
 		flag = false;
@@ -160,7 +135,6 @@ public class UserAccountController implements Serializable {
 	}
 
 	// Getters and Setters
-
 	public boolean isFlag() {
 		return flag;
 	}
@@ -186,12 +160,12 @@ public class UserAccountController implements Serializable {
 		return countryValue;
 	}
 
+	/**Calculates current user's membership age
+	 * @return membership age in days
+	 */
 	public Long getMemberAge() {
 		Date currentDate = new Date();
 		long diff = currentDate.getTime() - userDetails.getDate().getTime();
-
-		System.out.println("Hours difference: " + (diff / (1000 * 60 * 60))
-				+ " hours");
 		return (diff / (1000 * 60 * 60 * 24));
 	}
 

@@ -10,13 +10,11 @@ import javax.persistence.PersistenceContext;
 
 import com.ose.bookstore.model.entity.OrderDetail;
 
-/**
- * EJB session bean that handles the business logic part of the orderDetails table
- * 
- * @author OSE Nepal
- * @version 1.0 18 Sept 2013
- */
 //No-interface view, Stateless Bean
+/**EJB session bean that handles the business logic part of the orderDetails table
+ * @author OSE Nepal
+ * @version 1.3.0 Oct 4, 2013
+ */
 @Stateless
 @LocalBean
 public class OrderDAO {

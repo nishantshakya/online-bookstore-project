@@ -13,7 +13,7 @@ import javax.inject.Named;
 
 import com.ose.bookstore.model.ejb.BookListDAO;
 import com.ose.bookstore.model.entity.Books;
-//import com.ose.bookstore.model.ejb.RatingsDao;
+
 
 /**
  * Deals with the page links dispatches present in the home page
@@ -34,25 +34,22 @@ public class HomeController implements Serializable {
 
 	@Inject
 	Books books;
-	
+
 	private String searchString;
-	
-	@SuppressWarnings("unused")
+
 	private List<Books> bookList;
 
-	/**
-	 * Lists the books according to the searchString
-	 * 
-	 * @return list of books as per the searchString
-	 */
-	public List<Books> bookList() {
-		if (searchString != null) {
-			return bookListDao.search(searchString); // result of search
-		}
-		return bookListDao.getBookList(); // all books
+	private String searchCategory;
+	
+	@SuppressWarnings("unused")
+	private List<Books> filterBookList;
+	
+	public String goToSearch() {
+		System.out.println(searchCategory);
+		return "searchedResults";
 	}
 
-	//Getters and Setters
+	// Getters and Setters
 	public Books getBooks() {
 		return books;
 	}
@@ -70,11 +67,38 @@ public class HomeController implements Serializable {
 	}
 
 	public List<Books> getBookList() {
-		return bookList();
+		return bookListDao.getBookList(); 
 	}
 
+	/**Gets bookList according to the search category
+	 * @return specified book list
+	 */
+	public List<Books> getFilterBookList(){
+		if (searchCategory.equals("Title")) {
+			bookList = bookListDao.search(searchString, "title");
+		} else if (searchCategory.equals("Author")) {
+			bookList = bookListDao.search(searchString, "author");
+		}
+		else{
+			bookList = bookListDao.search(searchString, "all");
+		}
+		return bookList;
+	}
+	
 	public void setBookList(List<Books> bookList) {
-		this.bookList = bookList();
+		this.bookList = getBookList();
+	}
+
+	public String getSearchCategory() {
+		return searchCategory;
+	}
+
+	public void setSearchCategory(String searchCategory) {
+		this.searchCategory = searchCategory;
+	}
+
+	public void setFilterBookList(List<Books> filterBookList) {
+		this.filterBookList = filterBookList;
 	}
 
 }

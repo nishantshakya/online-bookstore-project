@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
@@ -16,24 +16,22 @@ import javax.validation.constraints.NotNull;
 import com.ose.bookstore.dto.Cart;
 import com.ose.bookstore.model.ejb.BookListDAO;
 import com.ose.bookstore.model.ejb.ShoppingCartDAO;
+import com.ose.bookstore.model.ejb.TempShoppingCartDAO;
 import com.ose.bookstore.model.entity.Books;
 import com.ose.bookstore.model.entity.ShoppingCart;
 import com.ose.bookstore.model.entity.UserDetails;
-//import java.text.NumberFormat;
+
+
 
 /**
- * Deals with all the page links dispatches present in orderBooks page
- * 
+ * Deals with all the page links dispatches present in shoppingCart page
  * @author OSE Nepal
- * @version 1.0 18 Sept 2013
+ * @version 1.3.0 Oct 4, 2013
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class ShoppingCartController implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@EJB
@@ -42,61 +40,80 @@ public class ShoppingCartController implements Serializable {
 	@EJB
 	BookListDAO bookListDao;
 
-	@Inject UserAccountController userAccountController;
-	
+	@Inject
+	TempShoppingCartDAO tempShoppingCartDao;
+
+	@Inject
+	UserAccountController userAccountController;
+
 	@Inject
 	ShoppingCart shoppingCart;
-	
-	@Inject 
+
+	@Inject
 	UserDetails currentUser;
 
 	@NotNull(message = "Select the shipping type")
-	String shippingType;// Selected shipping type(Standard or Express); atleast
-						// one must be selected
+	String shippingType; /*Standard or Express*/
 
-	Cart scart;// Optimised & joint fields required for displaying in the
-				// shopping cart page
+	Cart scart;/*DTO for shopping cart*/
 
-	double tp;// Total price of the cart without shipping costs and taxes
+	double tp;/* Total price of the cart without shipping costs and taxes*/
 
-	int bookQuantity;
+	int bookQuantity;/*Total books in a cart*/
 
-	List<Cart> cartList;
+	List<Cart> cartList;/*Shopping cart list*/
 
-	private double totalIncTax;
+	private double totalIncTax;/*Total cost including taxes*/
 
-	private double totalWithShipping;
+	private double totalWithShipping;/*Total cost inclusive of taxes and shipping costs*/
 
+	private final double TAX = 0.035;
+	
+	private final int THRESHOLD_BOOK_QUANTITY = 3;
+	
+	private final double LOWCOST = 7.5;/*for less than and equal to 3 books*/
+	
+	private final double HIGHCOST = 9.5;/*for more than 3 books*/
+	
+	private final double EXTRAEXPRESSCOST = 0.3;/*Express shipping costs 30% more than shipping*/
+	
 	/**
 	 * The list containing the cart fields
 	 * 
 	 * @return cartList The shopping cart list
 	 */
 	public List<Cart> cartList() {
-		List<ShoppingCart> cart = shoppingCartDao.getCart(userAccountController.getUserDetails().getUserId());
+		List<ShoppingCart> cart = null;
+		
+		if (userAccountController.isFlag()) {
+			cart = shoppingCartDao.getCart(userAccountController.getUserDetails().getUserId());
+		} else {
+			cart = tempShoppingCartDao.getCart();
+		}
+		
 		Books book = new Books();
 		List<Cart> cartList = new ArrayList<Cart>();
 		tp = 0.0;
 		bookQuantity = 0;
-		for (int i = 0; i < cart.size(); i++) {
+		
+		for (int i = 0; i < cart.size(); i++) { /*transfers shopping cart to DTO cart object*/
 			book = bookListDao.getBook(cart.get(i).getBookId());
-			tp += ((book.getPrice() - (book.getPrice() * book.getDiscount())) * cart.get(i).getBookQuantity());
-			Cart cart1 = new Cart(
-					book.getBookId(),
-					book.getAuthor(),
-					book.getTitle(),
-					book.getEdition(),
-					book.getPrice(),
-					book.getDiscount(),
-					cart.get(i).getBookQuantity(),
-					((book.getPrice() - (book.getPrice() * book.getDiscount())) * cart
-							.get(i).getBookQuantity()), book.getCoverPage(),cart.get(i).getScId());
+			System.out.println("Current book via boolist: " + book.getTitle());
+			tp += ((book.getPrice() - (book.getPrice() * book.getDiscount())) * cart
+					.get(i).getBookQuantity());
+			Cart cart1 = new Cart(book.getBookId(),book.getAuthor(),book.getTitle(),book.getEdition(),book.getPrice(),
+					book.getDiscount(),cart.get(i).getBookQuantity(),
+					((book.getPrice() - (book.getPrice() * book.getDiscount())) * cart.get(i).getBookQuantity()), 
+					book.getCoverPage(),cart.get(i).getScId());
 			cartList.add(cart1);
 			bookQuantity += cart.get(i).getBookQuantity();
 		}
 		return cartList;
 	}
 
+	/**Deletes a cart entry from the shopping cart
+	 * @param cart
+	 */
 	public void delete(Cart cart) {
 		ShoppingCart sc = new ShoppingCart();
 		sc.setBookId(cart.getBookId());
@@ -106,6 +123,7 @@ public class ShoppingCartController implements Serializable {
 		shoppingCartDao.deleteEntry(sc);
 	}
 
+	//Getters and Setters
 	public ShoppingCart getShoppingCart() {
 		return shoppingCart;
 	}
@@ -122,14 +140,17 @@ public class ShoppingCartController implements Serializable {
 		this.cartList = cartList();
 	}
 
+	/**Total price of a cart
+	 * @return total price with discount 
+	 */
 	public double getTp() {
-		List<ShoppingCart> cart = shoppingCartDao.getCart(userAccountController.getUserDetails().getUserId());
+		List<ShoppingCart> cart = shoppingCartDao.getCart(userAccountController
+				.getUserDetails().getUserId());
 		Books book = new Books();
 		tp = 0.0;
 		for (int i = 0; i < cart.size(); i++) {
 			book = bookListDao.getBook(cart.get(i).getBookId());
-			tp += ((book.getPrice() - (book.getPrice() * book.getDiscount())) * cart
-					.get(i).getBookQuantity());
+			tp += ((book.getPrice() - (book.getPrice() * book.getDiscount())) * cart.get(i).getBookQuantity());
 		}
 		return tp;
 	}
@@ -144,60 +165,49 @@ public class ShoppingCartController implements Serializable {
 
 	public void setShippingType(String shippingType) {
 		this.shippingType = shippingType;
-		System.out.println(shippingType);
 	}
 
 	/**
-	 * Add the shipping costs and Taxes
+	 * Add the Taxes to total cost
 	 * 
-	 * @return the total price costs in string format
+	 * @return the total price cost in string format
 	 */
 	public double getTotalIncTax() {
-
-		totalIncTax = tp + tp * .035;
+		totalIncTax = tp + tp * TAX;
 		return totalIncTax;
-
 	}
 
 	public void setTotalIncTax(double totalIncTax) {
-
 		this.totalIncTax = totalIncTax;
-		System.out.println(totalIncTax);
 	}
 
+	/**Total price with shipping costs
+	 * @return 
+	 */
 	public double getTotalWithShipping() {
-		totalWithShipping = tp + tp * .035;
-		if (shippingType == null){
+		totalWithShipping = tp + tp * TAX;
+		if (shippingType == null) {
 			shippingType = "Standard";
 		}
-		System.out.println("Excluding shipping: " + totalWithShipping);
-		if (bookQuantity <= 3) {
-			totalWithShipping = totalWithShipping + 7.5; //If less than 3 books, standard shipping
-			System.out.println("Including Shipping: " + totalWithShipping);
-			System.out.println(shippingType);
-			
-			if (shippingType.equals("Express")) {
-				totalWithShipping = totalWithShipping + totalWithShipping * 0.3;//Express shipping, costs 30% more than standard shipping
-			}
-		}
-		else {
-			totalWithShipping = totalWithShipping + 9.5; //if 4 or more books, standard shipping
-			System.out.println("Including Shipping: " + totalWithShipping);
-			if (shippingType.equals("Express")) {
-				totalWithShipping = totalWithShipping + totalWithShipping * 0.3;
-				System.out.println("Excluding Tax: + shipping cost "
-						+ totalWithShipping);
-			}
-		}
-		System.out.println(totalWithShipping);
-		System.out.println(shippingType);
-		return totalWithShipping;
 		
+		if (bookQuantity <= THRESHOLD_BOOK_QUANTITY) {
+			totalWithShipping = totalWithShipping + LOWCOST; 
+			if (shippingType.equals("Express")) {
+				totalWithShipping = totalWithShipping + totalWithShipping * EXTRAEXPRESSCOST;
+			}
+		} else {
+			totalWithShipping = totalWithShipping + HIGHCOST; 
+			if (shippingType.equals("Express")) {
+				totalWithShipping = totalWithShipping + totalWithShipping * EXTRAEXPRESSCOST;
+			}
+		}
+		
+		return totalWithShipping;
+
 	}
 
 	public void setTotalWithShipping(double totalWithShipping) {
 		this.totalWithShipping = totalWithShipping;
-		System.out.println(totalWithShipping);
 	}
 
 	public UserDetails getCurrentUser() {

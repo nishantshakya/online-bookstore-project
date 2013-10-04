@@ -1,25 +1,16 @@
-/**
- * 
- */
 package com.ose.bookstore.dto;
 
 import java.io.Serializable;
 
-
 /**
  * Optimised class maded by joining ShoppingCart and Books
- * 
  * @author OSE Nepal
- * @version 1.0 18 Sept 2013
+ * @version 1.3.0 Oct 4, 2013
  */
 public class Cart implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	// properties
 	private int bookId;
 
 	private int cartId;
@@ -40,10 +31,8 @@ public class Cart implements Serializable {
 
 	private double totalPrice;
 
-	// Constructor
-	public Cart(int bookId, String author, String title, String edition,
-			double price, float discount, int quantity, double totalPrice,
-			String coverPage, int cartId) {
+	public Cart(int bookId, String author, String title, String edition,double price, float discount, int quantity,
+			double totalPrice, String coverPage, int cartId) {
 		super();
 		this.bookId = bookId;
 		this.author = author;

@@ -12,9 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-/**
- * Entity implementation class for Entity: Books
- *
+/**Entity implementation class for Entity: Books
+ * @author OSE Nepal
+ * @version 1.3.0 Oct 4, 2013
  */
 @Entity
 public class Books implements Serializable {

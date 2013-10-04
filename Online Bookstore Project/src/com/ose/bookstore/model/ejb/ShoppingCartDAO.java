@@ -15,12 +15,13 @@ import javax.persistence.criteria.Root;
 
 import com.ose.bookstore.model.entity.ShoppingCart;
 
+
 /**
- * EJB session bean that handles the business logic part of the shoppingCart table
- * 
+ * EJB session bean that handles the business logic part of the shoppingCart table 
  * @author OSE Nepal
- * @version 1.0 18 Sept 2013
+ * @version 1.3.0 Oct 4, 2013
  */
+
 //No-interface view, Stateless Bean
 @Stateless
 @LocalBean
@@ -53,12 +54,15 @@ public class ShoppingCartDAO {
 	public List<ShoppingCart> getCart(int userID) {
 
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder(); //invokes the getCriteriaBuilder() method on the entity manager
-		CriteriaQuery<ShoppingCart> query = cb.createQuery(ShoppingCart.class); //obtains the instance of Contacts class implementing CriteriaQuery interface
+		CriteriaQuery<ShoppingCart> query = cb.createQuery(ShoppingCart.class); //obtains the instance of ShoppingCart class implementing CriteriaQuery interface
 		Root<ShoppingCart> c = query.from(ShoppingCart.class);//Jpa entity to be querying from (equivalent to 'from' in SQL)
 		query.select(c).where(cb.equal(c.get("userId"),userID));
 		return entityManager.createQuery(query).getResultList();
 	}
 	
+	/**Deletes an entry of a cart
+	 * @param sc shoppingCart object to be deleted
+	 */
 	public void deleteEntry(ShoppingCart sc){
 		entityManager.remove(entityManager.merge(sc));
 	}

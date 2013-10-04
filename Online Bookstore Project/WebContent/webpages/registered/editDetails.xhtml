@@ -1,142 +1,153 @@
 <!DOCTYPE html>
 
+<!-- Page to edit details of registered user-->
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
+<!-- Include header footer template-->
+
 <ui:composition template="/WEB-INF/templates/headerFooterTemplate.xhtml">
 
 	<ui:define name="title">My Account</ui:define>
+	
 	<ui:define name="content">
+	
+		<!-- Include login template-->
+		
 		<ui:include src="/WEB-INF/templates/logintemplate.xhtml"></ui:include>
-
+		
+		<!-- Include navigation template -->
+		
 		<ui:include src="/WEB-INF/templates/navigation.xhtml"></ui:include>
 
-		<p:layout fullPage="false">
-			<p:layoutUnit position="center" header="Edit Details" rendered="true">
-
-				<h:form>
-					<h:outputLabel value="Click on the text to edit details"
-						style="color:red;" />
-					<br />
-					<h:outputLabel value="All field with * mark are mandatory"
-						style="color:red;" />
-					<p:messages></p:messages>
-					<h:panelGrid columns="4">
+		<f:view locale="en">
+			<h:body>
+			<p:layout fullPage="false">
+				<p:layoutUnit position="center" header="Edit Details" rendered="true">
+				
+				<p:growl severity="info"></p:growl>
+				<h:form styleClass="signUpForm" id="signUpId">
+				
+					<!-- Display all the error messages -->
+					<p:message showDetail="true" for = "firstName"></p:message>
+					<p:message showDetail= "true" for = "middleName"></p:message>
+					<p:message showDetail="true" for = "lastName"></p:message>
+					<p:message showDetail="true" for = "country"></p:message>
+					<p:message showDetail="true" for = "phone"></p:message>
+					<p:message showDetail="true" for = "city"></p:message>
+					<p:message showDetail="true" for = "state"></p:message>
+					<p:message showDetail="true" for = "streetName"></p:message>
+					<p:message showDetail="true" for = "zipCode"></p:message>
+					
+					
+					<!--Display all the entered information of selected registered user and  allow them to edit-->
+					
+					<h:panelGrid styleClass="signUpPanelGrid" id="signUpPanelId"
+						columns="4">
+						<h:outputLabel style="color: red;"
+							value="The field with * mark are mandatory" />
 						<h:panelGroup></h:panelGroup>
-						<p:outputLabel value="First Name*" />
-						<p:outputLabel value="Middle Name" />
-						<p:outputLabel value="Last Name*" />
+						<h:panelGroup></h:panelGroup>
+						<h:panelGroup></h:panelGroup>
 
-						<p:outputLabel value="Full Name*:" />
-						<p:inplace id="firstNameInplace">
-							<p:inputText
-								value="#{userAccountController.userDetails.firstName}"
-								required="true" />
-						</p:inplace>
+						<h:panelGroup></h:panelGroup>
+						<h:outputLabel value="First Name*" />
+						<h:outputLabel value="Middle Name" />
+						<h:outputLabel value="Last Name*" />
 
-						<p:inplace id="middleNameInplace">
-							<p:inputText
-								value="#{userAccountController.userDetails.middleName}"
-								label="text" />
-						</p:inplace>
-						<p:inplace id="lastNameInplace">
-							<p:inputText
-								value="#{userAccountController.userDetails.lastName}"
-								label="text" required="true" />
-						</p:inplace>
+						<h:outputLabel value="Full Name*" />
+						
+						<p:inputText id = "firstName"
+							value="#{userAccountController.userDetails.firstName}"
+							required="true" requiredMessage="First Name cannot  be empty"
+							validatorMessage="Enter the Alphabets only in First Name">
+							<f:validateRegex pattern="[a-zA-Z]*" />
+							<f:validateLength minimum="2" maximum="30" />
+						</p:inputText>
 
-						<h:outputLabel value="Country" />
+						<p:inputText id = "middleName"
+							value="#{userAccountController.userDetails.middleName}">
+						</p:inputText>
+							
+						<p:inputText id = "lastName" value="#{userAccountController.userDetails.lastName}"
+							required="true" requiredMessage="Last Name cannot be empty" validatorMessage="Enter Only in Last Name">
+							<f:validateRegex pattern="[a-zA-Z]*" />
+							<f:validateLength minimum="2" maxium="30" />
+						</p:inputText>
 
-						<p:selectOneMenu value="#{userAccountController.userDetails.country}">
-							<f:selectItem
-								itemLabel="#{userAccountController.userDetails.country}" />
+						<h:outputLabel value="Enter Email*" />
+						<h:outputText value="#{userAccountController.userDetails.userEmail}"></h:outputText>
+						<h:panelGroup></h:panelGroup>
+						<h:panelGroup></h:panelGroup>
+
+						<h:outputLabel value="Select Country*" />
+						<p:selectOneMenu id = "country" value="#{userAccountController.userDetails.country}" rendered="true" requiredMessage="Slect the country">
 							<f:selectItems
 								value="#{userAccountController.selectCountryValue}"></f:selectItems>
 						</p:selectOneMenu>
+						<h:panelGroup></h:panelGroup>
+						<h:panelGroup></h:panelGroup>
+
+						<p:outputLabel id = "phone" value="Phone" />
+						<p:inputMask mask="9999-999-999"
+							value="#{userAccountController.userDetails.phone}"></p:inputMask>
 
 						<h:panelGroup></h:panelGroup>
 						<h:panelGroup></h:panelGroup>
 
-
-						<p:outputLabel value="Phone" />
-						<p:inplace id="phoneInplace">
-							<p:inputMask mask="9999-999-999"
-								value="#{userAccountController.userDetails.phone}" />
-						</p:inplace>
-
+						<h:outputLabel  value="State*" />
+						<p:inputText id ="state" value="#{userAccountController.userDetails.state}" required="true" requiredMessage="Enter State" />
 						<h:panelGroup></h:panelGroup>
 						<h:panelGroup></h:panelGroup>
 
-						<h:outputLabel value="State" />
-						<p:inplace id="stateInplace">
-							<p:inputText value="#{userAccountController.userDetails.state}" />
-						</p:inplace>
+						<p:outputLabel  value="City*" />
+						<p:inputText id = "city" value="#{userAccountController.userDetails.city}"
+							required="true" requiredMessage="Enter City" />
+
 						<h:panelGroup></h:panelGroup>
 						<h:panelGroup></h:panelGroup>
 
-
-						<h:outputLabel value="City:" />
-						<p:inplace id="cityInplace">
-							<p:inputText value="#{userAccountController.userDetails.city}"
-								required="true" />
-						</p:inplace>
+						<h:outputLabel  value="Street Name*" />
+						<p:inputText id = "streetName" value="#{userAccountController.userDetails.streetName}" required="true" requiredMessage="Enter Street Name" />
 						<h:panelGroup></h:panelGroup>
 						<h:panelGroup></h:panelGroup>
 
-						<p:outputLabel value="Street Name*" />
-						<p:inplace id="streetInplace">
-							<p:inputText
-								value="#{userAccountController.userDetails.streetName}"
-								required="true" />
-						</p:inplace>
+						<h:outputLabel  value="Street Number" />
+						<p:inputText id = "streetNumber" value="#{userAccountController.userDetails.streetNo}" />
 						<h:panelGroup></h:panelGroup>
 						<h:panelGroup></h:panelGroup>
-
-
-						<p:outputLabel value="Street Number" />
-						<p:inplace id="stateNumberInplace">
-							<p:inputText
-								value="#{userAccountController.userDetails.streetNo}" />
-						</p:inplace>
-						<h:panelGroup></h:panelGroup>
-						<h:panelGroup></h:panelGroup>
-
-
-						<h:outputLabel value="Building Number"></h:outputLabel>
-						<p:inplace id="buildingInplace" editor="true">
-							<p:inputText
-								value="#{userAccountController.userDetails.buildingNo}" />
-						</p:inplace>
-						<h:panelGroup></h:panelGroup>
-						<h:panelGroup></h:panelGroup>
-
-						<h:outputLabel value="Zip Code:" />
-						<p:inplace id="zipInplace">
-							<p:inputText value="#{userAccountController.userDetails.state}"
-								required="true" />
-						</p:inplace>
-						<h:panelGroup></h:panelGroup>
-						<h:panelGroup></h:panelGroup>
-
-						<p:outputLabel value="Joined:" />
-					<b>#{userAccountController.memberAge} days ago</b>
 						
-						<h:inputHidden id="id"
-							value="#{userAccountController.userDetails.userId}">
-						</h:inputHidden>
+						<p:outputLabel  value="Building Number" />
+						<p:inputText id = "buildingNumber"
+							value="#{userAccountController.userDetails.buildingNo}" />
+						<h:panelGroup></h:panelGroup>
+						<h:panelGroup></h:panelGroup>
+
+						<p:outputLabel value ="Zip Code*" />
+						<p:inputText  id = "zipCode"  value="#{userAccountController.userDetails.zip}"
+							required="true" requiredMessage = "Enter Zip Code" />
+
+						<h:panelGroup></h:panelGroup>
+						<h:panelGroup></h:panelGroup>
+
+						<h:panelGroup></h:panelGroup>
+						
+						<h:commandButton value="Edit" action="#{userAccountController.editDetails}"></h:commandButton>
 
 					</h:panelGrid>
-					<p:commandButton value="Edit"
-						action="#{userAccountController.editDetails}" />
+					
 				</h:form>
+	
+				</p:layoutUnit>
+			</p:layout>
+			</h:body>
+		</f:view>
 
-			</p:layoutUnit>
-		</p:layout>
-
-	</ui:define>
+	</ui:define>	
 
 </ui:composition>
 </html>

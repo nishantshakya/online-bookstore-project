@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 
+
+<!-- Page showing the credit card and asking user the information on credit card-->
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
+<!-- Include header footer tempalte-->
+
 <ui:composition template="/WEB-INF/templates/headerFooterTemplate.xhtml">
+
 	<ui:define name="title">Credit Card</ui:define>
 
 	<ui:define name="content">
-
+	
 		<f:view locale="en">
 
 			<h:body>
-				<h:graphicImage library="images" name="titleHome.png"></h:graphicImage>
-				<h:form style="margin-left: 450px;">
-					<h:panelGrid columns="3" styleClass="creditCardTable">
+				
+				<h:form style="margin-left: 450px; margin-top: 0px;">
+				
+					<h:panelGrid columns="4" styleClass="creditCardTable">
+						<h:graphicImage library="images" name="credit_card_image.gif" style=""></h:graphicImage>
+						
 						<h:outputLabel value="Card Type:" />
-
+						
 						<p:selectOneMenu id="cardTypeId">
 							<f:selectItem itemLabel="Visa" itemValue="Visa" />
 							<f:selectItem itemLabel="American Express"
@@ -26,20 +35,22 @@
 							<f:selectItem itemLabel="Master Card" itemValue="Master Card" />
 						</p:selectOneMenu>
 						<h:panelGroup></h:panelGroup>
-						<h:outputLabel value="Card Number:" />
-
-						<p:inputText value="Card number" />
 						<h:panelGroup></h:panelGroup>
+						
+						<h:outputLabel value="Card Number:" />
+						<p:inputText/>
+						<h:panelGroup></h:panelGroup>
+						<h:panelGroup></h:panelGroup>
+						
 						<h:outputLabel value="Card Holder Full Name:" />
-						<p:inputText id="creditCardFullName" value="Nishant Shakya"
+						<p:inputText id="creditCardFullName"
 							required="true" />
 						<h:panelGroup></h:panelGroup>
-					</h:panelGrid>
-					<h:panelGrid columns="4">
+						<h:panelGroup></h:panelGroup>
 					
+						
 						<h:outputLabel
-							value="Expiry Date:&#160;" />
-							<h:panelGroup></h:panelGroup>
+							value="Expiry Date:&#160;" />	
 						<p:selectOneMenu>
 							<f:selectItem itemLabel="1" itemValue="1"></f:selectItem>
 							<f:selectItem itemLabel="2" itemValue="2"></f:selectItem>
@@ -62,7 +73,7 @@
 						</p:selectOneMenu>
 						<h:panelGroup></h:panelGroup>
 
-						<h:commandButton value="confirm" action="thanks.xhtml"></h:commandButton>
+						<h:commandButton value="Confirm" action="thanks.xhtml"></h:commandButton>
 					</h:panelGrid>
 				</h:form>
 			</h:body>

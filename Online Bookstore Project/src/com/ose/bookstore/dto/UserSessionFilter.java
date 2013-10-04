@@ -15,19 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ose.bookstore.controller.UserAccountController;
 
-/**
- * Servlet Filter implementation class UserSessionFilter
+
+/**Servlet Filter implementation class UserSessionFilter
+ * @author OSE Nepal
+ * @version 1.3.0 Oct 4, 2013
  */
 @WebFilter("/faces/webpages/registered/*")
 public class UserSessionFilter implements Filter {
 
 	@Inject
 	UserAccountController userAccountController;
-	/**
-	 * Default constructor.
-	 */
 	public UserSessionFilter() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -42,10 +40,8 @@ public class UserSessionFilter implements Filter {
 			chain.doFilter(request, response);
 		} else {
 			System.out.println("not logged in");
-			httpResponse.sendRedirect(httpRequest.getContextPath()
-					+ "/faces/webpages/userRegistration.xhtml");
+			httpResponse.sendRedirect(httpRequest.getContextPath() + "/faces/webpages/userRegistration.xhtml");
 		}
-
 	}
 
 	/*
@@ -55,8 +51,6 @@ public class UserSessionFilter implements Filter {
 	 */
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -66,8 +60,6 @@ public class UserSessionFilter implements Filter {
 	 */
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
-
 	}
 
 }

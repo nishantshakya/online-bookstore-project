@@ -14,10 +14,10 @@ import com.ose.bookstore.model.entity.CountryList;
 
 /**
  * Generates country list to be displayed in country drop down menu
- * 
  * @author OSE Nepal
- * @version 1.0 18 Sept 2013
+ * @version 1.3.0 Oct 4, 2013
  */
+
 @Stateless
 @LocalBean
 public class CountryListDAO {
@@ -25,6 +25,9 @@ public class CountryListDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
+	/**Gets country list from country table
+	 * @return
+	 */
 	public List<CountryList> getCountry(){
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<CountryList> query = cb.createQuery(CountryList.class);

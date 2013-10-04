@@ -9,15 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-//import java.util.Date;
-//import javax.persistence.Embedded;
-//import javax.persistence.Temporal;
-//import javax.persistence.TemporalType;
 
 
 /**
  * Entity implementation class for Entity: UserDetails
- *
+ * @author OSE Nepal
+ * @version 1.3.0 Oct 4, 2013
  */
 @Entity
 
@@ -30,7 +27,6 @@ public class UserDetails implements Serializable {
 	@Id
 	@GeneratedValue
 	private int userId;
-//	
 	@Column(unique = true)
 	private String userEmail;
 	
@@ -38,7 +34,6 @@ public class UserDetails implements Serializable {
 	private String password;
 	
 	private String secPassword;
-//	private int loginId;
 	
 	@Column(length = 30)
 	private String firstName;
@@ -111,24 +106,12 @@ public class UserDetails implements Serializable {
 		this.secPassword = secPassword;
 	}
 
-//	public int getLoginId() {
-//		return loginId;
-//	}
-//	public void setLoginId(int loginId) {
-//		this.loginId = loginId;
-//	}
 	public Date getDate() {
 		return date;
 	}
 	public void setDate(Date date) {
 		this.date = date;
 	}
-//	public Address getAddress() {
-//		return address;
-//	}
-//	public void setAddress(Address address) {
-//		this.address = address;
-//	}
 
 	public String getBuildingNo() {
 		return buildingNo;

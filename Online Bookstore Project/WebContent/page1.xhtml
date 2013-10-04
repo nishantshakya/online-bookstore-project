@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Email Try</title>
+</h:head>
+
+<f:view contentType="text/html">
+	<h:body>
+		<h:form>
+			<h:outputLabel value = "Enter Email Address:" /> <br />
+			<h:inputText value = "#{emailController.email}" />
+<!-- 			<h:outputLabel value = "Enter Password:" /> <br /> -->
+<!-- 			<h:inputText value = "#{emailController.password}" /> -->
+<!-- 			<h:outputLabel value = "Enter Name:" /> <br /> -->
+<!-- 			<h:inputText value = "#{emailController.name}" /> -->
+			<h:commandButton value = "send" action = "#{emailController.goToNextPage}"></h:commandButton>
+			
+		</h:form>
+	</h:body>
+</f:view>
+
+
+</html>

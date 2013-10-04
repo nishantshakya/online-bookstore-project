@@ -1,0 +1,18 @@
+<!DOCTYPE html >
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+<h:head>
+	<title>Send Email Output</title>
+</h:head>
+
+<f:view contentType="text/html">
+	<h:outputLabel value = "Your Mail has been sent to : " /><h:outputText value = "#{emailController.email}" />
+</f:view>
+
+
+</html>

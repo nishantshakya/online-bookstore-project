@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 
+<!-- Page showing the items added to shopping cart -->
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
+<!-- Include css file-->	
 <h:outputStylesheet library="css" name="common.css" />
 <!-- include header and footer from templates -->
 
 
+<!-- Include template containing header and footer-->
 
 <ui:composition template="/WEB-INF/templates/headerFooterTemplate.xhtml">
 
@@ -17,91 +21,99 @@
 
 	<ui:define name="content">
 
-
-	<ui:include src="/WEB-INF/templates/logintemplate.xhtml"></ui:include>
+		<!-- Include login tempalte-->
+		
+		<ui:include src="/WEB-INF/templates/logintemplate.xhtml"></ui:include>
 
 		<!-- include navigation template -->
 
 		<ui:include src="/WEB-INF/templates/navigation.xhtml"></ui:include>
 
 		<br />
+		<f:view locale="en">
+			<h:body>
+				<p:growl severity="info"></p:growl>
+				
+				<!-- Infomation on the items currently on shopping cart-->
+				
+				<p:fieldset legend="SHOPPING CART">
 
-		<h:body>
-			<p:fieldset legend="SHOPPING CART">
+					<h:dataTable value="#{shoppingCartController.cartList}" var="cart"
+						cellpadding="2" cellspacing="2" bgcolor="#eeaaaa" width="1024"
+						style="margin-left: 10%;">
 
-				<h:dataTable value="#{shoppingCartController.cartList}" var="cart"
-					cellpadding="2" cellspacing="2" bgcolor="#eeaaaa" width="1024"
-					style="margin-left: 10%;">
+						<h:column>
+							<f:facet name="header">Book Name</f:facet>
 
-					<h:column>
-						<f:facet name="header">Book Name</f:facet>
+							<h:outputText value="#{cart.title}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Author</f:facet>
+							<h:outputText value="#{cart.author}" />
+						</h:column>
 
-						<h:outputText value="#{cart.title}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Author</f:facet>
-						<h:outputText value="#{cart.author}" />
-					</h:column>
+						<h:column>
+							<f:facet name="header">Edition</f:facet>
+							<h:outputText value="#{cart.edition}" />
+						</h:column>
 
-					<h:column>
-						<f:facet name="header">Edition</f:facet>
-						<h:outputText value="#{cart.edition}" />
-					</h:column>
+						<h:column>
+							<f:facet name="header">Quantity</f:facet>
+							<h:outputText value="#{cart.quantity}" />
+						</h:column>
 
-					<h:column>
-						<f:facet name="header">Quantity</f:facet>
-						<h:outputText value="#{cart.quantity}" />
-					</h:column>
+						<h:column>
+							<f:facet name="header">Price</f:facet>
+							<h:outputText value="#{cart.price}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
+						</h:column>
 
-					<h:column>
-						<f:facet name="header">Price</f:facet>
-						<h:outputText value="#{cart.price}">
-							<f:convertNumber currencySymbol="$" type="currency" />
-						</h:outputText>
-					</h:column>
+						<h:column>
+							<f:facet name="header">Discount</f:facet>
+							<h:outputText value="#{cart.discount}" />
+						</h:column>
 
-					<h:column>
-						<f:facet name="header">Discount</f:facet>
-						<h:outputText value="#{cart.discount}" />
-					</h:column>
+						<h:column>
+							<f:facet name="header">
+							<h:outputText value = "Total Price" rendered = "#{userAccountController.flag}"></h:outputText></f:facet>
+							<h:outputText value="#{cart.totalPrice}" rendered = "#{userAccountController.flag}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
+						</h:column>
 
+						<h:column>
+							<f:facet name="header"><h:outputText value="Action" rendered = "#{userAccountController.flag}"></h:outputText></f:facet>
+							<h:form>
+								<h:commandLink action="#{shoppingCartController.delete(cart)}"
+									value="Remove from cart" rendered = "#{userAccountController.flag}"></h:commandLink>
+							</h:form>
 
-					<h:column>
-						<f:facet name="header">Total Price</f:facet>
-						<h:outputText value="#{cart.totalPrice}">
-							<f:convertNumber currencySymbol="$" type="currency" />
-						</h:outputText>
-					</h:column>
+						</h:column>
 
+					</h:dataTable>
 
-					<h:column>
-						<f:facet name="header">Action</f:facet>
-						<h:form>
-							<h:commandLink action="#{shoppingCartController.delete(cart)}"
-								value="delete"></h:commandLink>
-						</h:form>
+					<h:form>
+						<h:panelGrid columns="3">
+							<h:outputText id="totalPriceId"
+								style="color: red; margin-left: 650px;"
+								value="Total
+								Price:"
+								rendered="#{userAccountController.flag}">
+							</h:outputText>
+							<h:outputText value="#{shoppingCartController.tp}"
+								rendered="#{userAccountController.flag}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
+							<p:commandButton id="checkOutId" value="Check Out"
+								action="#{userAccountController.toOrderPage}"></p:commandButton>
+						</h:panelGrid>
+					</h:form>
 
-					</h:column>
+				</p:fieldset>
 
-				</h:dataTable>
-
-				<h:form>
-					<h:panelGrid columns="3">
-						<div id="totalPriceId" style="color: red; margin-left: 650px;">Total
-							Price:</div>
-						<h:outputText value="#{shoppingCartController.tp}" rendered="true">
-							<f:convertNumber currencySymbol="$" type="currency" />
-						</h:outputText>
-						<p:commandButton id="checkOutId" value="Check Out"
-							action="#{userAccountController.toOrderPage}"></p:commandButton>
-					</h:panelGrid>
-				</h:form>
-
-			</p:fieldset>
-
-
-
-		</h:body>
+			</h:body>
+		</f:view>
 
 	</ui:define>
 </ui:composition>

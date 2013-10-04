@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 
+<!-- Page showing the list of books-->
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -18,6 +20,7 @@
 
 
 		<!-- Division of section for userlogin and displaying the logged user -->
+		<!-- Include logintemplate-->
 		<ui:include src="/WEB-INF/templates/logintemplate.xhtml"></ui:include>
 
 		<!-- include navigation section from template -->
@@ -26,65 +29,63 @@
 		<ui:include src="/WEB-INF/templates/navigation.xhtml"></ui:include>
 
 		<!-- beginning of the actual body part -->
+		<f:view locale="en">
+			<h:body>
 
-		<h:body>
-
-			<br />
-
-
-			<h:form>
+				<p:growl severity="info"></p:growl>
+				<br />
 
 
+				<h:form>
+					<!--Section for search options -->
+					
+					<p:fieldset legend="Browse Books" style="height: 300px;">
+						<h:panelGrid columns="5">
+							<h:outputLabel value="Search Category" />
+							<p:selectOneMenu value="#{homeController.searchCategory}">
+										<f:selectItem itemLabel="All" itemValue = "All" />
+										<f:selectItem itemLabel="Author" itemValue="Author" />
+										<f:selectItem itemLabel="Title" itemValue="Title" />
+									</p:selectOneMenu>
 
+							<h:inputText id="search" styleClass="search"
+										value="#{homeController.searchString}" />
+								<p:watermark for="search" value="Enter book title or author "></p:watermark>
+							<h:commandButton value = "search" action = "#{homeController.goToSearch}"></h:commandButton>
+						</h:panelGrid>
+						
+						<!-- List of books with their thumbnail of images and name-->
+						
+						<p:dataGrid paginator="true" var="books"
+							value="#{homeController.bookList}" rows="6" id="grid"
+							rendered="true">
 
-				<p:fieldset legend="Browse Books">
-					<h:panelGrid columns="5">
-						<h:outputLabel value="Search Category" />
-						<h:selectOneMenu disabled="true">
-							<f:selectItem itemLabel="All" itemValue="All" />
-							<f:selectItem itemLabel="Java" itemValue="Java" />
-							<f:selectItem itemLabel="C-Programming" itemValue="C-Programming" />
-							<f:selectItem itemLabel="C Plus Plus" itemValue="C Plus Plus" />
-						</h:selectOneMenu>
+							<p:panel>
 
-						<h:inputText id="search" styleClass="search"
-							value="#{homeController.searchString}" />
-						<p:watermark for="search" value="Enter bookname"></p:watermark>
-						<f:ajax render="grid" event="keyup"></f:ajax>
-					</h:panelGrid>
-					<p:dataGrid paginator="true" var="books"
-						value="#{homeController.bookList}" rows="6" id="grid"
-						rendered="true">
+								<p:panelGrid columns="1">
+									<h:link outcome="bookProfile">
+										<f:param name="id" value="#{books.bookId}" />
 
-						<p:panel>
+										<h:graphicImage library="images" name="#{books.coverPage}"
+											width="200" height="200" />
+									</h:link>
 
-							<p:panelGrid columns="1">
-								<h:link outcome="bookProfile">
-									<f:param name="id" value="#{books.bookId}" />
+									<h:link value="#{books.title}"
+										outcome="bookProfile">
+										<f:param name="id" value="#{books.bookId}" />
+									</h:link>
 
-									<h:graphicImage library="images" name="#{books.coverPage}"
-										width="200" height="200" />
-								</h:link>
+								</p:panelGrid>
 
-								<h:link value="#{books.title}"
-									outcome="bookProfile">
-									<f:param name="id" value="#{books.bookId}" />
-								</h:link>
+							</p:panel>
 
+						</p:dataGrid>
 
+					</p:fieldset>
+				</h:form>
 
-							</p:panelGrid>
-
-						</p:panel>
-
-					</p:dataGrid>
-
-
-				</p:fieldset>
-			</h:form>
-
-
-		</h:body>
+			</h:body>
+		</f:view>
 
 	</ui:define>
 </ui:composition>

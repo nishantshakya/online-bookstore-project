@@ -10,13 +10,14 @@
 
 <body>
 
+	<!-- Include the header template header.xhtml -->	
 	<div id="header">
 		<ui:insert name="header">
 			<ui:include src="/WEB-INF/templates/header.xhtml"></ui:include>
 		</ui:insert>
 	</div>
 
-
+	<!-- Division for body of the page -->
 	<div id="content">
 		<ui:insert name="content">
     	Content area.  See comments below this line in the source.
@@ -27,7 +28,7 @@
 		</ui:insert>
 	</div>
 
-
+	<!-- Include the footer template footer.xhtml-->
 	<div id="footer">
 		<ui:insert name="footer">
 			<ui:include src="/WEB-INF/templates/footer.xhtml"></ui:include>

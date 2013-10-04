@@ -3,9 +3,9 @@ package com.ose.bookstore.model.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-/**
- * Entity implementation class for Entity: Ratings
- *
+/**Entity implementation class for Entity: Ratings
+ * @author OSE Nepal
+ * @version 1.3.0 Oct 4, 2013
  */
 @Entity
 

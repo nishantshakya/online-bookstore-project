@@ -22,25 +22,44 @@ public class HeaderController implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	private int activeIndex; /*navigation bar index*/
+	
 	public HeaderController() {
 	}
-
-	public String generateCart() {
-
-		return "/webpages/shoppingCart?faces-redirect=true";
-	}
-
-	public String goToHome() {
-		return "/webpages/home?faces-redirect=true";
-	}
-
-	public String goToBooks() {
-		return "/webpages/browsebooks?faces-redirect=true";
+	
+	public String navigatePage(int activeIndex)
+	{
+		if(activeIndex == 0)
+		{
+			this.activeIndex = 0;
+			return "/webpages/home?faces-redirect=true";
+		}
+		else if(activeIndex == 1)
+		{
+			this.activeIndex = 1;
+			return "/webpages/browsebooks?faces-redirect=true";
+		}
+		else if (activeIndex == 2)
+		{
+			this.activeIndex = 2;
+			return "/webpages/shoppingCart?faces-redirect=true";
+		}
+		else 
+			return "/webpages/home?faces-redirect=true";
 	}
 
 	public String goToRegistration(){
 		return "/webpages/userRegistration?faces-redirect=true";
+	}
+
+	//Getters and Setters
+	public int getActiveIndex() {
+		return activeIndex;
+	}
+
+	public void setActiveIndex(int activeIndex) {
+		this.activeIndex = activeIndex;
 	}
 
 }
